@@ -1,11 +1,10 @@
 import React from "react";
 
-class Register extends React.Component{
+class SignUp extends React.Component{
     render(){
         return(
             <div className="sign-up auth-form">
-                <h1>Sign Up</h1>
-                <form action="/reg" method="POST" className="reg-form">
+                <form action="/auth/sign_up" method="POST" className="reg-form">
                     <div className="input-text-field">
                         <label>Username</label><br></br>
                         <input type="text"></input><br></br>
@@ -24,9 +23,10 @@ class Register extends React.Component{
                     </div>
                         <input type="submit" value="Sign Up" className="submit-btn"></input>
                     </form>
+                    <a href="/auth/sign_in">Already have account?</a>
             </div>
         )
     }
 }
 
-export default Register
+export default SignUp

@@ -8,10 +8,10 @@ class Navbar extends React.Component{
                     <li className="navbar-item">
                         <a href="/">My Tasks</a>
                     </li>
-                    <li className="navbar-item">
-                        <a href="/auth">Log In</a>
-                    </li>
                 </ul>
+                <div className="login-btn">
+                    <a href="/auth/sign_in">Log In</a>
+                </div>
             </nav>
         )
     }

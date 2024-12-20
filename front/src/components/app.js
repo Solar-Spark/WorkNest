@@ -1,9 +1,9 @@
 import React from "react";
-import "./styles/style.css"
-import MainBlock from "./components/main_block"
-import Header from "./components/header";
-import Footer from "./components/footer";
-import Auth from "./components/auth";
+import "../styles/style.css"
+import MainBlock from "./main_block"
+import Header from "./header";
+import Footer from "./footer";
+import Auth from "./auth";
 import {BrowserRouter, Routes, Route } from "react-router-dom"
 class App extends React.Component{
   render(){
@@ -12,7 +12,8 @@ class App extends React.Component{
           <Header />
           <BrowserRouter>
             <Routes>
-              <Route path="/auth" element={<Auth />} />
+              <Route path="/auth/sign_up" element={<Auth title="Sign Up" state="sign_up"/>} />
+              <Route path="/auth/sign_in" element={<Auth title="Sign in" state="sign_in"/>} />
               <Route path="/" element={<MainBlock title="My Tasks" />} />
             </Routes>
           </BrowserRouter>
