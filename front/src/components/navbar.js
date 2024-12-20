@@ -5,8 +5,11 @@ class Navbar extends React.Component{
         return(
             <nav className="navbar">
                 <ul className="navbar-items">
-                    <li>
+                    <li className="navbar-item">
                         <a href="/">My Tasks</a>
+                    </li>
+                    <li className="navbar-item">
+                        <a href="/auth">Log In</a>
                     </li>
                 </ul>
             </nav>
