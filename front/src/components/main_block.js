@@ -9,7 +9,6 @@ class MainBlock extends React.Component{
                 <h2>
                     {this.props.title}
                 </h2>
-                <hr></hr>
             </div>
             <BlockNavbar />
         </main>

@@ -4,14 +4,14 @@ class SignIn extends React.Component{
     render(){
         return(
             <div className="sign-in auth-form">
-                <form action="/auth/sign_in" method="POST" className="reg-form">
+                <form action="/api/auth/sign_in" method="POST" className="reg-form">
                     <div className="input-text-field">
                         <label>Username</label><br></br>
-                        <input type="text"></input><br></br>
+                        <input type="text" name="username"></input><br></br>
                     </div>
                     <div className="input-text-field">
                         <label>Password</label><br></br>
-                        <input type="password"></input><br></br>
+                        <input type="password" name="password"></input><br></br>
                     </div>
                         <input type="submit" value="Sign In" className="submit-btn"></input>
                     </form>

@@ -14,7 +14,8 @@ class App extends React.Component{
             <Routes>
               <Route path="/auth/sign_up" element={<Auth title="Sign Up" state="sign_up"/>} />
               <Route path="/auth/sign_in" element={<Auth title="Sign in" state="sign_in"/>} />
-              <Route path="/" element={<MainBlock title="My Tasks" />} />
+              <Route path="tasks" element={<MainBlock title="My Tasks" />}/> 
+              <Route path="/" />
             </Routes>
           </BrowserRouter>
           <Footer />
