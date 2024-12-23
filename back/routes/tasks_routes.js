@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post("/", (req, res) => {
-    const {task_name, description, deadline, status} = req.body;
+    const {task_name, description, deadline, category} = req.body;
     console.log(req.body);
     res.status(200).json({ message: `Task ${task_name} created`});
 });
@@ -14,7 +14,7 @@ router.get("/:task_id", (req, res) => {
 
 router.put("/:task_id", (req, res) => {
     const {task_id} = req.params;
-    const {task_name, description, deadline, status} = req.body;
+    const {task_name, description, deadline, category} = req.body;
     res.status(200).json({ message: `Updated task id for ${task_name} equals ${task_id}`})
 });
 

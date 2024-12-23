@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use("/api/auth", auth_routes);
-app.use("/api/tasks", tasks_routes)
+app.use("/api/tasks", tasks_routes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

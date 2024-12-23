@@ -4,20 +4,20 @@ class SignUp extends React.Component{
     render(){
         return(
             <div className="sign-up auth-form">
-                <form action="/auth/sign_up" method="POST" className="reg-form">
-                    <div className="input-text-field">
+                <form action="/api/auth/sign_up" method="POST" className="reg-form">
+                    <div className="input-field input-text-field">
                         <label>Username</label><br></br>
-                        <input type="text"></input><br></br>
+                        <input type="text" name="username"></input><br></br>
                     </div>
-                    <div className="input-text-field">
+                    <div className="input-field input-text-field">
                         <label>Email</label><br></br>
-                        <input type="email"></input><br></br>
+                        <input type="email" name="email"></input><br></br>
                     </div>
-                    <div className="input-text-field">
+                    <div className="input-field input-text-field">
                         <label>Password</label><br></br>
-                        <input type="password"></input><br></br>
+                        <input type="password" name="password"></input><br></br>
                     </div>
-                    <div className="input-text-field">
+                    <div className="input-field input-text-field">
                         <label>Confirm Password</label><br></br>
                         <input type="password"></input><br></br>
                     </div>

@@ -5,11 +5,11 @@ class SignIn extends React.Component{
         return(
             <div className="sign-in auth-form">
                 <form action="/api/auth/sign_in" method="POST" className="reg-form">
-                    <div className="input-text-field">
+                    <div className="input-field input-text-field">
                         <label>Username</label><br></br>
                         <input type="text" name="username"></input><br></br>
                     </div>
-                    <div className="input-text-field">
+                    <div className="input-field input-text-field">
                         <label>Password</label><br></br>
                         <input type="password" name="password"></input><br></br>
                     </div>

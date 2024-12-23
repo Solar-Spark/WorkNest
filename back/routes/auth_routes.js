@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.post('/sign_in', (req, res) => {
     const {username, password} = req.body;
-    console.log(req.body);
+    console.log(username);
     res.status(200).json({ message: `Welcome, ${username}`});
 });
 
