@@ -1,4 +1,5 @@
 const Task = require('../models/task_model');
+const TaskDto = require("../dto/task_dto")
 
 createTask = async (req, res) => {
     try {
@@ -17,7 +18,7 @@ getTask = async (req, res) => {
         if (!task) {
             return res.status(404).json({ message: 'Task not found' });
         }
-        res.status(200).json(task);
+        res.status(200).json(new TaskDto(task));
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

@@ -53,16 +53,23 @@ class SignIn extends React.Component{
                         this.props.navigate("/");
                         break;
 
-                    case 400:
-                        this.setState({errorText : "Invalid login or password"});
-                        break;
-
                     default:
                         this.setState({errorText : "Unknown error"})
                         break;
                 }
             } catch (error) {
-                console.error("Data send error: ", error);
+                switch(error.response.status){
+                    case 404:
+                        this.setState({errorText : "User not found"});
+                        break;
+                    
+                    case 401:
+                        this.setState({errorText : "Invalid login or password"});
+                        break;
+                    
+                    default:
+                        console.error("Data send error: ", error);
+                }
             }
         }
     };

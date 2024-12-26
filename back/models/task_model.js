@@ -4,13 +4,25 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 const taskSchema = new mongoose.Schema({
     task_id:{
         type: Number,
-        unique: true
+        unique: true,
     },
-    task_name: {
+    name: {
         type: String,
         required: true,
     },
+    project_id:{
+        type: Number,
+        required: true,
+    },
     description: {
+        type: String,
+        required: true,
+    },
+    status: {
+        type: String,
+        required: true,
+    },
+    priority: {
         type: String,
         required: true,
     },
@@ -18,10 +30,18 @@ const taskSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    category: {
-        type: String,
+    assigned_to: {
+        type: Number,
+    },
+    team_id: {
+        type: Number,
         required: true,
     },
+    created_at: {
+        type: Date,
+        default: Date.now
+    }
+    
 });
 
 taskSchema.plugin(AutoIncrement, { inc_field: 'task_id' });

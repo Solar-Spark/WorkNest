@@ -59,16 +59,21 @@ class SignUp extends React.Component{
                         this.props.navigate("/");
                         break;
 
-                    case 400:
-                        this.setState({errorText : "Invalid login or password"});
-                        break;
-
                     default:
                         this.setState({errorText : "Unknown error"})
                         break;
                 }
             } catch (error) {
-                console.error("Data send error: ", error);
+                switch(error.response.status){
+                    case 409:
+                        this.setState({errorText : "Username or email is busy"});
+                        break;
+                    case 500:
+                        this.setState({errorText : "Internal server error"})
+                        break;
+                    default:
+                        console.error("Data send error: ", error);
+                }
             }
         }
     };
