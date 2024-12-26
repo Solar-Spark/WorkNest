@@ -24,10 +24,22 @@ getTask = async (req, res) => {
     }
 };
 
-updateTask = (req, res) => {
-    const {task_id} = req.params;
-    const {task_name, description, deadline, category} = req.body;
-    res.status(200).json({ message: `Updated task id for ${task_name} equals ${task_id}`})
+updateTask = async (req, res) => {
+    const { task_id } = req.params;
+
+    try {
+        const result = await Task.updateOne(
+            { task_id: task_id },
+            { $set: req.body }
+        );
+        if (result.modifiedCount === 0) {
+            return res.status(404).json({ message: "Task not found or no changes made" });
+        }
+        res.status(200).json({ message: "Task updated successfully", result });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
 };
 
 deleteTask = (req, res) => {

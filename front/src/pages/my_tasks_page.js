@@ -1,5 +1,5 @@
 import React from "react";
-import TasksBoard from "../components/tasks_board";
+import TasksBoard from "../components/tasks/tasks_board";
 
 class MyTasksPage extends React.Component{
     itemClicked = (itemNum) => {
