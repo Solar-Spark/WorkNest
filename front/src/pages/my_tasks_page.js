@@ -1,11 +1,14 @@
 import React from "react";
 import TasksBoard from "../components/tasks/tasks_board";
-
+import { Navigate } from "react-router-dom"
 class MyTasksPage extends React.Component{
     itemClicked = (itemNum) => {
         console.log(`Item ${itemNum} clicked`);
     };
     render(){
+        if (!sessionStorage.getItem("user_id")) {
+            return <Navigate to="/auth/sign_in" />;
+        }
         return(
             <main>
                 <div className="main-title">

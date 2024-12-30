@@ -1,20 +1,34 @@
 import React from "react";
 
-class TaskCatList extends React.Component{
-    constructor(props){
+class TaskCatList extends React.Component {
+    constructor(props) {
         super(props);
-        this.category = props.category;
-        this.tasks = [{"name" : "Task 1", "description" : "Description of task 1"}, {"name" : "Task 2", "description" : "Description of task 2"}];
+        this.state = {
+            task_status: props.status,
+            tasks: props.tasks.filter(task => task.status === props.status),
+        };
     }
-    render(){
-        return(
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.status !== this.props.status || prevProps.tasks !== this.props.tasks) {
+            this.setState({
+                task_status: this.props.status,
+                tasks: this.props.tasks.filter(task => task.status === this.props.status),
+            });
+        }
+    }
+
+    render() {
+        return (
             <div className="tasks-cat-list">
-                <h3>{this.category}</h3>
+                <h3>{this.state.task_status}</h3>
                 <ul className="elements-list">
-                    {this.tasks.map((item, index) => (
+                    {this.state.tasks.map((item, index) => (
                         <li key={index} className="elements-list-item">
                             <h4>{item.name}</h4>
                             <p>{item.description}</p>
+                            <br></br>
+                            <p><b>Deadline:</b> {new Date(item.deadline).toLocaleDateString()}</p>
                         </li>
                     ))}
                 </ul>
@@ -23,4 +37,4 @@ class TaskCatList extends React.Component{
     }
 }
 
-export default TaskCatList
+export default TaskCatList;

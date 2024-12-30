@@ -5,18 +5,30 @@ import SignIn from "../components/sign_in";
 class Auth extends React.Component{
     constructor(props) {
         super(props);
-        if(this.props.state === "sign_in"){
-            this.state = <SignIn />;
+        this.state = {
+            component : null,
         }
-        else if(this.props.state === "sign_up"){
-            this.state = <SignUp />;
+        
+    }
+    static getDerivedStateFromProps(nextProps, nextState) {
+        if (nextProps.component !== nextState.component) {
+            let newComponent = null;
+            if (nextProps.component === "sign_in") {
+                newComponent = <SignIn/>;
+            } else if (nextProps.component === "sign_up") {
+                newComponent = <SignUp />;
+            }
+            return {
+                component: newComponent,
+            };
         }
+        return null;
     }
     render(){
         return(
             <div className="auth">
                 <h1>{this.props.title}</h1>
-                {this.state}
+                {this.state.component}
             </div>
         )
     }

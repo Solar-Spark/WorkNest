@@ -236,6 +236,7 @@ main{
     border-radius: 10px;
     width: 300px;
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.1);
+    height: fit-content;
     width: 300px;
 }
 .tasks-cat-list h3::before{

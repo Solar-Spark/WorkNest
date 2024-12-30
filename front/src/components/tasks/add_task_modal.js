@@ -5,15 +5,16 @@ class AddTaskModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            categories: ["To Do", "In Progress", "Done"],
+            statuses: ["To Do", "In Progress", "Done"],
             formData: {
                 name: "",
                 description: "",
-                deadline: "",
+                deadline: null,
                 status: "To Do",
                 project_id: 1,
                 team_id: 1,
-                priority: "hot"
+                assigned_to: sessionStorage.getItem("user_id"),
+                priority: "hot",
             },
             errorText : ""
         };
@@ -119,24 +120,9 @@ class AddTaskModal extends React.Component {
                                 value={this.state.formData.category}
                                 onChange={this.handleChange}
                             >
-                                {this.state.categories.map((category, index) => (
-                                    <option key={index} value={category}>
-                                        {category}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div className="input-field">
-                            <label>Select category</label>
-                            <br />
-                            <select
-                                name="status"
-                                value={this.state.formData.category}
-                                onChange={this.handleChange}
-                            >
-                                {this.state.categories.map((category, index) => (
-                                    <option key={index} value={category}>
-                                        {category}
+                                {this.state.statuses.map((status, index) => (
+                                    <option key={index} value={status}>
+                                        {status}
                                     </option>
                                 ))}
                             </select>

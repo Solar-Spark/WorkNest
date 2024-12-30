@@ -27,11 +27,12 @@ const taskSchema = new mongoose.Schema({
         required: true,
     },
     deadline: {
-        type: String,
+        type: Date,
         required: true,
     },
     assigned_to: {
         type: Number,
+        required: true,
     },
     team_id: {
         type: Number,

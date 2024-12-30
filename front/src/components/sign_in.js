@@ -10,7 +10,7 @@ class SignIn extends React.Component{
                 username : "",
                 password : ""
             },
-            errorText : ""
+            errorText : "",
         };
     }
     
@@ -42,33 +42,34 @@ class SignIn extends React.Component{
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        
-        if(this.validateForm()){
+    
+        if (this.validateForm()) {
             try {
                 const response = await axiosInstance.post("/auth/sign_in", this.state.formData);
-                switch(response.status){
-                    
+                switch (response.status) {
                     case 200:
-                        console.log("Data sended")
+                        console.log("Data sended");
+                        sessionStorage.setItem("user_id", response.data.user_id)
                         this.props.navigate("/");
                         break;
-
+    
                     default:
-                        this.setState({errorText : "Unknown error"})
+                        this.setState({ errorText: "Unknown error" });
                         break;
                 }
             } catch (error) {
-                switch(error.response.status){
+                switch (error.response?.status) {
                     case 404:
-                        this.setState({errorText : "User not found"});
+                        this.setState({ errorText: "User not found" });
                         break;
-                    
+    
                     case 401:
-                        this.setState({errorText : "Invalid login or password"});
+                        this.setState({ errorText: "Invalid login or password" });
                         break;
-                    
+    
                     default:
                         console.error("Data send error: ", error);
+                        break;
                 }
             }
         }

@@ -9,7 +9,8 @@ class SignUp extends React.Component{
             formData : {
                 username : "",
                 email : "",
-                password : ""
+                password : "",
+                phone_number : ""
             },
             confirmPassword : "",
             errorText : ""
@@ -56,7 +57,7 @@ class SignUp extends React.Component{
                     
                     case 201:
                         console.log("Data sended")
-                        this.props.navigate("/");
+                        this.props.navigate("/auth/sign_in");
                         break;
 
                     default:
@@ -89,6 +90,10 @@ class SignUp extends React.Component{
                     <div className="input-field input-text-field">
                         <label>Email</label><br></br>
                         <input type="email" name="email" value={this.state.formData.email} onChange={this.handleChange}></input><br></br>
+                    </div>
+                    <div className="input-field input-text-field">
+                        <label>Phone Number</label><br></br>
+                        <input type="tel" name="phone_number" value={this.state.formData.phone_number} onChange={this.handleChange}></input><br></br>
                     </div>
                     <div className="input-field input-text-field">
                         <label>Password</label><br></br>

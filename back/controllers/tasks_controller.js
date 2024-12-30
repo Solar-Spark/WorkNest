@@ -1,55 +1,57 @@
 const Task = require('../models/task_model');
 const TaskDto = require("../dto/task_dto")
+const taskService = require("../services/task_service")
+const phoneService = require("../services/phone_service")
 
 createTask = async (req, res) => {
-    try {
-        const task = new Task(req.body);
-        await task.save();
-        res.status(201).send(task);
-    } catch (err) {
-        console.log(err);
-        res.status(400).send({ error: err.message });
+    const task = await taskService.createTask(req.body)
+    if(task.status === 201){
+        res.status(201).send(task.task);
+        phoneService.notifyCreateTask(task.task)
+    }
+    else if (task.status === 500){
+        res.status(500).send({ message: task.message });
     }
 };
 
 getTask = async (req, res) => {
-    try {
-        const task = await Task.findOne({ task_id : req.params.task_id });
-        if (!task) {
-            return res.status(404).json({ message: 'Task not found' });
-        }
-        res.status(200).json(new TaskDto(task));
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+    const { status, data, message } = await taskService.getTaskDto(req.params.task_id);
+
+    if (status === 404) {
+        return res.status(404).json({ message });
+    } else if (status === 500) {
+        return res.status(500).json({ message: message });
+    }
+
+    return res.status(200).json(data);
+};
+
+getTasksByUserId = async (req, res) => {
+    const taskDtos = await taskService.getTaskDtosByUserId(req.params.user_id);
+    if(taskDtos.status === 200){
+        res.status(200).json(taskDtos.tasks);
+    }
+    else if(taskDtos.status === 500){
+        res.status(500).json({message : taskDtos.message})
     }
 };
 
 updateTask = async (req, res) => {
     const { task_id } = req.params;
-
-    try {
-        const result = await Task.updateOne(
-            { task_id: task_id },
-            { $set: req.body }
-        );
-        if (result.modifiedCount === 0) {
-            return res.status(404).json({ message: "Task not found or no changes made" });
-        }
-        res.status(200).json({ message: "Task updated successfully", result });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: "Internal server error" });
-    }
+    const result = await this.updateTask(task_id, req.body);
+    res.status(result.status).json({ message: result.message });
 };
 
-deleteTask = (req, res) => {
+deleteTask = async (req, res) => {
     const {task_id} = req.params;
-    res.status(200).json({ message: `Task with id ${task_id} deleted`})
+    const result = await taskService.deleteTask(task_id);
+    res.status(result.status).json({ message: result.message });
 };
 
 module.exports = {
     createTask,
     getTask,
     updateTask,
-    deleteTask
+    deleteTask,
+    getTasksByUserId,
 }

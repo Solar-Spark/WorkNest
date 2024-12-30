@@ -10,7 +10,7 @@ const signIn = async (req, res) => {
         }
 
         if(user.password === password){
-            res.status(200).json({ message: `Welcome, ${username}`});
+            res.status(200).json({ user_id : user.user_id});
         }
         else{
             res.status(401).json({ message: "Invalid password"});
