@@ -47,7 +47,7 @@ class TasksBoard extends React.Component {
                     />
                     <TaskCatList status="To Do" tasks={tasks} />
                     <TaskCatList status="In Progress" tasks={tasks} />
-                    <TaskCatList status="Done" tasks={tasks} />
+                    <TaskCatList status="Completed" tasks={tasks} />
                 </div>
                 <button
                     className="blue-btn btn"

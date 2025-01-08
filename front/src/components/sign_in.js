@@ -46,7 +46,7 @@ class SignIn extends React.Component{
         if (this.validateForm()) {
             try {
                 const response = await axiosInstance.post("/auth/sign_in", this.state.formData);
-                switch (response.status) {
+                switch (response?.status) {
                     case 200:
                         console.log("Data sended");
                         sessionStorage.setItem("user_id", response.data.user_id)
@@ -58,19 +58,27 @@ class SignIn extends React.Component{
                         break;
                 }
             } catch (error) {
-                switch (error.response?.status) {
-                    case 404:
-                        this.setState({ errorText: "User not found" });
-                        break;
-    
-                    case 401:
-                        this.setState({ errorText: "Invalid login or password" });
-                        break;
-    
-                    default:
-                        console.error("Data send error: ", error);
-                        break;
+                if (error.response) {
+                    switch (error.response.status) {
+                        case 404:
+                            this.setState({ errorText: "User not found" });
+                            break;
+        
+                        case 401:
+                            this.setState({ errorText: "Invalid login or password" });
+                            break;
+        
+                        default:
+                            console.error("Data send error: ", error);
+                            break;
+                    }
                 }
+                else if (error.request) {
+                    this.setState({ errorText: "Unable to connect to the server. Please try again later." });
+                } else {
+                    this.setState({ errorText: "An error occurred. Please try again later." });
+                }
+                console.error("Error during sign-in: ", error);
             }
         }
     };

@@ -1,0 +1,15 @@
+
+Tasks collection
+
+"name" : "Task 1",
+"project_id" : 1,
+"description" : "Description",
+"status" : "In Progress",
+"priority" : "hot",
+"deadline" : "2025-01-01T14:10:00.000+00:00",
+"assigned_to" : 2,
+"team_id" : 0,
+"created_at" : "2024-12-26T14:10:30.348+00:00",
+"task_id" : 0
+
+Create me json file to import to MongoDB with only one new task for every project from your previous answers. Make tasks for it company. Task status may be "In Progress", "To Do" or "Completed". Make name of tasks like a title for description. Write only json objects separated by comma in array and nothing else.

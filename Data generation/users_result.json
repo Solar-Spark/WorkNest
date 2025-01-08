@@ -1,0 +1,2272 @@
+[
+    {
+        "username": "user1_alpha",
+        "email": "user1@example.com",
+        "phone_number": "+12345678901",
+        "password": "password1",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-26T13:34:54.370+00:00",
+        "user_id": 1
+    },
+    {
+        "username": "user2_beta",
+        "email": "user2@example.com",
+        "phone_number": "+12345678902",
+        "password": "password2",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 12
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 14
+            }
+        ],
+        "created_at": "2024-12-26T14:10:22.891+00:00",
+        "user_id": 2
+    },
+    {
+        "username": "user3_gamma",
+        "email": "user3@example.com",
+        "phone_number": "+12345678903",
+        "password": "password3",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-26T14:45:45.123+00:00",
+        "user_id": 3
+    },
+    {
+        "username": "user4_delta",
+        "email": "user4@example.com",
+        "phone_number": "+12345678904",
+        "password": "password4",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 3
+            }
+        ],
+        "created_at": "2024-12-26T15:20:33.987+00:00",
+        "user_id": 4
+    },
+    {
+        "username": "user5_epsilon",
+        "email": "user5@example.com",
+        "phone_number": "+12345678905",
+        "password": "password5",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 26
+            }
+        ],
+        "created_at": "2024-12-26T15:55:11.456+00:00",
+        "user_id": 5
+    },
+    {
+        "username": "user6_zeta",
+        "email": "user6@example.com",
+        "phone_number": "+12345678906",
+        "password": "password6",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 21
+            }
+        ],
+        "created_at": "2024-12-26T16:30:59.234+00:00",
+        "user_id": 6
+    },
+    {
+        "username": "user7_eta",
+        "email": "user7@example.com",
+        "phone_number": "+12345678907",
+        "password": "password7",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 25
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 16
+            }
+        ],
+        "created_at": "2024-12-26T17:05:37.678+00:00",
+        "user_id": 7
+    },
+    {
+        "username": "user8_theta",
+        "email": "user8@example.com",
+        "phone_number": "+12345678908",
+        "password": "password8",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 28
+            }
+        ],
+        "created_at": "2024-12-26T17:40:15.901+00:00",
+        "user_id": 8
+    },
+    {
+        "username": "user9_iota",
+        "email": "user9@example.com",
+        "phone_number": "+12345678909",
+        "password": "password9",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-26T18:15:44.234+00:00",
+        "user_id": 9
+    },
+    {
+        "username": "user10_kappa",
+        "email": "user10@example.com",
+        "phone_number": "+12345678910",
+        "password": "password10",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 45
+            }
+        ],
+        "created_at": "2024-12-26T18:50:12.567+00:00",
+        "user_id": 10
+    },
+    {
+        "username": "user11_lambda",
+        "email": "user11@example.com",
+        "phone_number": "+12345678911",
+        "password": "password11",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 30
+            }
+        ],
+        "created_at": "2024-12-26T19:25:40.890+00:00",
+        "user_id": 11
+    },
+    {
+        "username": "user12_mu",
+        "email": "user12@example.com",
+        "phone_number": "+12345678912",
+        "password": "password12",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 3
+            }
+        ],
+        "created_at": "2024-12-26T20:00:09.213+00:00",
+        "user_id": 12
+    },
+    {
+        "username": "user13_nu",
+        "email": "user13@example.com",
+        "phone_number": "+12345678913",
+        "password": "password13",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 5
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 19
+            }
+        ],
+        "created_at": "2024-12-26T20:35:37.546+00:00",
+        "user_id": 13
+    },
+    {
+        "username": "user14_xi",
+        "email": "user14@example.com",
+        "phone_number": "+12345678914",
+        "password": "password14",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 10
+            }
+        ],
+        "created_at": "2024-12-26T21:10:05.879+00:00",
+        "user_id": 14
+    },
+    {
+        "username": "user15_omicron",
+        "email": "user15@example.com",
+        "phone_number": "+12345678915",
+        "password": "password15",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-26T21:45:34.212+00:00",
+        "user_id": 15
+    },
+    {
+        "username": "user16_pi",
+        "email": "user16@example.com",
+        "phone_number": "+12345678916",
+        "password": "password16",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 55
+            }
+        ],
+        "created_at": "2024-12-26T22:20:02.545+00:00",
+        "user_id": 16
+    },
+    {
+        "username": "user17_rho",
+        "email": "user17@example.com",
+        "phone_number": "+12345678917",
+        "password": "password17",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-26T22:55:30.878+00:00",
+        "user_id": 17
+    },
+    {
+        "username": "user18_sigma",
+        "email": "user18@example.com",
+        "phone_number": "+12345678918",
+        "password": "password18",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-26T23:30:00.211+00:00",
+        "user_id": 18
+    },
+    {
+        "username": "user19_tau",
+        "email": "user19@example.com",
+        "phone_number": "+12345678919",
+        "password": "password19",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T00:05:28.544+00:00",
+        "user_id": 19
+    },
+    {
+        "username": "user20_upsilon",
+        "email": "user20@example.com",
+        "phone_number": "+12345678920",
+        "password": "password20",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 1
+            }
+        ],
+        "created_at": "2024-12-27T00:40:56.877+00:00",
+        "user_id": 20
+    },
+    {
+        "username": "user21_phi",
+        "email": "user21@example.com",
+        "phone_number": "+12345678921",
+        "password": "password21",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T01:15:25.210+00:00",
+        "user_id": 21
+    },
+    {
+        "username": "user22_chi",
+        "email": "user22@example.com",
+        "phone_number": "+12345678922",
+        "password": "password22",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T01:50:53.543+00:00",
+        "user_id": 22
+    },
+    {
+        "username": "user23_psi",
+        "email": "user23@example.com",
+        "phone_number": "+12345678923",
+        "password": "password23",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 22
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 1
+            }
+        ],
+        "created_at": "2024-12-27T02:25:21.876+00:00",
+        "user_id": 23
+    },
+    {
+        "username": "user24_omega",
+        "email": "user24@example.com",
+        "phone_number": "+12345678924",
+        "password": "password24",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T03:00:50.209+00:00",
+        "user_id": 24
+    },
+    {
+        "username": "user25_alpha2",
+        "email": "user25@example.com",
+        "phone_number": "+12345678925",
+        "password": "password25",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T03:35:18.542+00:00",
+        "user_id": 25
+    },
+    {
+        "username": "user26_beta2",
+        "email": "user26@example.com",
+        "phone_number": "+12345678926",
+        "password": "password26",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 33
+            }
+        ],
+        "created_at": "2024-12-27T04:10:46.875+00:00",
+        "user_id": 26
+    },
+    {
+        "username": "user27_gamma2",
+        "email": "user27@example.com",
+        "phone_number": "+12345678927",
+        "password": "password27",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T04:45:15.208+00:00",
+        "user_id": 27
+    },
+    {
+        "username": "user28_delta2",
+        "email": "user28@example.com",
+        "phone_number": "+12345678928",
+        "password": "password28",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T05:20:43.541+00:00",
+        "user_id": 28
+    },
+    {
+        "username": "user29_epsilon2",
+        "email": "user29@example.com",
+        "phone_number": "+12345678929",
+        "password": "password29",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T05:55:11.874+00:00",
+        "user_id": 29
+    },
+    {
+        "username": "user30_zeta2",
+        "email": "user30@example.com",
+        "phone_number": "+12345678930",
+        "password": "password30",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 44
+            }
+        ],
+        "created_at": "2024-12-27T06:30:40.207+00:00",
+        "user_id": 30
+    },
+    {
+        "username": "user31_alpha3",
+        "email": "user31@example.com",
+        "phone_number": "+12345678931",
+        "password": "password31",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T07:05:11.874+00:00",
+        "user_id": 31
+    },
+    {
+        "username": "user32_beta3",
+        "email": "user32@example.com",
+        "phone_number": "+12345678932",
+        "password": "password32",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 17
+            }
+        ],
+        "created_at": "2024-12-27T07:40:40.207+00:00",
+        "user_id": 32
+    },
+    {
+        "username": "user33_gamma3",
+        "email": "user33@example.com",
+        "phone_number": "+12345678933",
+        "password": "password33",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 23
+            }
+        ],
+        "created_at": "2024-12-27T08:15:08.540+00:00",
+        "user_id": 33
+    },
+    {
+        "username": "user34_delta3",
+        "email": "user34@example.com",
+        "phone_number": "+12345678934",
+        "password": "password34",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 9
+            }
+        ],
+        "created_at": "2024-12-27T08:50:36.873+00:00",
+        "user_id": 34
+    },
+    {
+        "username": "user35_epsilon3",
+        "email": "user35@example.com",
+        "phone_number": "+12345678935",
+        "password": "password35",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 59
+            }
+        ],
+        "created_at": "2024-12-27T09:25:05.206+00:00",
+        "user_id": 35
+    },
+    {
+        "username": "user36_zeta3",
+        "email": "user36@example.com",
+        "phone_number": "+12345678936",
+        "password": "password36",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T09:59:33.539+00:00",
+        "user_id": 36
+    },
+    {
+        "username": "user37_eta3",
+        "email": "user37@example.com",
+        "phone_number": "+12345678937",
+        "password": "password37",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T10:34:01.872+00:00",
+        "user_id": 37
+    },
+    {
+        "username": "user38_theta3",
+        "email": "user38@example.com",
+        "phone_number": "+12345678938",
+        "password": "password38",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 28
+            }
+        ],
+        "created_at": "2024-12-27T11:08:30.205+00:00",
+        "user_id": 38
+    },
+    {
+        "username": "user39_iota3",
+        "email": "user39@example.com",
+        "phone_number": "+12345678939",
+        "password": "password39",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T11:43:58.538+00:00",
+        "user_id": 39
+    },
+    {
+        "username": "user40_kappa3",
+        "email": "user40@example.com",
+        "phone_number": "+12345678940",
+        "password": "password40",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T12:18:26.871+00:00",
+        "user_id": 40
+    },
+    {
+        "username": "user41_lambda3",
+        "email": "user41@example.com",
+        "phone_number": "+12345678941",
+        "password": "password41",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 4
+            }
+        ],
+        "created_at": "2024-12-27T12:52:55.204+00:00",
+        "user_id": 41
+    },
+    {
+        "username": "user42_mu3",
+        "email": "user42@example.com",
+        "phone_number": "+12345678942",
+        "password": "password42",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T13:27:23.537+00:00",
+        "user_id": 42
+    },
+    {
+        "username": "user43_nu3",
+        "email": "user43@example.com",
+        "phone_number": "+12345678943",
+        "password": "password43",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T14:01:51.870+00:00",
+        "user_id": 43
+    },
+    {
+        "username": "user44_xi3",
+        "email": "user44@example.com",
+        "phone_number": "+12345678944",
+        "password": "password44",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 11
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 18
+            }
+        ],
+        "created_at": "2024-12-27T14:36:20.203+00:00",
+        "user_id": 44
+    },
+    {
+        "username": "user45_omicron3",
+        "email": "user45@example.com",
+        "phone_number": "+12345678945",
+        "password": "password45",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 5
+            }
+        ],
+        "created_at": "2024-12-27T15:10:48.536+00:00",
+        "user_id": 45
+    },
+    {
+        "username": "user46_pi3",
+        "email": "user46@example.com",
+        "phone_number": "+12345678946",
+        "password": "password46",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T15:45:16.869+00:00",
+        "user_id": 46
+    },
+    {
+        "username": "user47_rho3",
+        "email": "user47@example.com",
+        "phone_number": "+12345678947",
+        "password": "password47",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 39
+            }
+        ],
+        "created_at": "2024-12-27T16:19:45.202+00:00",
+        "user_id": 47
+    },
+    {
+        "username": "user48_sigma3",
+        "email": "user48@example.com",
+        "phone_number": "+12345678948",
+        "password": "password48",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T16:54:13.535+00:00",
+        "user_id": 48
+    },
+    {
+        "username": "user49_tau3",
+        "email": "user49@example.com",
+        "phone_number": "+12345678949",
+        "password": "password49",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T17:28:41.868+00:00",
+        "user_id": 49
+    },
+    {
+        "username": "user50_upsilon3",
+        "email": "user50@example.com",
+        "phone_number": "+12345678950",
+        "password": "password50",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 51
+            }
+        ],
+        "created_at": "2024-12-27T18:03:10.201+00:00",
+        "user_id": 50
+    },
+    {
+        "username": "user51_phi3",
+        "email": "user51@example.com",
+        "phone_number": "+12345678951",
+        "password": "password51",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T18:37:38.534+00:00",
+        "user_id": 51
+    },
+    {
+        "username": "user52_chi3",
+        "email": "user52@example.com",
+        "phone_number": "+12345678952",
+        "password": "password52",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T19:12:06.867+00:00",
+        "user_id": 52
+    },
+    {
+        "username": "user53_psi3",
+        "email": "user53@example.com",
+        "phone_number": "+12345678953",
+        "password": "password53",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 2
+            }
+        ],
+        "created_at": "2024-12-27T19:46:35.200+00:00",
+        "user_id": 53
+    },
+    {
+        "username": "user54_omega3",
+        "email": "user54@example.com",
+        "phone_number": "+12345678954",
+        "password": "password54",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T20:21:03.533+00:00",
+        "user_id": 54
+    },
+    {
+        "username": "user55_alpha4",
+        "email": "user55@example.com",
+        "phone_number": "+12345678955",
+        "password": "password55",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T20:55:31.866+00:00",
+        "user_id": 55
+    },
+    {
+        "username": "user56_beta4",
+        "email": "user56@example.com",
+        "phone_number": "+12345678956",
+        "password": "password56",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 60
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 12
+            }
+        ],
+        "created_at": "2024-12-27T21:30:00.199+00:00",
+        "user_id": 56
+    },
+    {
+        "username": "user57_gamma4",
+        "email": "user57@example.com",
+        "phone_number": "+12345678957",
+        "password": "password57",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T22:04:28.532+00:00",
+        "user_id": 57
+    },
+    {
+        "username": "user58_delta4",
+        "email": "user58@example.com",
+        "phone_number": "+12345678958",
+        "password": "password58",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T22:38:56.865+00:00",
+        "user_id": 58
+    },
+    {
+        "username": "user59_epsilon4",
+        "email": "user59@example.com",
+        "phone_number": "+12345678959",
+        "password": "password59",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-27T23:13:25.198+00:00",
+        "user_id": 59
+    },
+    {
+        "username": "user60_zeta4",
+        "email": "user60@example.com",
+        "phone_number": "+12345678960",
+        "password": "password60",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 30
+            }
+        ],
+        "created_at": "2024-12-27T23:47:53.531+00:00",
+        "user_id": 60
+    },
+    {
+        "username": "user61_eta4",
+        "email": "user61@example.com",
+        "phone_number": "+12345678961",
+        "password": "password61",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T00:22:21.864+00:00",
+        "user_id": 61
+    },
+    {
+        "username": "user62_theta4",
+        "email": "user62@example.com",
+        "phone_number": "+12345678962",
+        "password": "password62",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 15
+            }
+        ],
+        "created_at": "2024-12-28T00:56:50.197+00:00",
+        "user_id": 62
+    },
+    {
+        "username": "user63_iota4",
+        "email": "user63@example.com",
+        "phone_number": "+12345678963",
+        "password": "password63",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T01:31:18.530+00:00",
+        "user_id": 63
+    },
+    {
+        "username": "user64_kappa4",
+        "email": "user64@example.com",
+        "phone_number": "+12345678964",
+        "password": "password64",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T02:05:46.863+00:00",
+        "user_id": 64
+    },
+    {
+        "username": "user65_lambda4",
+        "email": "user65@example.com",
+        "phone_number": "+12345678965",
+        "password": "password65",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 41
+            }
+        ],
+        "created_at": "2024-12-28T02:40:15.196+00:00",
+        "user_id": 65
+    },
+    {
+        "username": "user66_mu4",
+        "email": "user66@example.com",
+        "phone_number": "+12345678966",
+        "password": "password66",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T03:14:43.529+00:00",
+        "user_id": 66
+    },
+    {
+        "username": "user67_nu4",
+        "email": "user67@example.com",
+        "phone_number": "+12345678967",
+        "password": "password67",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 7
+            }
+        ],
+        "created_at": "2024-12-28T03:49:11.862+00:00",
+        "user_id": 67
+    },
+    {
+        "username": "user68_xi4",
+        "email": "user68@example.com",
+        "phone_number": "+12345678968",
+        "password": "password68",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 21
+            }
+        ],
+        "created_at": "2024-12-28T04:23:40.195+00:00",
+        "user_id": 68
+    },
+    {
+        "username": "user69_omicron4",
+        "email": "user69@example.com",
+        "phone_number": "+12345678969",
+        "password": "password69",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T04:58:08.528+00:00",
+        "user_id": 69
+    },
+    {
+        "username": "user70_pi4",
+        "email": "user70@example.com",
+        "phone_number": "+12345678970",
+        "password": "password70",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T05:32:36.861+00:00",
+        "user_id": 70
+    },
+    {
+        "username": "user71_rho4",
+        "email": "user71@example.com",
+        "phone_number": "+12345678971",
+        "password": "password71",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 52
+            }
+        ],
+        "created_at": "2024-12-28T06:07:05.194+00:00",
+        "user_id": 71
+    },
+    {
+        "username": "user72_sigma4",
+        "email": "user72@example.com",
+        "phone_number": "+12345678972",
+        "password": "password72",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T06:41:33.527+00:00",
+        "user_id": 72
+    },
+    {
+        "username": "user73_tau4",
+        "email": "user73@example.com",
+        "phone_number": "+12345678973",
+        "password": "password73",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T07:16:01.860+00:00",
+        "user_id": 73
+    },
+    {
+        "username": "user74_upsilon4",
+        "email": "user74@example.com",
+        "phone_number": "+12345678974",
+        "password": "password74",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 35
+            }
+        ],
+        "created_at": "2024-12-28T07:50:30.193+00:00",
+        "user_id": 74
+    },
+    {
+        "username": "user75_phi4",
+        "email": "user75@example.com",
+        "phone_number": "+12345678975",
+        "password": "password75",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T08:24:58.526+00:00",
+        "user_id": 75
+    },
+    {
+        "username": "user76_chi4",
+        "email": "user76@example.com",
+        "phone_number": "+12345678976",
+        "password": "password76",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T08:59:26.859+00:00",
+        "user_id": 76
+    },
+    {
+        "username": "user77_psi4",
+        "email": "user77@example.com",
+        "phone_number": "+12345678977",
+        "password": "password77",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 8
+            }
+        ],
+        "created_at": "2024-12-28T09:33:55.192+00:00",
+        "user_id": 77
+    },
+    {
+        "username": "user78_omega4",
+        "email": "user78@example.com",
+        "phone_number": "+12345678978",
+        "password": "password78",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 2
+            }
+        ],
+        "created_at": "2024-12-28T10:08:23.525+00:00",
+        "user_id": 78
+    },
+    {
+        "username": "user79_alpha5",
+        "email": "user79@example.com",
+        "phone_number": "+12345678979",
+        "password": "password79",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T10:42:51.858+00:00",
+        "user_id": 79
+    },
+    {
+        "username": "user80_beta5",
+        "email": "user80@example.com",
+        "phone_number": "+12345678980",
+        "password": "password80",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 48
+            }
+        ],
+        "created_at": "2024-12-28T11:17:20.191+00:00",
+        "user_id": 80
+    },
+    {
+        "username": "user81_gamma5",
+        "email": "user81@example.com",
+        "phone_number": "+12345678981",
+        "password": "password81",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T11:51:48.524+00:00",
+        "user_id": 81
+    },
+    {
+        "username": "user82_delta5",
+        "email": "user82@example.com",
+        "phone_number": "+12345678982",
+        "password": "password82",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T12:26:16.857+00:00",
+        "user_id": 82
+    },
+    {
+        "username": "user83_epsilon5",
+        "email": "user83@example.com",
+        "phone_number": "+12345678983",
+        "password": "password83",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 19
+            }
+        ],
+        "created_at": "2024-12-28T13:00:45.190+00:00",
+        "user_id": 83
+    },
+    {
+        "username": "user84_zeta5",
+        "email": "user84@example.com",
+        "phone_number": "+12345678984",
+        "password": "password84",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T13:35:13.523+00:00",
+        "user_id": 84
+    },
+    {
+        "username": "user85_eta5",
+        "email": "user85@example.com",
+        "phone_number": "+12345678985",
+        "password": "password85",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T14:09:41.856+00:00",
+        "user_id": 85
+    },
+    {
+        "username": "user86_theta5",
+        "email": "user86@example.com",
+        "phone_number": "+12345678986",
+        "password": "password86",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 57
+            }
+        ],
+        "created_at": "2024-12-28T14:44:10.189+00:00",
+        "user_id": 86
+    },
+    {
+        "username": "user87_iota5",
+        "email": "user87@example.com",
+        "phone_number": "+12345678987",
+        "password": "password87",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T15:18:38.522+00:00",
+        "user_id": 87
+    },
+    {
+        "username": "user88_kappa5",
+        "email": "user88@example.com",
+        "phone_number": "+12345678988",
+        "password": "password88",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 11
+            }
+        ],
+        "created_at": "2024-12-28T15:53:06.855+00:00",
+        "user_id": 88
+    },
+    {
+        "username": "user89_lambda5",
+        "email": "user89@example.com",
+        "phone_number": "+12345678989",
+        "password": "password89",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 27
+            }
+        ],
+        "created_at": "2024-12-28T16:27:35.188+00:00",
+        "user_id": 89
+    },
+    {
+        "username": "user90_mu5",
+        "email": "user90@example.com",
+        "phone_number": "+12345678990",
+        "password": "password90",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T17:02:03.521+00:00",
+        "user_id": 90
+    },
+    {
+        "username": "user91_nu5",
+        "email": "user91@example.com",
+        "phone_number": "+12345678991",
+        "password": "password91",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T17:36:31.854+00:00",
+        "user_id": 91
+    },
+    {
+        "username": "user92_xi5",
+        "email": "user92@example.com",
+        "phone_number": "+12345678992",
+        "password": "password92",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 3
+            }
+        ],
+        "created_at": "2024-12-28T18:11:00.187+00:00",
+        "user_id": 92
+    },
+    {
+        "username": "user93_omicron5",
+        "email": "user93@example.com",
+        "phone_number": "+12345678993",
+        "password": "password93",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T18:45:28.520+00:00",
+        "user_id": 93
+    },
+    {
+        "username": "user94_pi5",
+        "email": "user94@example.com",
+        "phone_number": "+12345678994",
+        "password": "password94",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T19:19:56.853+00:00",
+        "user_id": 94
+    },
+    {
+        "username": "user95_rho5",
+        "email": "user95@example.com",
+        "phone_number": "+12345678995",
+        "password": "password95",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 40
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 4
+            }
+        ],
+        "created_at": "2024-12-28T19:54:25.186+00:00",
+        "user_id": 95
+    },
+    {
+        "username": "user96_sigma5",
+        "email": "user96@example.com",
+        "phone_number": "+12345678996",
+        "password": "password96",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T20:28:53.519+00:00",
+        "user_id": 96
+    },
+    {
+        "username": "user97_tau5",
+        "email": "user97@example.com",
+        "phone_number": "+12345678997",
+        "password": "password97",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T21:03:21.852+00:00",
+        "user_id": 97
+    },
+    {
+        "username": "user98_upsilon5",
+        "email": "user98@example.com",
+        "phone_number": "+12345678998",
+        "password": "password98",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 13
+            }
+        ],
+        "created_at": "2024-12-28T21:37:50.185+00:00",
+        "user_id": 98
+    },
+    {
+        "username": "user99_phi5",
+        "email": "user99@example.com",
+        "phone_number": "+12345678999",
+        "password": "password99",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 17
+            }
+        ],
+        "created_at": "2024-12-28T22:12:18.518+00:00",
+        "user_id": 99
+    },
+    {
+        "username": "user100_chi5",
+        "email": "user100@example.com",
+        "phone_number": "+12345679000",
+        "password": "password100",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 24
+            }
+        ],
+        "created_at": "2024-12-28T22:46:46.851+00:00",
+        "user_id": 100
+    },
+    {
+        "username": "user101_psi5",
+        "email": "user101@example.com",
+        "phone_number": "+12345679001",
+        "password": "password101",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 58
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 8
+            }
+        ],
+        "created_at": "2024-12-28T23:21:15.184+00:00",
+        "user_id": 101
+    },
+    {
+        "username": "user102_omega5",
+        "email": "user102@example.com",
+        "phone_number": "+12345679002",
+        "password": "password102",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-28T23:55:43.517+00:00",
+        "user_id": 102
+    },
+    {
+        "username": "user103_alpha6",
+        "email": "user103@example.com",
+        "phone_number": "+12345679003",
+        "password": "password103",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T00:30:11.850+00:00",
+        "user_id": 103
+    },
+    {
+        "username": "user104_beta6",
+        "email": "user104@example.com",
+        "phone_number": "+12345679004",
+        "password": "password104",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 24
+            }
+        ],
+        "created_at": "2024-12-29T01:04:40.183+00:00",
+        "user_id": 104
+    },
+    {
+        "username": "user105_gamma6",
+        "email": "user105@example.com",
+        "phone_number": "+12345679005",
+        "password": "password105",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T01:39:08.516+00:00",
+        "user_id": 105
+    },
+    {
+        "username": "user106_delta6",
+        "email": "user106@example.com",
+        "phone_number": "+12345679006",
+        "password": "password106",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T02:13:36.849+00:00",
+        "user_id": 106
+    },
+    {
+        "username": "user107_epsilon6",
+        "email": "user107@example.com",
+        "phone_number": "+12345679007",
+        "password": "password107",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 6
+            }
+        ],
+        "created_at": "2024-12-29T02:48:05.182+00:00",
+        "user_id": 107
+    },
+    {
+        "username": "user108_zeta6",
+        "email": "user108@example.com",
+        "phone_number": "+12345679008",
+        "password": "password108",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T03:22:33.515+00:00",
+        "user_id": 108
+    },
+    {
+        "username": "user109_eta6",
+        "email": "user109@example.com",
+        "phone_number": "+12345679009",
+        "password": "password109",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T03:57:01.848+00:00",
+        "user_id": 109
+    },
+    {
+        "username": "user110_theta6",
+        "email": "user110@example.com",
+        "phone_number": "+12345679010",
+        "password": "password110",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 37
+            }
+        ],
+        "created_at": "2024-12-29T04:31:30.181+00:00",
+        "user_id": 110
+    },
+    {
+        "username": "user111_iota6",
+        "email": "user111@example.com",
+        "phone_number": "+12345679011",
+        "password": "password111",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 13
+            }
+        ],
+        "created_at": "2024-12-29T05:05:58.514+00:00",
+        "user_id": 111
+    },
+    {
+        "username": "user112_kappa6",
+        "email": "user112@example.com",
+        "phone_number": "+12345679012",
+        "password": "password112",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 22
+            }
+        ],
+        "created_at": "2024-12-29T05:40:26.847+00:00",
+        "user_id": 112
+    },
+    {
+        "username": "user113_lambda6",
+        "email": "user113@example.com",
+        "phone_number": "+12345679013",
+        "password": "password113",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 49
+            }
+        ],
+        "created_at": "2024-12-29T06:14:55.180+00:00",
+        "user_id": 113
+    },
+    {
+        "username": "user114_mu6",
+        "email": "user114@example.com",
+        "phone_number": "+12345679014",
+        "password": "password114",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T06:49:23.513+00:00",
+        "user_id": 114
+    },
+    {
+        "username": "user115_nu6",
+        "email": "user115@example.com",
+        "phone_number": "+12345679015",
+        "password": "password115",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T07:23:51.846+00:00",
+        "user_id": 115
+    },
+    {
+        "username": "user116_xi6",
+        "email": "user116@example.com",
+        "phone_number": "+12345679016",
+        "password": "password116",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 18
+            }
+        ],
+        "created_at": "2024-12-29T07:58:20.179+00:00",
+        "user_id": 116
+    },
+    {
+        "username": "user117_omicron6",
+        "email": "user117@example.com",
+        "phone_number": "+12345679017",
+        "password": "password117",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T08:32:48.512+00:00",
+        "user_id": 117
+    },
+    {
+        "username": "user118_pi6",
+        "email": "user118@example.com",
+        "phone_number": "+12345679018",
+        "password": "password118",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T09:07:16.845+00:00",
+        "user_id": 118
+    },
+    {
+        "username": "user119_rho6",
+        "email": "user119@example.com",
+        "phone_number": "+12345679019",
+        "password": "password119",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 50
+            }
+        ],
+        "created_at": "2024-12-29T09:41:45.178+00:00",
+        "user_id": 119
+    },
+    {
+        "username": "user120_sigma6",
+        "email": "user120@example.com",
+        "phone_number": "+12345679020",
+        "password": "password120",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 27
+            }
+        ],
+        "created_at": "2024-12-29T10:16:13.511+00:00",
+        "user_id": 120
+    },
+    {
+        "username": "user121_tau6",
+        "email": "user121@example.com",
+        "phone_number": "+12345679021",
+        "password": "password121",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T10:50:41.844+00:00",
+        "user_id": 121
+    },
+    {
+        "username": "user122_upsilon6",
+        "email": "user122@example.com",
+        "phone_number": "+12345679022",
+        "password": "password122",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 29
+            }
+        ],
+        "created_at": "2024-12-29T11:25:10.177+00:00",
+        "user_id": 122
+    },
+    {
+        "username": "user123_phi6",
+        "email": "user123@example.com",
+        "phone_number": "+12345679023",
+        "password": "password123",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 15
+            }
+        ],
+        "created_at": "2024-12-29T11:59:38.510+00:00",
+        "user_id": 123
+    },
+    {
+        "username": "user124_chi6",
+        "email": "user124@example.com",
+        "phone_number": "+12345679024",
+        "password": "password124",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T12:34:06.843+00:00",
+        "user_id": 124
+    },
+    {
+        "username": "user125_psi6",
+        "email": "user125@example.com",
+        "phone_number": "+12345679025",
+        "password": "password125",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 42
+            }
+        ],
+        "created_at": "2024-12-29T13:08:35.176+00:00",
+        "user_id": 125
+    },
+    {
+        "username": "user126_omega6",
+        "email": "user126@example.com",
+        "phone_number": "+12345679026",
+        "password": "password126",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T13:43:03.509+00:00",
+        "user_id": 126
+    },
+    {
+        "username": "user127_alpha7",
+        "email": "user127@example.com",
+        "phone_number": "+12345679027",
+        "password": "password127",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T14:17:31.842+00:00",
+        "user_id": 127
+    },
+    {
+        "username": "user128_beta7",
+        "email": "user128@example.com",
+        "phone_number": "+12345679028",
+        "password": "password128",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 53
+            }
+        ],
+        "created_at": "2024-12-29T14:52:00.175+00:00",
+        "user_id": 128
+    },
+    {
+        "username": "user129_gamma7",
+        "email": "user129@example.com",
+        "phone_number": "+12345679029",
+        "password": "password129",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T15:26:28.508+00:00",
+        "user_id": 129
+    },
+    {
+        "username": "user130_delta7",
+        "email": "user130@example.com",
+        "phone_number": "+12345679030",
+        "password": "password130",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 29
+            }
+        ],
+        "created_at": "2024-12-29T16:00:56.841+00:00",
+        "user_id": 130
+    },
+    {
+        "username": "user131_epsilon7",
+        "email": "user131@example.com",
+        "phone_number": "+12345679031",
+        "password": "password131",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 10
+            }
+        ],
+        "created_at": "2024-12-29T16:35:25.174+00:00",
+        "user_id": 131
+    },
+    {
+        "username": "user132_zeta7",
+        "email": "user132@example.com",
+        "phone_number": "+12345679032",
+        "password": "password132",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 6
+            }
+        ],
+        "created_at": "2024-12-29T17:09:53.507+00:00",
+        "user_id": 132
+    },
+    {
+        "username": "user133_eta7",
+        "email": "user133@example.com",
+        "phone_number": "+12345679033",
+        "password": "password133",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T17:44:21.840+00:00",
+        "user_id": 133
+    },
+    {
+        "username": "user134_theta7",
+        "email": "user134@example.com",
+        "phone_number": "+12345679034",
+        "password": "password134",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 31
+            }
+        ],
+        "created_at": "2024-12-29T18:18:50.173+00:00",
+        "user_id": 134
+    },
+    {
+        "username": "user135_iota7",
+        "email": "user135@example.com",
+        "phone_number": "+12345679035",
+        "password": "password135",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T18:53:18.506+00:00",
+        "user_id": 135
+    },
+    {
+        "username": "user136_kappa7",
+        "email": "user136@example.com",
+        "phone_number": "+12345679036",
+        "password": "password136",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T19:27:46.839+00:00",
+        "user_id": 136
+    },
+    {
+        "username": "user137_lambda7",
+        "email": "user137@example.com",
+        "phone_number": "+12345679037",
+        "password": "password137",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 46
+            }
+        ],
+        "created_at": "2024-12-29T20:02:15.172+00:00",
+        "user_id": 137
+    },
+    {
+        "username": "user138_mu7",
+        "email": "user138@example.com",
+        "phone_number": "+12345679038",
+        "password": "password138",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T20:36:43.505+00:00",
+        "user_id": 138
+    },
+    {
+        "username": "user139_nu7",
+        "email": "user139@example.com",
+        "phone_number": "+12345679039",
+        "password": "password139",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T21:11:11.838+00:00",
+        "user_id": 139
+    },
+    {
+        "username": "user140_xi7",
+        "email": "user140@example.com",
+        "phone_number": "+12345679040",
+        "password": "password140",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 5
+            }
+        ],
+        "created_at": "2024-12-29T21:45:40.171+00:00",
+        "user_id": 140
+    },
+    {
+        "username": "user141_omicron7",
+        "email": "user141@example.com",
+        "phone_number": "+12345679041",
+        "password": "password141",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T22:20:08.504+00:00",
+        "user_id": 141
+    },
+    {
+        "username": "user142_pi7",
+        "email": "user142@example.com",
+        "phone_number": "+12345679042",
+        "password": "password142",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-29T22:54:36.837+00:00",
+        "user_id": 142
+    },
+    {
+        "username": "user143_rho7",
+        "email": "user143@example.com",
+        "phone_number": "+12345679043",
+        "password": "password143",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 38
+            }
+        ],
+        "created_at": "2024-12-29T23:29:05.170+00:00",
+        "user_id": 143
+    },
+    {
+        "username": "user144_sigma7",
+        "email": "user144@example.com",
+        "phone_number": "+12345679044",
+        "password": "password144",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-30T00:03:33.503+00:00",
+        "user_id": 144
+    },
+    {
+        "username": "user145_tau7",
+        "email": "user145@example.com",
+        "phone_number": "+12345679045",
+        "password": "password145",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 20
+            }
+        ],
+        "created_at": "2024-12-30T00:38:01.836+00:00",
+        "user_id": 145
+    },
+    {
+        "username": "user146_upsilon7",
+        "email": "user146@example.com",
+        "phone_number": "+12345679046",
+        "password": "password146",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 16
+            }
+        ],
+        "created_at": "2024-12-30T01:12:30.169+00:00",
+        "user_id": 146
+    },
+    {
+        "username": "user147_phi7",
+        "email": "user147@example.com",
+        "phone_number": "+12345679047",
+        "password": "password147",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-30T01:46:58.502+00:00",
+        "user_id": 147
+    },
+    {
+        "username": "user148_chi7",
+        "email": "user148@example.com",
+        "phone_number": "+12345679048",
+        "password": "password148",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-30T02:21:26.835+00:00",
+        "user_id": 148
+    },
+    {
+        "username": "user149_psi7",
+        "email": "user149@example.com",
+        "phone_number": "+12345679049",
+        "password": "password149",
+        "roles": [
+            {
+                "name": "USER"
+            },
+            {
+                "name": "TEAM_LEAD",
+                "team_id": 54
+            },
+            {
+                "name": "PROJECT_MANAGER",
+                "project_id": 25
+            }
+        ],
+        "created_at": "2024-12-30T02:55:55.168+00:00",
+        "user_id": 149
+    },
+    {
+        "username": "user150_omega7",
+        "email": "user150@example.com",
+        "phone_number": "+12345679050",
+        "password": "password150",
+        "roles": [
+            {
+                "name": "USER"
+            }
+        ],
+        "created_at": "2024-12-30T03:30:23.501+00:00",
+        "user_id": 150
+    }
+]

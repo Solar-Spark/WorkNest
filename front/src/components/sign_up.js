@@ -53,8 +53,7 @@ class SignUp extends React.Component{
             try {
                 console.log("Form validated")
                 const response = await axiosInstance.post("/auth/sign_up", this.state.formData);
-                switch(response.status){
-                    
+                switch(response?.status){
                     case 201:
                         console.log("Data sended")
                         this.props.navigate("/auth/sign_in");
@@ -65,16 +64,24 @@ class SignUp extends React.Component{
                         break;
                 }
             } catch (error) {
-                switch(error.response.status){
-                    case 409:
-                        this.setState({errorText : "Username or email is busy"});
-                        break;
-                    case 500:
-                        this.setState({errorText : "Internal server error"})
-                        break;
-                    default:
-                        console.error("Data send error: ", error);
+                if (error.response) {
+                    switch(error.response?.status){
+                        case 409:
+                            this.setState({errorText : "Username or email is busy"});
+                            break;
+                        case 500:
+                            this.setState({errorText : "Internal server error"})
+                            break;
+                        default:
+                            console.error("Data send error: ", error);
+                    }
                 }
+                else if (error.request) {
+                    this.setState({ errorText: "Unable to connect to the server. Please try again later." });
+                } else {
+                    this.setState({ errorText: "An error occurred. Please try again later." });
+                }
+                console.error("Error during sign-in: ", error);
             }
         }
     };

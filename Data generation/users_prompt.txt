@@ -1,0 +1,11 @@
+Users collection
+
+"username" : "perpavbek",
+"email" : "230308@astanait.edu.kz",
+"phone_number" : "+77771799437",
+"password" : "123456",
+"roles" : [{name: "USER"}, {name: "PROJECT_MANAGER", project_id: 2}, {name: "TEAM_LEAD", team_id: 1}],
+"created_at" : "2024-12-26T13:34:54.370+00:00",
+"user_id" : 0
+
+Create me json file to import to MongoDB with new 30 users, at every prompt create new users, at first prompt user_id starts from 1. All users must have "USER" role and can have "TEAM_LEAD" role. team_id can be from 1 to 60. Team lead can be any user and can have only one team where he is leader. Write only json objects separated by comma in array and nothing else.

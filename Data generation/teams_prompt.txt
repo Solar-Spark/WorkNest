@@ -1,0 +1,9 @@
+Teams collection
+
+name : "Team"
+project_id : 1
+members : []
+created_at: "2024-12-26T13:37:54.370+00:00"
+team_id : 0
+
+Create me json file to import to MongoDB with new 30 teams start with team_id 1, continue team_ids at each prompt. Project_id from 1 to 30. Members list is empty. Write only json objects separated by comma in array and nothing else.
