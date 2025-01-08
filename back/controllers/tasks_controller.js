@@ -1,5 +1,3 @@
-const Task = require('../models/task_model');
-const TaskDto = require("../dto/task_dto")
 const taskService = require("../services/task_service")
 const phoneService = require("../services/phone_service")
 
@@ -7,7 +5,7 @@ createTask = async (req, res) => {
     const task = await taskService.createTask(req.body)
     if(task.status === 201){
         res.status(201).send(task.task);
-        phoneService.notifyCreateTask(task.task)
+        //phoneService.notifyCreateTask(task.task)
     }
     else if (task.status === 500){
         res.status(500).send({ message: task.message });
@@ -48,10 +46,21 @@ deleteTask = async (req, res) => {
     res.status(result.status).json({ message: result.message });
 };
 
+createTasks = async (req, res) => {
+    const task = await taskService.createTasks(req.body)
+    if(task.status === 201){
+        res.status(201).send(task.message);
+    }
+    else if (project.status === 500){
+        res.status(500).send({ message: task.message });
+    }
+};
+
 module.exports = {
     createTask,
     getTask,
     updateTask,
     deleteTask,
     getTasksByUserId,
+    createTasks,
 }

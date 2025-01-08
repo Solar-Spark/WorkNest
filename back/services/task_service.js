@@ -84,10 +84,20 @@ deleteTask = async (task_id) => {
         return { status: 500, message: 'Internal server error' };
     }     
 }
+createTasks = async(tasks) => {
+    try{
+        await Task.insertMany(tasks);
+        return {status: 201, message: "Tasks created"}
+    }
+    catch(err){
+        return {status : 500, message : "Internal server error"}
+    }
+}
 module.exports = {
     createTask,
     getTaskDto,
     getTaskDtosByUserId,
     updateTask,
     deleteTask,
+    createTasks,
 }

@@ -4,7 +4,6 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 const teamSchema = new mongoose.Schema({
     team_id: {
         type: Number,
-        required: true,
         unique: true,
     },
     name: {

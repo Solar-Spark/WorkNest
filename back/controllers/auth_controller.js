@@ -1,4 +1,5 @@
 const User = require('../models/user_model');
+const { hashPassword, comparePassword } = require('../utils/password_util');
 
 const signIn = async (req, res) => {
     const {username, password} = req.body;
@@ -9,7 +10,7 @@ const signIn = async (req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
 
-        if(user.password === password){
+        if(await comparePassword(password, user.password)){
             res.status(200).json({ user_id : user.user_id});
         }
         else{
@@ -23,7 +24,6 @@ const signIn = async (req, res) => {
 
 const signUp = async (req, res) => {
     try {
-        
         const existingUser = await User.findOne({
             $or: [{ username: req.body.username }, { email: req.body.email }]
         });
@@ -33,6 +33,7 @@ const signUp = async (req, res) => {
         }
         
         const user = new User(req.body);
+        user.password = await hashPassword(req.body.password)
         await user.save();
         res.status(201).send(user);
       } catch (err) {
@@ -41,7 +42,22 @@ const signUp = async (req, res) => {
     }
 };
 
+const createUsers = async (req, res) => {
+    const users = req.body;
+    for(user of users){
+        user.password = await hashPassword(user.password)
+    }
+    try {
+        await User.insertMany(users);
+    } 
+    catch (err) {
+        console.log(err)
+        res.status(400).send({ error: err.message });
+    }
+    return res.status(201).send({message: "Users created"});
+}
 module.exports = {
     signIn,
-    signUp
+    signUp,
+    createUsers,
 };
