@@ -105,16 +105,16 @@ chat_session = model.start_chat(
 
 
 # projects generation
-generate_json_data("Projects generation", "projects_prompt.txt", "projects_result.json", 1)
+generate_json_data("Projects generation", "./prompts/projects_prompt.txt", "./generated/projects_result.json", 1)
 
 # users generation
-generate_json_data("Users generation", "users_prompt.txt", "users_result.json", 5)
+generate_json_data("Users generation", "./prompts/users_prompt.txt", "./generated/users_result.json", 5)
 
 # teams generation
-generate_json_data("Teams generation", "teams_prompt.txt", "teams_result.json", 2)
+generate_json_data("Teams generation", "./prompts/teams_prompt.txt", "./generated/teams_result.json", 2)
 
 # tasks generations
-generate_json_data("Tasks generation", "tasks_prompt.txt", "tasks_result.json", 35)
+generate_json_data("Tasks generation", "./prompts/tasks_prompt.txt", "./generated/tasks_result.json", 35)
 
 assignProjectManager()
 assignTeamMembers()
