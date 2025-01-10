@@ -5,11 +5,10 @@ createTeam = async (team_attr) => {
     try{
         const team = new Team(team_attr);
         await team.save();
-        const teamDto = new TeamDto(team); 
-        return {status : 201, team : teamDto};
+        return {status : 201, teamDto : new TeamDto(team) };
     }
     catch(err){
-        return {status : 500, message : "Internal server error"}
+        return {status : 500, error : err.message}
     }
 }
 

@@ -5,11 +5,10 @@ createProject = async (project_attr) => {
     try{
         const project = new Project(project_attr);
         await project.save();
-        const projectDto = new ProjectDto(project); 
-        return {status : 201, project : projectDto};
+        return {status : 201, projectDto : new ProjectDto(project)};
     }
     catch(err){
-        return {status : 500, message : "Internal server error"}
+        return {status : 500, error: err.message}
     }
 }
 

@@ -6,7 +6,7 @@ class MyTasksPage extends React.Component{
         console.log(`Item ${itemNum} clicked`);
     };
     render(){
-        if (!sessionStorage.getItem("user_id")) {
+        if (!localStorage.getItem("token")) {
             return <Navigate to="/auth/sign_in" />;
         }
         return(

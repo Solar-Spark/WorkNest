@@ -1,12 +1,13 @@
 const teamService = require("../services/team_service")
 
 createTeam = async (req, res) => {
-    const team = await teamService.createTeam(req.body)
-    if(team.status === 201){
-        res.status(201).send(team.team);
+    const result = await teamService.createTeam(req.body)
+    if(result.status === 201){
+        res.status(201).send(result.teamDto);
     }
-    else if (team.status === 500){
-        res.status(500).send({ message: team.message });
+    else if (result.status === 500){
+        res.status(500).send({ error: "Internal Server Error" });
+        console.error(result.error)
     }
 };
 

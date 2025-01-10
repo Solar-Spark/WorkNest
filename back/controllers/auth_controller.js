@@ -1,63 +1,63 @@
-const User = require('../models/user_model');
-const { hashPassword, comparePassword } = require('../utils/password_util');
+require('dotenv').config();
+const userService = require("../services/user_service")
+const { comparePassword } = require('../utils/password_util');
+const jwt = require("jsonwebtoken");
+
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_EXPIRES= process.env.JWT_EXPIRES;
 
 const signIn = async (req, res) => {
-    const {username, password} = req.body;
-    try{
-        const user = await User.findOne({username : username});
-        
+    const { username, password } = req.body;
+    if (!username || !password) {
+        res.status(400).send({ message: "Username and password are required" });
+    }
+    try {
+        const user = await userService.getUserByUsername(username);
+
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            res.status(404).send({ message: "User not found" });
         }
 
-        if(await comparePassword(password, user.password)){
-            res.status(200).json({ user_id : user.user_id});
+        const isPasswordValid = await comparePassword(password, user.password);
+        if (isPasswordValid) {
+            const token = jwt.sign({ user_id: user.user_id, username: user.username }, JWT_SECRET, { expiresIn: JWT_EXPIRES });
+            res.status(200).send({ token: token });
+        } else {
+            res.status(401).send({ message: "Invalid Password" });
         }
-        else{
-            res.status(401).json({ message: "Invalid password"});
-        }
-    } catch(err){
-        console.error("Error during sign-in:", err);
-        res.status(500).json({ message: "Internal server error" });
+    } catch (err) {
+        console.error("Sign In Error: ", err.message);
+        res.status(500).send({ error: "Internal Server Error" });
     }
 };
 
 const signUp = async (req, res) => {
-    try {
-        const existingUser = await User.findOne({
-            $or: [{ username: req.body.username }, { email: req.body.email }]
-        });
-
-        if (existingUser) {
-            return res.status(409).send({ error: "User with this username or email already exists" });
-        }
-        
-        const user = new User(req.body);
-        user.password = await hashPassword(req.body.password)
-        await user.save();
-        res.status(201).send(user);
-      } catch (err) {
-        console.log(err)
-        res.status(400).send({ error: err.message });
+    const result = await userService.createUser(req.body);
+    if(result.status === 201){
+        res.status(201).send(result.userDto);
+    }
+    else if(result.status === 409){
+        res.status(409).send({ message: result.error });
+    }
+    else if(result.status === 500){
+        res.status(500).send({ message: "Internal Server Error" });
+        console.error(result.error)
     }
 };
 
-const createUsers = async (req, res) => {
-    const users = req.body;
-    for(user of users){
-        user.password = await hashPassword(user.password)
+/*const createUsers = async (req, res) => {
+    const result = await userService.createUsers(req.body);
+    if(result.status === 201){
+        res.status(201).send({ message: result.message })
     }
-    try {
-        await User.insertMany(users);
-    } 
-    catch (err) {
-        console.log(err)
-        res.status(400).send({ error: err.message });
+    else if(result.status === 500){
+        res.status(500).send({ message: "Internal Server Error" });
+        console.error(result.error)
     }
-    return res.status(201).send({message: "Users created"});
-}
+}*/
+
 module.exports = {
     signIn,
     signUp,
-    createUsers,
+//    createUsers,
 };

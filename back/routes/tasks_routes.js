@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const tasksController = require("../controllers/tasks_controller")
+const jwt = require("../utils/jwt_util")
+
+router.use(jwt.authenticateToken)
 
 router.post("/", tasksController.createTask);
 

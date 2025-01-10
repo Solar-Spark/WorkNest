@@ -1,11 +1,12 @@
 import React from "react";
 import axiosInstance from "../../configs/axios_instance";
+import { getTokenData } from "../../utils/jwt_util"
 
 class AddTaskModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            statuses: ["To Do", "In Progress", "Done"],
+            statuses: ["To Do", "In Progress", "Completed"],
             formData: {
                 name: "",
                 description: "",
@@ -13,7 +14,7 @@ class AddTaskModal extends React.Component {
                 status: "To Do",
                 project_id: 1,
                 team_id: 1,
-                assigned_to: sessionStorage.getItem("user_id"),
+                assigned_to: getTokenData(localStorage.getItem("token")).user_id,
                 priority: "hot",
             },
             errorText : ""

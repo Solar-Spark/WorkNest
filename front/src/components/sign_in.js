@@ -48,8 +48,7 @@ class SignIn extends React.Component{
                 const response = await axiosInstance.post("/auth/sign_in", this.state.formData);
                 switch (response?.status) {
                     case 200:
-                        console.log("Data sended");
-                        sessionStorage.setItem("user_id", response.data.user_id)
+                        localStorage.setItem("token", response.data.token);
                         this.props.navigate("/");
                         break;
     

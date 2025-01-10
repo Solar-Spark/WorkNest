@@ -4,13 +4,13 @@ class Navbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: sessionStorage.getItem("user_id"),
+            token: localStorage.getItem("token"),
         };
     }
 
     handleLogout = () => {
-        sessionStorage.removeItem("user_id");
-        this.setState({ userId: null });
+        localStorage.removeItem("token");
+        this.setState({ token: null });
         window.location.href = "/auth/sign_in";
     };
     handleLogin = () => {
@@ -24,7 +24,7 @@ class Navbar extends React.Component {
                         <a href="/tasks">My Tasks</a>
                     </li>
                 </ul>
-                {this.state.userId !== null ? (
+                {this.state.token !== null ? (
                     <button className="logout-btn btn" onClick={this.handleLogout}>Log Out</button>
                 ) : (
                     <button className="login-btn btn" onClick={this.handleLogin}>Log In</button>

@@ -2,6 +2,7 @@ import React from "react";
 import TaskCatList from "./tasks_cat_list";
 import AddTaskModal from "./add_task_modal";
 import axiosInstance from "../../configs/axios_instance";
+import { getTokenData } from "../../utils/jwt_util"
 
 class TasksBoard extends React.Component {
     constructor(props) {
@@ -13,12 +14,12 @@ class TasksBoard extends React.Component {
     }
 
     async getTasks() {
-        const user_id = sessionStorage.getItem("user_id");
+        const user_id = getTokenData(localStorage.getItem("token")).user_id;
+        console.log(`user_id ${user_id}`)
         if(user_id){
             try {
                 const response = await axiosInstance.get(`/tasks/user/${user_id}`);
                 this.setState({ tasks: response.data});
-                console.log(response.data);
             } catch (error) {
                 console.error("Error fetching tasks:", error);
             }
