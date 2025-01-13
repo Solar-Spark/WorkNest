@@ -23,6 +23,9 @@ class Navbar extends React.Component {
                     <li className="navbar-item">
                         <a href="/tasks">My Tasks</a>
                     </li>
+                    <li className="navbar-item">
+                        <a href="/projects">My Projects</a>
+                    </li>
                 </ul>
                 {this.state.token !== null ? (
                     <button className="logout-btn btn" onClick={this.handleLogout}>Log Out</button>

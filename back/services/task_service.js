@@ -12,22 +12,22 @@ createTask = async (task_attr) => {
         return {status : 500, message : "Internal server error"}
     }
 }
-getTaskDto = async (task_id) => {
-    try {
-        const task = await Task.findOne({ task_id });
+// getTaskDto = async (task_id) => {
+//     try {
+//         const task = await Task.findOne({ task_id: task_id });
 
-        if (!task) {
-            return { status: 404, message: 'Task not found' };
-        }
+//         if (!task) {
+//             return { status: 404, message: 'Task not found' };
+//         }
 
-        const taskDto = new TaskDto(task);
-        return { status: 200, data: taskDto };
+//         const taskDto = new TaskDto(task);
+//         return { status: 200, data: taskDto };
     
-    } catch (err) {
-        console.error(`Error fetching task with id ${task_id}:`, err);
-        return { status: 500, message: 'Internal server error' };
-    }
-};
+//     } catch (err) {
+//         console.error(`Error fetching task with id ${task_id}:`, err);
+//         return { status: 500, message: 'Internal server error' };
+//     }
+// };
 getTaskDtosByUserId = async (user_id) => {
     try {
         const tasks = await Task.find({assigned_to : user_id});
@@ -95,7 +95,7 @@ createTasks = async(tasks) => {
 }
 module.exports = {
     createTask,
-    getTaskDto,
+    //getTaskDto,
     getTaskDtosByUserId,
     updateTask,
     deleteTask,

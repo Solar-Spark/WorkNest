@@ -14,4 +14,14 @@ axiosInstance.interceptors.request.use((req) => {
     return Promise.reject(error);
 });
 
+axiosInstance.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+        if (error.response && error.response.status === 401) {
+            window.location.href = '/auth/sign_in';
+        }
+        return Promise.reject(error);
+    }
+);
+
 export default axiosInstance;

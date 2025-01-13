@@ -17,7 +17,20 @@ notifyCreateTask = async (task) => {
         console.error(err)
     }
 }
-
+sendOTP = async (phone_number, otp) => {
+    try{
+        twilioClient.messages
+        .create({
+            body: `Your authentication code for WorkNest - ${otp}. Don't show it anyone`,
+            messagingServiceSid: 'MG57f9b57eb184ed02a4f9e71b6589922b',
+            to: phone_number
+        })
+        .then(message => console.log(message.sid));
+    } catch (err){
+        console.error(err)
+    }
+}
 module.exports ={
     notifyCreateTask,
+    sendOTP,
 }

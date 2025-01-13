@@ -1,10 +1,13 @@
 require('dotenv').config();
-const userService = require("../services/user_service")
+const userService = require("../services/user_service");
 const { comparePassword } = require('../utils/password_util');
-const jwt = require("jsonwebtoken");
+const { generateAuthToken, generateRefreshToken, verifyRefreshToken} = require('../utils/jwt_util');
+const redis = require("../config/redis");
+const phoneService = require("../services/phone_service")
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_EXPIRES= process.env.JWT_EXPIRES;
+function generateOTP(){
+    return Math.floor(100000 + Math.random() * 900000).toString()
+}
 
 const signIn = async (req, res) => {
     const { username, password } = req.body;
@@ -20,8 +23,11 @@ const signIn = async (req, res) => {
 
         const isPasswordValid = await comparePassword(password, user.password);
         if (isPasswordValid) {
-            const token = jwt.sign({ user_id: user.user_id, username: user.username }, JWT_SECRET, { expiresIn: JWT_EXPIRES });
-            res.status(200).send({ token: token });
+            const otp = generateOTP();
+            await redis.setex(`otp:${user.username}`, 300, otp);
+            //await phoneService.sendOTP(user.phone_number, otp);
+            console.log(`otp: ${otp}`);
+            res.status(200).send();
         } else {
             res.status(401).send({ message: "Invalid Password" });
         }
@@ -45,19 +51,66 @@ const signUp = async (req, res) => {
     }
 };
 
-/*const createUsers = async (req, res) => {
-    const result = await userService.createUsers(req.body);
-    if(result.status === 201){
-        res.status(201).send({ message: result.message })
+const verifyOTP = async(req, res) => {
+    try{
+        const savedOTP = await redis.get(`otp:${req.body.username}`);
+        const user = await userService.getUserByUsername(req.body.username);
+        if(req.body.otp === savedOTP){
+            await redis.del(`otp:${req.body.username}`);
+            const authToken = generateAuthToken({user_id: user.user_id});
+            const refreshToken = generateRefreshToken({user_id: user.user_id});
+            redis.setex(`refresh:${user.user_id}`, 60 * 24 * 60 * 60, refreshToken);
+            res.cookie('refresh', refreshToken, {
+                httpOnly: true,
+                sameSite: 'Strict',
+                maxAge: 60 * 24 * 60 * 60 * 1000,
+            });
+            res.status(200).send({auth: authToken });
+        }
+        else{
+            res.status(401).send({error: "Invalid code"});
+        }
+    } catch(err){
+        console.error("Sign In Error: ", err.message);
+        res.status(500).send({ error: "Internal Server Error" });
     }
-    else if(result.status === 500){
-        res.status(500).send({ message: "Internal Server Error" });
-        console.error(result.error)
-    }
-}*/
+}
 
+const refresh = async(req, res) => {
+    try{
+        const { refresh } = req.cookies;
+        if (!refresh) {
+            return res.status(401).json({ error: 'Refresh token not provided' });
+        }
+        const result = await verifyRefreshToken(refresh);
+        console.log(result);
+        if(result.status === 200){
+            const user_id = result.decoded.data.user_id;
+            const savedRefresh = await redis.get(`refresh:${user_id}`);
+            if(refresh === savedRefresh){
+                const authToken = generateAuthToken({user_id});
+                const refreshToken = generateRefreshToken({user_id});
+                redis.setex(`refresh:${user_id}`, 60 * 24 * 60 * 60, refreshToken);
+                res.cookie('refresh', refreshToken, {
+                    httpOnly: true,
+                    sameSite: 'Strict',
+                    maxAge: 60 * 24 * 60 * 60 * 1000,
+                });
+                res.status(200).send({ auth: authToken });
+            }
+        }
+        else{
+            res.status(401).send({error: result.error});
+        }
+    } catch(err){
+        console.error("Refreshing error: ", err.message);
+        res.status(500).send({ error: "Internal Server Error" });
+    }
+}
 module.exports = {
     signIn,
     signUp,
+    verifyOTP,
+    refresh,
 //    createUsers,
 };

@@ -1,6 +1,6 @@
 const taskService = require("../services/task_service")
 const phoneService = require("../services/phone_service")
-
+const {verifyAuthToken} = require('../utils/jwt_util');
 createTask = async (req, res) => {
     const task = await taskService.createTask(req.body)
     if(task.status === 201){
@@ -12,20 +12,23 @@ createTask = async (req, res) => {
     }
 };
 
-getTask = async (req, res) => {
-    const { status, data, message } = await taskService.getTaskDto(req.params.task_id);
+// getTask = async (req, res) => {
+//     const { status, data, message } = await taskService.getTaskDto(req.params.task_id);
 
-    if (status === 404) {
-        return res.status(404).json({ message });
-    } else if (status === 500) {
-        return res.status(500).json({ message: "Internal Server Error" });
-    }
+//     if (status === 404) {
+//         return res.status(404).json({ message });
+//     } else if (status === 500) {
+//         return res.status(500).json({ message: "Internal Server Error" });
+//     }
 
-    return res.status(200).json(data);
-};
+//     return res.status(200).json(data);
+// };
 
 getTasksByUserId = async (req, res) => {
-    const taskDtos = await taskService.getTaskDtosByUserId(req.params.user_id);
+    const token = req.headers.authorization.split(" ")[1];
+    const user_id = (await (verifyAuthToken(token))).decoded.data.user_id;
+    console.log(`user_id: ${user_id}`);
+    const taskDtos = await taskService.getTaskDtosByUserId(user_id);
     if(taskDtos.status === 200){
         res.status(200).json(taskDtos.tasks);
     }
@@ -58,7 +61,7 @@ createTasks = async (req, res) => {
 
 module.exports = {
     createTask,
-    getTask,
+    // getTask,
     updateTask,
     deleteTask,
     getTasksByUserId,
