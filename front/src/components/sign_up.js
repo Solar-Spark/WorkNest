@@ -1,6 +1,6 @@
 import React from "react";
-import axiosInstance from "../configs/axios_instance";
 import { useNavigate } from 'react-router-dom';
+import { signUp } from "../services/api/auth_service";
 
 class SignUp extends React.Component{
     constructor(props){
@@ -50,38 +50,13 @@ class SignUp extends React.Component{
     handleSubmit = async (e) => {
         e.preventDefault();
         if(this.validateForm()){
-            try {
-                console.log("Form validated")
-                const response = await axiosInstance.post("/auth/sign_up", this.state.formData);
-                switch(response?.status){
-                    case 201:
-                        console.log("Data sended")
-                        this.props.navigate("/auth/sign_in");
-                        break;
-
-                    default:
-                        this.setState({errorText : "Unknown error"})
-                        break;
-                }
-            } catch (error) {
-                if (error.response) {
-                    switch(error.response?.status){
-                        case 409:
-                            this.setState({errorText : "Username or email is busy"});
-                            break;
-                        case 500:
-                            this.setState({errorText : "Internal server error"})
-                            break;
-                        default:
-                            console.error("Data send error: ", error);
-                    }
-                }
-                else if (error.request) {
-                    this.setState({ errorText: "Unable to connect to the server. Please try again later." });
-                } else {
-                    this.setState({ errorText: "An error occurred. Please try again later." });
-                }
-                console.error("Error during sign-in: ", error);
+            const signUpResult = await signUp(this.state.formData);
+            switch(signUpResult.status){
+                case 201:
+                    this.props.onStepChange('signIn');
+                    break;
+                default:
+                    break;
             }
         }
     };
@@ -89,6 +64,7 @@ class SignUp extends React.Component{
     render(){
         return(
             <div className="sign-up auth-form">
+                <h1>Sign Up</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className="input-field input-text-field">
                         <label>Username</label><br></br>
@@ -113,7 +89,7 @@ class SignUp extends React.Component{
                         <input type="submit" value="Sign Up" className="submit-btn"></input>
                     </form>
                     <p className="form-err-text">{this.state.errorText}</p>
-                    <a href="/auth/sign_in">Already have account?</a>
+                    <p onClick={() => this.props.onStepChange('signIn')}>Already have account?</p>
             </div>
         )
     }

@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const projectsController = require("../controllers/projects_controller")
-const jwt = require("../utils/jwt_util")
+const projectsController = require("../controllers/projects_controller");
+const jwt = require("../utils/jwt_util");
 
-router.use(jwt.verifyAuthTokenMW)
+router.use(jwt.verifyAuthTokenMW);
 
 router.post("/", projectsController.createProject);
-router.post("/list", projectsController.createProjects);
+router.get("/", projectsController.getUserProjectDtos);
+router.get("/:project_id", projectsController.getProjectDtoById);
+router.get("/name/:name", projectsController.getProjectDtoByName);
 
-module.exports = router
+module.exports = router;

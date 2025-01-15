@@ -1,6 +1,5 @@
 import React from "react";
-import axiosInstance from "../configs/axios_instance";
-import { useNavigate } from 'react-router-dom';
+import { signIn } from "../services/api/auth_service";
 
 class SignIn extends React.Component{
     constructor(props){
@@ -8,7 +7,7 @@ class SignIn extends React.Component{
         this.state = {
             formData : {
                 username : "",
-                password : ""
+                password : "",
             },
             errorText : "",
         };
@@ -44,46 +43,20 @@ class SignIn extends React.Component{
         e.preventDefault();
     
         if (this.validateForm()) {
-            try {
-                const response = await axiosInstance.post("/auth/sign_in", this.state.formData);
-                switch (response?.status) {
-                    case 200:
-                        localStorage.setItem("token", response.data.token);
-                        this.props.navigate("/");
-                        break;
-    
-                    default:
-                        this.setState({ errorText: "Unknown error" });
-                        break;
-                }
-            } catch (error) {
-                if (error.response) {
-                    switch (error.response.status) {
-                        case 404:
-                            this.setState({ errorText: "User not found" });
-                            break;
-        
-                        case 401:
-                            this.setState({ errorText: "Invalid login or password" });
-                            break;
-        
-                        default:
-                            console.error("Data send error: ", error);
-                            break;
-                    }
-                }
-                else if (error.request) {
-                    this.setState({ errorText: "Unable to connect to the server. Please try again later." });
-                } else {
-                    this.setState({ errorText: "An error occurred. Please try again later." });
-                }
-                console.error("Error during sign-in: ", error);
+            const signInResult = await signIn(this.state.formData);
+            switch(signInResult.status){
+                case 200:
+                    this.props.onStepChange('verifyOtp', {username: this.state.formData.username});
+                    break;
+                default:
+                    break;
             }
         }
     };
     render(){
         return(
             <div className="sign-in auth-form">
+                <h1>Sign In</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className="input-field input-text-field">
                         <label>Username</label><br></br>
@@ -94,17 +67,12 @@ class SignIn extends React.Component{
                         <input type="password" name="password" value={this.state.formData.password} onChange={this.handleChange}></input><br></br>
                     </div>
                         <input type="submit" value="Sign In" className="submit-btn"></input>
-                    </form>
-                    <p className="form-err-text">{this.state.errorText}</p>
-                    <a href="/auth/sign_up">Haven't account?</a>
+                </form>
+                <p className="form-err-text">{this.state.errorText}</p>
+                <p onClick={() => this.props.onStepChange('signUp')}>Haven't account?</p>
             </div>
         )
     }
 }
 
-function WithNavigate(props) {
-    const navigate = useNavigate();
-    return <SignIn {...props} navigate={navigate} />;
-}
-
-export default WithNavigate;
+export default SignIn;

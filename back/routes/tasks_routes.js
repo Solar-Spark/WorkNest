@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const tasksController = require("../controllers/tasks_controller")
-const jwt = require("../utils/jwt_util")
+const tasksController = require("../controllers/tasks_controller");
+const jwt = require("../utils/jwt_util");
 
-router.use(jwt.verifyAuthTokenMW)
+router.use(jwt.verifyAuthTokenMW);
 
 router.post("/", tasksController.createTask);
 
-router.post("/list", tasksController.createTasks);
+router.get("/", tasksController.getTaskDtosByUserId);
 
-//router.get("/:task_id", tasksController.getTask);
+router.get("/project/:project_id", tasksController.getTaskDtosByProjectId);
 
-router.get("/user", tasksController.getTasksByUserId);
+router.get("/:task_id", tasksController.getTaskDtoById);
 
-router.put("/:task_id", tasksController.updateTask);
+router.put("/:task_id", tasksController.updateTaskById);
 
-router.delete("/:task_id", tasksController.deleteTask);
+router.delete("/:task_id", tasksController.deleteTaskById);
 
 module.exports = router;

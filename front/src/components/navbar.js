@@ -4,17 +4,17 @@ class Navbar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: localStorage.getItem("token"),
+            token: localStorage.getItem("authToken"),
         };
     }
 
     handleLogout = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("authToken");
         this.setState({ token: null });
-        window.location.href = "/auth/sign_in";
+        window.location.href = "/auth";
     };
     handleLogin = () => {
-        window.location.href = "/auth/sign_in";
+        window.location.href = "/auth";
     };
     render() {
         return (

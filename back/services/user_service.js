@@ -3,54 +3,56 @@ const UserDto = require("../dto/user_dto")
 const { hashPassword } = require('../utils/password_util');
 
 getUserByUsername = async (username) => {
-    try {
-        return await User.findOne({ username: username });
-    } catch (err) {
-        console.error("User find error: ", err.message);
-        throw new Error("Internal Server Error");
-    }
+    return await User.findOne({ username: username });
 }
 
 getUserDtoByUsername = async (username) => {
-    try {
-        return await new UserDto(User.findOne({ username: username }));
-    } catch (err) {
-        console.error("User find error: ", err.message);
-        throw new Error("Internal Server Error");
+    const user = await getUserByUsername(username);
+    if(!user){
+        return null;
     }
+    return await new UserDto(User.findOne({ username: username }));
 }
-
+getUserById = async (user_id) => {
+    return await User.findOne({ user_id });
+}
+getUserDtoById = async (user_id) => {
+    const user = await getUserById(user_id);
+    if(!user){
+        return null;
+    }
+    return new UserDto(user);
+}
 createUser = async (user_attr) => {
-    try {
-        const existingUser = await User.findOne({
-            $or: [{ username: user_attr.username }, { email: user_attr.email }]
-        });
-        if (existingUser) {
-            return { status: 409, error: "User with this username or email already exists" };
-        }
-        const user = new User(user_attr);
-        user.password = await hashPassword(user_attr.password)
-        await user.save();
-        return { status: 201, userDto: new UserDto(user) };
-    } catch(err){
-        return { status: 500, error: err.message };
+    const existingUser = await User.findOne({
+        $or: [{ username: user_attr.username }, { email: user_attr.email }]
+    });
+    if (existingUser) {
+        throw new Error("user_exists")
     }
+    const user = new User(user_attr);
+    user.password = await hashPassword(user_attr.password)
+    await user.save();
+    return new UserDto(user);
 }
-createUsers = async (users) =>{
-    for(user of users){
-        user.password = await hashPassword(user.password);
-    }
-    try {
-        await User.insertMany(users);
-        return { status: 201, message: "Users created"};
-    } 
-    catch (err) {
-        return { status: 500, error: err.message };
-    }
+addRoleById = async (user_id, role) => {
+    await User.updateOne({user_id: user_id}, {$push: {roles: role}});
 }
+getRolesById = async (user_id) => {
+    const user = await getUserById(user_id);
+    if (user) {
+        return user.roles;
+    }
+    else{
+        throw new Error("user_not_found");
+    }  
+};
 
 module.exports = {
     createUser,
-    createUsers,
     getUserByUsername,
+    getUserById,
+    addRoleById,
+    getUserDtoById,
+    getRolesById,
 }

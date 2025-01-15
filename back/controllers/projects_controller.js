@@ -1,68 +1,66 @@
-const projectService = require("../services/project_service")
+const projectService = require("../services/project_service");
+const userService = require("../services/user_service");
 
 createProject = async (req, res) => {
-    const result = await projectService.createProject(req.body)
-    if(result.status === 201){
-        res.status(201).send(result.projectDto);
-    }
-    else if (result.status === 500){
+    try{
+        const user_id = req.user.data.user_id;
+        const project_attr = req.body;
+        project_attr.created_by = user_id;
+        const projectDto = await projectService.createProject(project_attr);
+        await userService.addRoleById(user_id, {name: "PROJECT_MANAGER", project_id: projectDto.project_id});
+        res.status(201).send(projectDto);
+    } catch(err){
+        console.error(err);
         res.status(500).send({ error: "Internal Server Error" });
-        console.error(result.error);
     }
 };
 
-getProjectById = async (req, res) => {
-    const result = await projectService.getProjectById(req.params.project_id);
-
-    if (result.status == 200){
-        res.status(200).send({project: result.projectDto});
-    }
-    else if (result.status === 404) {
-        res.status(404).send({error: result.error});
-    } else if (result.status === 500) {
+getProjectDtoById = async (req, res) => {
+    try{
+        const projectDto = await projectService.getProjectDtoById(req.params.project_id);
+        if(projectDto){
+            res.status(200).send(projectDto);
+        }
+        else{
+            res.status(404).send({error: "Project not found"});
+        }
+    } catch(err){
         res.status(500).send({ error: "Internal Server Error" });
-        console.error(result.error)
+        console.error(err)
     }
 }
 
-getProjectByName = async (req, res) => {
-    const result = await projectService.getProjectByName(req.body.project_name);
-
-    if (result.status == 200){
-        res.status(200).send({project: result.projectDto});
-    }
-    else if (result.status === 404) {
-        res.status(404).send({error: result.error});
-    } else if (result.status === 500) {
+getProjectDtoByName = async (req, res) => {
+    try{
+        const projectDto = await projectService.getProjectDtoByName(req.params.name);
+        if(projectDto){
+            res.status(200).send(projectDto);
+        }
+        else{
+            res.status(404).send({error: "Project not found"});
+        }
+    } catch(err){
         res.status(500).send({ error: "Internal Server Error" });
-        console.error(result.error)
-    }
-}
-getUserProjects = async (req, res) => {
-    const result = await projectService.getUserProjects(req.params.project_id);
-    
-    if (result.status == 200){
-        res.status(200).send({project: result.projectDto});
-    }
-    else if (result.status === 404) {
-        res.status(404).send({error: result.error});
-    } else if (result.status === 500) {
-        res.status(500).send({ error: "Internal Server Error" });
-        console.error(result.error)
+        console.error(err)
     }
 }
 
-createProjects = async (req, res) => {
-    const project = await projectService.createProjects(req.body)
-    if(project.status === 201){
-        res.status(201).send(project.message);
+getUserProjectDtos = async (req, res) => {
+    try{
+        const user_id = req.user.data.user_id;
+        const projectDtos = await projectService.getUserProjectDtos(user_id);
+        res.status(200).send(projectDtos);
     }
-    else if (project.status === 500){
-        res.status(500).send({ message: project.message });
+    catch(err) {
+        res.status(500).send({ error: "Internal Server Error" });
+        console.error(err)
     }
-};
+}
+
 
 module.exports = {
     createProject,
-    createProjects,
-}
+    getProjectDtoById,
+    getProjectDtoByName,
+    getUserProjectDtos,
+};

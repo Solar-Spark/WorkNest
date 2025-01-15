@@ -1,5 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const { getUserById } = require('../services/user_service');
 
 const JWT_AUTH_SECRET = process.env.JWT_AUTH_SECRET;
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET;
@@ -7,33 +8,28 @@ const JWT_AUTH_EXPIRES = process.env.JWT_AUTH_EXPIRES;
 const JWT_REFRESH_EXPIRES = process.env.JWT_REFRESH_EXPIRES;
 
 const verifyAuthTokenMW = async (req, res, next) => {
-    const authHeader = req.headers.authorization;
+    try{
+        const authHeader = req.headers.authorization;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return res.status(401).json({ error: "Authorization required" });
-    }
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            res.status(403).json({ error: "auth_required" });
+        }
 
-    const token = authHeader.split(" ")[1];
-    const result = await verifyAuthToken(token);
-    if(result.status === 200){
-        req.user = result.decoded;
+        const token = authHeader.split(" ")[1];
+        req.user = await verifyAuthToken(token);
+
         next();
+    } catch(err){
+        if (err.name === "TokenExpiredError") {
+            res.status(401).send({error: "token_expired" });
+        }
+        res.status(401).send({error: "invalid_token" });
     }
-    else{
-        return res.status(result.status).json({ error: result.error });
-    }
+    
 };
 
 const verifyToken = async (token, secret) => {
-    try {
-        const decoded = await jwt.verify(token, secret);
-        return { status: 200, decoded: decoded };
-    } catch (err) {
-        if (err.name === "TokenExpiredError") {
-            return { status: 401, error: "Token expired" };
-        }
-        return { status: 403, error: "Invalid token" };
-    }
+    return jwt.verify(token, secret);
 };
 
 const verifyAuthToken = async (token) => {
@@ -48,11 +44,21 @@ const generateAuthToken = (data) => {
 const generateRefreshToken = (data) => {
     return jwt.sign({ data }, JWT_REFRESH_SECRET, { expiresIn: JWT_REFRESH_EXPIRES });
 }
-
+const generateTokenPair = async (user_id) => {
+    const user = await getUserById(user_id);
+    if(user){
+        data = { user_id: user.user_id };
+        return {authToken: generateAuthToken(data), refreshToken: generateRefreshToken(data)};
+    }
+    else{
+        throw new Error("user_not_found");
+    }
+}
 module.exports = {
     verifyAuthTokenMW,
     verifyAuthToken,
     generateAuthToken,
     generateRefreshToken,
     verifyRefreshToken,
+    generateTokenPair,
 }

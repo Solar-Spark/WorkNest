@@ -1,8 +1,5 @@
 import React from "react";
 import TaskCatList from "./tasks_cat_list";
-import AddTaskModal from "./add_task_modal";
-import axiosInstance from "../../configs/axios_instance";
-import { getTokenData } from "../../utils/jwt_util"
 
 class TasksBoard extends React.Component {
     constructor(props) {
@@ -12,49 +9,29 @@ class TasksBoard extends React.Component {
             tasks: [],
         };
     }
-
-    async getTasks() {
-        const user_id = getTokenData(localStorage.getItem("token")).user_id;
-        console.log(`user_id ${user_id}`)
-        if(user_id){
-            try {
-                const response = await axiosInstance.get(`/tasks/user/${user_id}`);
-                this.setState({ tasks: response.data});
-            } catch (error) {
-                console.error("Error fetching tasks:", error);
-            }
-        }
+    async componentDidMount() {
+        this.setState({tasks: await this.props.fetchTasks()});
     }
-
-    componentDidMount() {
-        console.log(this.state.user_id)
-        this.getTasks();
-    }
-
-    setAddTaskActive = (isActive) => {
-        this.getTasks();
-        this.setState({ addTaskActive: isActive });
+    fetchAndUpdateTasks = async () => {
+        const tasks = await this.props.fetchTasks();
+        this.setState({ tasks });
     };
-
     render() {
-        const { tasks, addTaskActive } = this.state;
+        const { tasks } = this.state;
+
+        const tasksByStatus = {
+            "To Do": tasks.filter(task => task.status === "To Do"),
+            "In Progress": tasks.filter(task => task.status === "In Progress"),
+            "Completed": tasks.filter(task => task.status === "Completed"),
+        };
 
         return (
             <div className="tasks-board">
                 <div className="categories-container">
-                    <AddTaskModal
-                        isActive={addTaskActive}
-                        onClose={() => this.setAddTaskActive(false)} 
-                    />
-                    <TaskCatList status="To Do" tasks={tasks} />
-                    <TaskCatList status="In Progress" tasks={tasks} />
-                    <TaskCatList status="Completed" tasks={tasks} />
+                    <TaskCatList status="To Do" tasks={tasksByStatus["To Do"]} />
+                    <TaskCatList status="In Progress" tasks={tasksByStatus["In Progress"]} />
+                    <TaskCatList status="Completed" tasks={tasksByStatus["Completed"]} />
                 </div>
-                <button
-                    className="blue-btn btn"
-                    onClick={() => this.setAddTaskActive(true)}>
-                    Add Task
-                </button>
             </div>
         );
     }

@@ -1,6 +1,6 @@
 import { jwtDecode } from 'jwt-decode';
 
-export function getTokenData(token){
+export const getTokenData = (token) => {
     try {
         const decoded = jwtDecode(token);
         return decoded;
@@ -8,4 +8,7 @@ export function getTokenData(token){
         console.error("Token decoding error:", error);
         return null;
     }
+}
+export const saveAuthToken = (token) => {
+    localStorage.setItem("authToken", token);
 }

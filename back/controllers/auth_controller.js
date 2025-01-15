@@ -1,11 +1,11 @@
 require('dotenv').config();
 const userService = require("../services/user_service");
 const { comparePassword } = require('../utils/password_util');
-const { generateAuthToken, generateRefreshToken, verifyRefreshToken} = require('../utils/jwt_util');
-const redis = require("../config/redis");
-const phoneService = require("../services/phone_service")
+const { verifyRefreshToken, generateTokenPair } = require('../utils/jwt_util');
+const phoneService = require("../services/phone_service");
+const redisService = require('../services/redis_service');
 
-function generateOTP(){
+function generateOTP() {
     return Math.floor(100000 + Math.random() * 900000).toString()
 }
 
@@ -22,14 +22,15 @@ const signIn = async (req, res) => {
         }
 
         const isPasswordValid = await comparePassword(password, user.password);
+
         if (isPasswordValid) {
             const otp = generateOTP();
-            await redis.setex(`otp:${user.username}`, 300, otp);
-            //await phoneService.sendOTP(user.phone_number, otp);
+            await redisService.setOtpByUsername(username, otp);
+            await phoneService.sendOTP(user.phone_number, otp);
             console.log(`otp: ${otp}`);
             res.status(200).send();
         } else {
-            res.status(401).send({ message: "Invalid Password" });
+            res.status(401).send({ error: "invalid_password" });
         }
     } catch (err) {
         console.error("Sign In Error: ", err.message);
@@ -38,73 +39,89 @@ const signIn = async (req, res) => {
 };
 
 const signUp = async (req, res) => {
-    const result = await userService.createUser(req.body);
-    if(result.status === 201){
-        res.status(201).send(result.userDto);
-    }
-    else if(result.status === 409){
-        res.status(409).send({ message: result.error });
-    }
-    else if(result.status === 500){
-        res.status(500).send({ message: "Internal Server Error" });
-        console.error(result.error)
+    try {
+        const userDto = await userService.createUser(req.body);
+        res.status(201).send(userDto);
+    } catch (err) {
+        if (err.message === "user_exists") {
+            res.status(409).send({ error: "User exists" });
+        }
+        else {
+            console.error("Sign Up Error: ", err.message);
+            res.status(500).send({ message: "Internal Server Error" });
+        }
     }
 };
 
-const verifyOTP = async(req, res) => {
-    try{
-        const savedOTP = await redis.get(`otp:${req.body.username}`);
-        const user = await userService.getUserByUsername(req.body.username);
-        if(req.body.otp === savedOTP){
-            await redis.del(`otp:${req.body.username}`);
-            const authToken = generateAuthToken({user_id: user.user_id});
-            const refreshToken = generateRefreshToken({user_id: user.user_id});
-            redis.setex(`refresh:${user.user_id}`, 60 * 24 * 60 * 60, refreshToken);
+const verifyOTP = async (req, res) => {
+    try {
+        const { username, otp } = req.body;
+
+        const savedOTP = await redisService.getOtpByUsername(username);
+        const user = await userService.getUserByUsername(username);
+
+        if (!savedOTP) {
+            res.status(400).send({ error: "2fa_expired" });
+        }
+
+        if (!user){
+            res.status(404).send({ error: "user_not_found" });
+        }
+
+        if (otp === savedOTP) {
+            await redisService.deleteOtpByUsername(username);
+            const { authToken, refreshToken } = await generateTokenPair(user.user_id);
+            await redisService.setRefreshTokenByUserId(user.user_id, refreshToken);
             res.cookie('refresh', refreshToken, {
                 httpOnly: true,
                 sameSite: 'Strict',
                 maxAge: 60 * 24 * 60 * 60 * 1000,
             });
-            res.status(200).send({auth: authToken });
+            res.status(200).send({ auth: authToken });
         }
-        else{
-            res.status(401).send({error: "Invalid code"});
+        else {
+            res.status(401).send({ error: "invalid_2fa_code" });
         }
-    } catch(err){
-        console.error("Sign In Error: ", err.message);
+    } catch (err) {
+        console.error("Verifying OTP Error: ", err.message);
         res.status(500).send({ error: "Internal Server Error" });
     }
 }
 
-const refresh = async(req, res) => {
-    try{
+const refresh = async (req, res) => {
+    try {
         const { refresh } = req.cookies;
+        
         if (!refresh) {
-            return res.status(401).json({ error: 'Refresh token not provided' });
+            return res.status(401).json({ error: 'refresh_token_needed' });
         }
-        const result = await verifyRefreshToken(refresh);
-        console.log(result);
-        if(result.status === 200){
-            const user_id = result.decoded.data.user_id;
-            const savedRefresh = await redis.get(`refresh:${user_id}`);
-            if(refresh === savedRefresh){
-                const authToken = generateAuthToken({user_id});
-                const refreshToken = generateRefreshToken({user_id});
-                redis.setex(`refresh:${user_id}`, 60 * 24 * 60 * 60, refreshToken);
-                res.cookie('refresh', refreshToken, {
-                    httpOnly: true,
-                    sameSite: 'Strict',
-                    maxAge: 60 * 24 * 60 * 60 * 1000,
-                });
-                res.status(200).send({ auth: authToken });
-            }
+
+        const tokenData = await verifyRefreshToken(refresh).data;
+        
+        const user_id = tokenData.user_id;
+        const savedRefresh = await redisService.getRefreshTokenByUserId(user_id);
+        
+        if (refresh === savedRefresh) {
+            const { authToken, refreshToken } = await generateTokenPair(user_id);
+            await redisService.setRefreshTokenByUserId(user_id, refreshToken);
+            
+            res.cookie('refresh', refreshToken, {
+                httpOnly: true,
+                sameSite: 'Strict',
+                maxAge: 60 * 24 * 60 * 60 * 1000,
+            });
+            
+            res.status(200).send({ auth: authToken });
         }
-        else{
-            res.status(401).send({error: result.error});
+    } catch (err) {
+        if(err.name === "TokenExpiredError"){
+            res.status(401).send({ error: "refresh_expired" });
         }
-    } catch(err){
+        else if(err.name === "JsonWebTokenError"){
+            res.status(400).send({ error: "invalid_refresh" });
+        }
+        res.status(500).send({ error: "refresh_error" });
         console.error("Refreshing error: ", err.message);
-        res.status(500).send({ error: "Internal Server Error" });
     }
 }
 module.exports = {
@@ -112,5 +129,4 @@ module.exports = {
     signUp,
     verifyOTP,
     refresh,
-//    createUsers,
 };

@@ -11,8 +11,9 @@ const auth_routes = require("./routes/auth_routes")
 const tasks_routes = require("./routes/tasks_routes")
 const teams_routes = require("./routes/teams_routes")
 const projects_routes = require("./routes/projects_routes")
+const users_routes = require("./routes/users_routes")
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://localhost:3000', credentials: true,}));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
@@ -23,6 +24,7 @@ app.use("/api/auth", auth_routes);
 app.use("/api/tasks", tasks_routes);
 app.use("/api/teams", teams_routes);
 app.use("/api/projects", projects_routes);
+app.use("/api/users", users_routes);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {

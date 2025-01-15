@@ -2,102 +2,92 @@ const Task = require('../models/task_model');
 const TaskDto = require("../dto/task_dto")
 
 createTask = async (task_attr) => {
-    try{
-        const task = new Task(task_attr);
-        await task.save();
-        const taskDto = new TaskDto(task); 
-        return {status : 201, task : taskDto};
-    }
-    catch(err){
-        return {status : 500, message : "Internal server error"}
-    }
+    const task = new Task(task_attr);
+    await task.save();
+    return new TaskDto(task); 
 }
-// getTaskDto = async (task_id) => {
-//     try {
-//         const task = await Task.findOne({ task_id: task_id });
 
-//         if (!task) {
-//             return { status: 404, message: 'Task not found' };
-//         }
+getTaskById = async (task_id) => { 
+    return await Task.findOne({task_id : task_id});
+}
 
-//         const taskDto = new TaskDto(task);
-//         return { status: 200, data: taskDto };
-    
-//     } catch (err) {
-//         console.error(`Error fetching task with id ${task_id}:`, err);
-//         return { status: 500, message: 'Internal server error' };
-//     }
-// };
-getTaskDtosByUserId = async (user_id) => {
-    try {
-        const tasks = await Task.find({assigned_to : user_id});
-        return {status : 200, tasks : tasks.map(task => new TaskDto(task))}
-    } catch(err) {
-        console.error(`Error fetching tasks with user id ${user_id}:`, err);
-        return { status: 500, message: 'Internal server error' };
+getTaskDtoById = async (task_id) => {
+    const task = await getTaskById(task_id);
+    if(task){
+        return null;
     }
+    return new TaskDto(task);
 };
-updateTask = async (task_id, task) =>{
-    try{
-        const existingTask = await Task.findOne({ task_id });
-        if (!existingTask) {
-            return { status: 404, message: `Task with ID ${task_id} not found` };
-        }
-        const isUpToDate = Object.keys(task).every(
-            (key) => existingTask[key] === task[key]
-        );
-        if (isUpToDate) {
-            return { status: 304, message: `Task with ID ${task_id} is already up to date` };
-        }
-        const status = await Task.updateOne(
-                                { task_id: task_id },
-                                { $set: task }
-                            ).status;
-                            
-        if(status.updatedCount > 0){
-            return {status : 200, message : `Task with ID ${task_id} updated successfully`}
-        }
-        else{
-            return {status : 500, message : `Failed to update task with ID ${task_id}`}
-        }
-    } catch(err){
-        console.error(`Error updating task with id ${task_id}`);
-        return { status: 500, message: 'Internal server error' };
-    }     
+
+getTasksById = async (task_id) => { 
+    return await Task.find({task_id : task_id});
 }
-deleteTask = async (task_id) => {
-    try{
-        const existingTask = await Task.findOne({ task_id });
-        if (!existingTask) {
-            return { status: 404, message: `Task with ID ${task_id} not found` };
-        }
-        const status = await Task.deleteOne({ task_id: task_id }).status;
-                            
-        if(status.deletedCount > 0){
-            return {status : 200, message : `Task with ID ${task_id} deleted successfully`}
-        }
-        else{
-            return {status : 500, message : `Failed to delete task with ID ${task_id}`}
-        }
-    } catch(err){
-        console.error(`Error deleting task with id ${task_id}`);
-        return { status: 500, message: 'Internal server error' };
-    }     
+
+getTaskDtosById = async (task_id) => {
+    const tasks = await getTasksById(task_id);
+    if(tasks.length === 0){
+        return [];
+    }
+    return tasks.map(task => new TaskDto(task));
+};
+
+getTasksByUserId = async (user_id) => { 
+    return await Task.find({assigned_to : user_id});
 }
-createTasks = async(tasks) => {
-    try{
-        await Task.insertMany(tasks);
-        return {status: 201, message: "Tasks created"}
+
+getTaskDtosByUserId = async (user_id) => {
+    const tasks = await getTasksByUserId(user_id);
+    if(tasks.length === 0){
+        return [];
     }
-    catch(err){
-        return {status : 500, message : "Internal server error"}
+    return tasks.map(task => new TaskDto(task));
+};
+
+getTasksByProjectId = async (project_id) => { 
+    return await Task.find({project_id: project_id});
+}
+
+getTaskDtosByProjectId = async (project_id) => {
+    const tasks = await getTasksByProjectId(project_id);
+    if(tasks.length === 0){
+        return [];
     }
+    return tasks.map(task => new TaskDto(task));
+};
+
+updateTaskById = async (task_id, task) => {
+    const existingTask = await getTasksById(task_id);
+    if (!existingTask) {
+        throw new Error("task_not_exists");
+    }
+    const isUpToDate = Object.keys(task).every(
+        (key) => existingTask[key] === task[key]
+    );
+    if (isUpToDate) {
+        throw new Error("task_is_up_to_date");
+    }
+    const result = await Task.updateOne({ task_id: task_id }, { $set: task });
+    if (result.modifiedCount > 0) {
+        return await getTaskById(task_id);
+    }                       
+}
+deleteTaskById = async (task_id) => {
+    const existingTask = await getTasksById(task_id);
+    if (!existingTask) {
+        throw new Error("task_not_exists");
+    }
+    return await Task.deleteOne({ task_id: task_id });
 }
 module.exports = {
     createTask,
-    //getTaskDto,
+    getTaskById,
+    getTaskDtoById,
+    getTasksById,
+    getTaskDtosById,
+    getTasksByUserId,
     getTaskDtosByUserId,
-    updateTask,
-    deleteTask,
-    createTasks,
+    getTasksByProjectId,
+    getTaskDtosByProjectId,
+    updateTaskById,
+    deleteTaskById,
 }
