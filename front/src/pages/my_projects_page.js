@@ -1,5 +1,5 @@
 import React from "react";
-import ProjectsList from "../components/projects/projects_list";
+import ProjectsList from "../components/main/projects/projects_list";
 
 class MyProjectsPage extends React.Component{
     
@@ -11,6 +11,7 @@ class MyProjectsPage extends React.Component{
                         My projects
                     </h2>
                     <ProjectsList/>
+                    
                 </div>
             </main>
         );

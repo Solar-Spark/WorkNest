@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
-import { signUp } from "../services/api/auth_service";
+import { signUp } from "../../services/api/auth_service";
 
 class SignUp extends React.Component{
     constructor(props){

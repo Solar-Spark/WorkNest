@@ -1,5 +1,5 @@
 import React from "react";
-import { verifyOTP } from "../services/api/auth_service";
+import { verifyOTP } from "../../services/api/auth_service";
 class VerifyOTP extends React.Component{
     constructor(props){
         super(props)

@@ -14,7 +14,7 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    created_by: {
+    manager: {
         type: Number,
         required: true
     },

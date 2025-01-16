@@ -7,4 +7,8 @@ router.use(jwt.verifyAuthTokenMW);
 
 router.post("/", teamsController.createTeam);
 
+router.get("/:team_id", teamsController.getTeamDtoById),
+
+router.get("/project/:project_id", teamsController.getTeamDtosByProjectId),
+
 module.exports = router

@@ -10,6 +10,16 @@ export const fetchProjects = async () => {
         return [];
     }
 }
+export const getProjectById = async (project_id) => {
+    try {
+        const response = await axiosInstance.get(`/projects/${project_id}`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error getting project:", error);
+        return [];
+    }
+}
 export const createProject = async(formData) => {
     try {
         const response = await axiosInstance.post(`/projects`, formData);

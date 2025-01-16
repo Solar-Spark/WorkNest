@@ -1,7 +1,7 @@
 import React from "react";
-import SignUp from "../components/sign_up";
-import SignIn from "../components/sign_in";
-import VerifyOTP from "../components/verify_otp";
+import SignUp from "../components/auth/sign_up";
+import SignIn from "../components/auth/sign_in";
+import VerifyOTP from "../components/auth/verify_otp";
 
 class Auth extends React.Component{
     constructor(props) {

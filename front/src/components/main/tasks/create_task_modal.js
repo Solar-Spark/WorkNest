@@ -1,18 +1,24 @@
 import React from "react";
-import { createProject } from "../../services/api/project_service";
+import { createTask } from "../../../services/api/task_service";
 
-class CreateProjectModal extends React.Component {
+class CreateTaskModal extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            statuses: ["To Do", "In Progress", "Completed"],
             formData: {
                 name: "",
+                project_id: "",
                 description: "",
+                deadline: "",
+                status: "To Do",
+                priority: "hot",
+                assigned_to: 151,
+                team_id: 1,
             },
             errorText: "",
         }
     }
-
     handleChange = (e) => {
         const { name, value } = e.target;
         this.setState((prevState) => ({
@@ -24,15 +30,22 @@ class CreateProjectModal extends React.Component {
     };
 
     validateForm = () => {
-        console.log(this.state.formData);
         return !Object.values(this.state.formData).some(value => value === null || value === undefined || value === "");
     }
 
     handleSubmit = async (e) => {
             e.preventDefault();
-        
+            console.log(this.state.formData);
+            if(this.props.project){
+                await this.setState((prevState) => ({
+                    formData: {
+                        ...prevState.formData,
+                        project_id: Number(sessionStorage.getItem("project_id")),
+                    },
+                }));
+            }
             if (this.validateForm()) {
-                const result = await createProject(this.state.formData);
+                const result = await createTask(this.state.formData);
                 switch(result.status){
                     case 201:
                         this.props.onClose();
@@ -58,10 +71,10 @@ class CreateProjectModal extends React.Component {
                 >
                     X
                 </button>
-                <h1>Create Project</h1>
+                <h1>Create Task</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className="input-field input-text-field">
-                        <label>Project name</label>
+                        <label>Task name</label>
                         <br />
                         <input
                             type="text"
@@ -72,7 +85,7 @@ class CreateProjectModal extends React.Component {
                         <br />
                     </div>
                     <div className="input-field input-text-field">
-                        <label>Project description</label>
+                        <label>Task description</label>
                         <br />
                         <textarea
                             name="description"
@@ -82,7 +95,32 @@ class CreateProjectModal extends React.Component {
                         />
                         <br />
                     </div>
-                    <input type="submit" value="Create Project" className="submit-btn btn"/>
+                    <div className="input-field">
+                        <label>Select deadline</label>
+                        <br />
+                        <input
+                            type="datetime-local"
+                            value={this.state.formData.deadline}
+                            name="deadline"
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                    <div className="input-field">
+                        <label>Select status</label>
+                        <br />
+                        <select
+                            name="status"
+                            value={this.state.formData.status}
+                            onChange={this.handleChange}
+                        >
+                            {this.state.statuses.map((status, index) => (
+                                <option key={index} value={status}>
+                                    {status}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <input type="submit" value="Create Task" className="submit-btn btn"/>
                 </form>
             </div>
         </div>
@@ -90,4 +128,4 @@ class CreateProjectModal extends React.Component {
     }
 }
 
-export default CreateProjectModal;
+export default CreateTaskModal;

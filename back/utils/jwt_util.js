@@ -12,7 +12,7 @@ const verifyAuthTokenMW = async (req, res, next) => {
         const authHeader = req.headers.authorization;
 
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
-            res.status(403).json({ error: "auth_required" });
+            return res.status(403).json({ error: "auth_required" });
         }
 
         const token = authHeader.split(" ")[1];
@@ -21,9 +21,9 @@ const verifyAuthTokenMW = async (req, res, next) => {
         next();
     } catch(err){
         if (err.name === "TokenExpiredError") {
-            res.status(401).send({error: "token_expired" });
+            return res.status(401).send({error: "token_expired" });
         }
-        res.status(401).send({error: "invalid_token" });
+        return res.status(401).send({error: "invalid_token" });
     }
     
 };

@@ -34,7 +34,6 @@ axiosInstance.interceptors.response.use(
     (response) => response,
     async (error) => {
         const originalRequest = error.config;
-
         if (error.response?.status === 401 && !originalRequest._retry) {
             const errorCode = error.response?.data?.error;
             if (errorCode === "token_expired") {
@@ -68,12 +67,13 @@ axiosInstance.interceptors.response.use(
                 window.location.href = '/auth';
             }
         }
-        else if(error.response?.status === 500){
-            const errorCode = error.response?.data?.error;
-            
-            if(errorCode === "refresh_error"){
-                window.location.href = '/auth';
-            }
+        else if (error.response?.status >= 500) {
+            window.location.href = '/server-error';
+        }
+        if (error.code === 'ECONNABORTED') {
+            alert("Server doesn't response. Check your connection and retry");
+        } else if (!error.response) {
+            alert("Can't connect to the server. Check your internet connection");
         }
     }
 );

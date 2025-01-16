@@ -1,5 +1,5 @@
 import React from "react";
-import { signIn } from "../services/api/auth_service";
+import { signIn } from "../../services/api/auth_service";
 
 class SignIn extends React.Component{
     constructor(props){

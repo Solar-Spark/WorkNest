@@ -89,12 +89,23 @@ footer{
     width: fit-content;
     padding: 5px 10px;
     border-radius: 5px;
+    position: relative;
+    cursor: pointer;
 }
 .navbar-item a{
     color: black;
 }
 .navbar-item:hover{
     background-color: #cbe7ff;
+}
+.navbar-opened-item{
+    position: absolute;
+    top: 120%;
+    box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.1);
+    background-color: #eef8ff;
+    padding: 20px 20px;
+    border-radius: 10px;
+    min-width: 400px;
 }
 .login-btn{
     margin: 0;
@@ -210,6 +221,10 @@ main{
 
 /* Tasks Board*/
 
+.tasks-board-create{
+    display: flex;
+}
+
 .tasks-board{
     width: 100%;
     margin: 40px 0;
@@ -226,6 +241,8 @@ main{
 .btn{
     margin: 10px;
     margin-left: auto;
+    height: fit-content;
+    cursor: pointer;
 }
 
 /* 9. Tasks Category List */
@@ -254,7 +271,19 @@ main{
 .elements-list-item h4, p{
     margin: 0;
 }
-
+.nav-elements-list-item{
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: #d4ebff;
+}
+.nav-elements-list-item:hover{
+    background-color: #cbe7ff;
+    cursor: pointer;
+}
+.nav-elements-list-item h4, p{
+    margin: 0;
+}
 /* 11. Modal  */
 
 .modal-overlay{

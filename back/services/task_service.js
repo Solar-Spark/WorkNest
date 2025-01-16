@@ -5,11 +5,11 @@ createTask = async (task_attr) => {
     const task = new Task(task_attr);
     await task.save();
     return new TaskDto(task); 
-}
+};
 
 getTaskById = async (task_id) => { 
     return await Task.findOne({task_id : task_id});
-}
+};
 
 getTaskDtoById = async (task_id) => {
     const task = await getTaskById(task_id);
@@ -21,7 +21,7 @@ getTaskDtoById = async (task_id) => {
 
 getTasksById = async (task_id) => { 
     return await Task.find({task_id : task_id});
-}
+};
 
 getTaskDtosById = async (task_id) => {
     const tasks = await getTasksById(task_id);
@@ -33,7 +33,7 @@ getTaskDtosById = async (task_id) => {
 
 getTasksByUserId = async (user_id) => { 
     return await Task.find({assigned_to : user_id});
-}
+};
 
 getTaskDtosByUserId = async (user_id) => {
     const tasks = await getTasksByUserId(user_id);
@@ -45,7 +45,7 @@ getTaskDtosByUserId = async (user_id) => {
 
 getTasksByProjectId = async (project_id) => { 
     return await Task.find({project_id: project_id});
-}
+};
 
 getTaskDtosByProjectId = async (project_id) => {
     const tasks = await getTasksByProjectId(project_id);
@@ -56,7 +56,7 @@ getTaskDtosByProjectId = async (project_id) => {
 };
 
 updateTaskById = async (task_id, task) => {
-    const existingTask = await getTasksById(task_id);
+    const existingTask = await getTaskById(task_id);
     if (!existingTask) {
         throw new Error("task_not_exists");
     }
@@ -70,14 +70,15 @@ updateTaskById = async (task_id, task) => {
     if (result.modifiedCount > 0) {
         return await getTaskById(task_id);
     }                       
-}
+};
+
 deleteTaskById = async (task_id) => {
-    const existingTask = await getTasksById(task_id);
+    const existingTask = await getTaskById(task_id);
     if (!existingTask) {
         throw new Error("task_not_exists");
     }
     return await Task.deleteOne({ task_id: task_id });
-}
+};
 module.exports = {
     createTask,
     getTaskById,
@@ -90,4 +91,4 @@ module.exports = {
     getTaskDtosByProjectId,
     updateTaskById,
     deleteTaskById,
-}
+};

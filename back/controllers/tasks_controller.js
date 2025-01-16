@@ -9,15 +9,15 @@ createTask = async (req, res) => {
         if(roles.some(role => 
             role.name === "PROJECT_MANAGER" && role.project_id === req.body.project_id)){
             const taskDto = await taskService.createTask(req.body)
-            res.status(201).send(taskDto);
-            phoneService.notifyCreateTask(taskDto);
+            await phoneService.notifyCreateTask(taskDto);
+            return res.status(201).send(taskDto);
         }
         else{
-            res.status(403).send({error: "forbidden"});
+            return res.status(403).send({error: "forbidden"});
         }
     } catch(err){
-        res.status(500).send({error: "Internal Server Error"});
         console.error(`Error creating task: ${err}`)
+        return res.status(500).send({error: "Internal Server Error"});
     }
 };
 
@@ -26,14 +26,14 @@ getTaskDtoById = async (req,res) => {
         const task_id = req.params.task_id;
         const taskDto = await taskService.getTaskById(task_id);
         if(taskDto){
-            res.status(200).send(taskDto);
+            return res.status(200).send(taskDto);
         }
         else{
-            res.status(404).send({error: "Task Not Found"});
+            return res.status(404).send({error: "Task Not Found"});
         }
     } catch(err){
-        res.status(500).send({error: "Internal Server Error"});
         console.error(`Error getting taskDto: ${err}`)
+        return res.status(500).send({error: "Internal Server Error"});
     }
 }
 
@@ -41,20 +41,20 @@ getTaskDtosByUserId = async (req, res) => {
     try{
         const user_id = req.user.data.user_id;
         const taskDtos = await taskService.getTaskDtosByUserId(user_id);
-        res.status(200).json(taskDtos);
+        return res.status(200).json(taskDtos);
     } catch(err){
-        res.status(500).send({error: "Internal Server Error"});
         console.error(`Error getting taskDtos: ${err}`)
+        return res.status(500).send({error: "Internal Server Error"});
     }
 };
 getTaskDtosByProjectId = async (req, res) => {
     try{
         const project_id = req.params.project_id;
         const taskDtos = await taskService.getTaskDtosByProjectId(project_id);
-        res.status(200).json(taskDtos);
+        return res.status(200).json(taskDtos);
     } catch(err){
-        res.status(500).send({error: "Internal Server Error"});
         console.error(`Error getting taskDtos: ${err}`)
+        return res.status(500).send({error: "Internal Server Error"});
     }
 };
 
@@ -62,18 +62,16 @@ updateTaskById = async (req, res) => {
     try{
         const { task_id } = req.params;
         const taskDto = await taskService.updateTaskById(task_id, req.body);
-        res.status(200).json({ taskDto });
+        return res.status(200).json({ taskDto });
     } catch(err){
         switch(err.message){
             case "task_not_exists":
-                res.status(404).send({error: "Task Not Found"});
-                break;
+                return res.status(404).send({error: "Task Not Found"});
             case "task_is_up_to_date":
-                res.status(304).send({error: "Task Is Up-To-Date"});
-                break;
+                return res.status(304).send({error: "Task Is Up-To-Date"});
             default:
-                res.status(500).send({error: "Internal Server Error"});
                 console.error(`Error getting taskDtos: ${err}`)
+                return res.status(500).send({error: "Internal Server Error"});
         }
     }
 };
@@ -81,15 +79,14 @@ updateTaskById = async (req, res) => {
 deleteTaskById = async (req, res) => {
     try{
         await taskService.deleteTaskById(req.params.task_id);
-        res.status(200).send();
+        return res.status(200).send();
     } catch(err){
         switch(err.message){
             case "task_not_exists":
-                res.status(404).send({error: "Task Not Found"});
-                break;
+                return res.status(404).send({error: "Task Not Found"});
             default:
-                res.status(500).send({error: "Internal Server Error"});
                 console.error(`Error getting taskDtos: ${err}`)
+                return res.status(500).send({error: "Internal Server Error"});
         }
     }
 

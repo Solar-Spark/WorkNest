@@ -32,7 +32,7 @@ getProjectById = async (project_id) => {
     return await Project.findOne({ project_id });
 }
 getProjectDtoById = async (project_id) => {
-    const project = await this.getProjectById(project_id);
+    const project = await getProjectById(project_id);
     if(!project){
         return null;
     }
@@ -42,7 +42,7 @@ getProjectByName = async (name) => {
     return await Project.findOne({ name });
 }
 getProjectDtoByName = async (name) => {
-    const project = await this.getProjectByName(name);
+    const project = await getProjectByName(name);
     if(!project){
         return null;
     }

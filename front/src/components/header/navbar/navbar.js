@@ -1,5 +1,5 @@
 import React from "react";
-
+import NavbarItem from "./navbar_item";
 class Navbar extends React.Component {
     constructor(props) {
         super(props);
@@ -20,12 +20,8 @@ class Navbar extends React.Component {
         return (
             <nav className="navbar">
                 <ul className="navbar-items">
-                    <li className="navbar-item">
-                        <a href="/tasks">My Tasks</a>
-                    </li>
-                    <li className="navbar-item">
-                        <a href="/projects">My Projects</a>
-                    </li>
+                    <NavbarItem link="/tasks" title="My Tasks"/>
+                    <NavbarItem link="/projects" isComplex={true} title="My Projects"/>
                 </ul>
                 {this.state.token !== null ? (
                     <button className="logout-btn btn" onClick={this.handleLogout}>Log Out</button>

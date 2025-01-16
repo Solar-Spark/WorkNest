@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchProjects } from "../../services/api/project_service";
+import { fetchProjects } from "../../../services/api/project_service";
 import CreateProjectModal from "./create_project_modal";
 
 class ProjectsList extends React.Component{
@@ -10,9 +10,11 @@ class ProjectsList extends React.Component{
             createProjectActive: false,
         }
     }
+
     async componentDidMount() {
-        this.setState({projects: await fetchProjects()});
+        this.setState({ projects: await fetchProjects()});
     }
+
     setCreateProjectActive = async (isActive) => {
         this.setState({ projects: await fetchProjects(), createProjectActive: isActive });
     };
@@ -25,29 +27,24 @@ class ProjectsList extends React.Component{
         const { projects, createProjectActive } = this.state;
         return(
             <div className="projects-list">
+                <CreateProjectModal 
+                    isActive={createProjectActive}
+                    onClose={async () => await this.setCreateProjectActive(false)}
+                />
+                <ul className="nav-elements-list">
+                    {projects.map((item, index) => (
+                        <li key={index} className="nav-elements-list-item" onClick={() => this.manageProject(item.project_id)}>
+                            <h4>{item.name}</h4>
+                            <p>{item.description}</p>
+                            <h4>Manager: {item.manager.username}</h4>
+                        </li>
+                    ))}
+                </ul>
                 <button
                     className="blue-btn btn"
                     onClick={async () => await this.setCreateProjectActive(true)}>
                     Create Project
                 </button>
-                <CreateProjectModal 
-                    isActive={createProjectActive}
-                    onClose={async () => await this.setCreateProjectActive(false)}
-                />
-                <ul className="elements-list">
-                    {projects.map((item, index) => (
-                        <li key={index} className="elements-list-item">
-                            <h4>{item.name}</h4>
-                            <p>{item.description}</p>
-                            <h4>Manager: {item.created_by.username}</h4>
-                            <button
-                                className="blue-btn btn"
-                                onClick={() => this.manageProject(item.project_id)}>
-                                Manage project
-                            </button>
-                        </li>
-                    ))}
-                </ul>
             </div>
         );
     }

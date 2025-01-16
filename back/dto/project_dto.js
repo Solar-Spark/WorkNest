@@ -5,12 +5,12 @@ class ProjectDto {
         this.project_id = project.project_id;
         this.name = project.name;
         this.description = project.description;
-        this.created_by = userDto;
+        this.manager = userDto;
         this.created_at = project.created_at;
     }
 
     static async create(project) {
-        const userDto = await getUserDtoById(project.created_by);
+        const userDto = await getUserDtoById(project.manager);
         return new ProjectDto(project, userDto);
     }
 }
