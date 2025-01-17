@@ -13,7 +13,7 @@ getTeamById = async (team_id) => {
 
 getTeamDtoById = async (team_id) => {
     const team = await getTeamById(team_id);
-    if(team){
+    if(!team){
         return null;
     }
     return await TeamDto.create(team);

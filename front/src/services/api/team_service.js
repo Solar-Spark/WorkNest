@@ -21,3 +21,4 @@ export const getTeamsByProjectId = async (project_id) => {
         return [];
     }
 }
+

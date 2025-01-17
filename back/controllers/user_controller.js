@@ -1,4 +1,5 @@
 const userService = require("../services/user_service")
+const teamService = require("../services/team_service")
 
 getUserDtoById = async (req, res) => {
     try{
@@ -30,8 +31,35 @@ getUserDtoByUsername = async (req, res) => {
     }
 }
 
+getUserDtosByIds = async (req, res) => {
+    try{
+        const ids = req.query.ids;
+        if(ids){
+            const userDtos = await userService.getUserDtosByIds(ids);
+            return res.status(200).send(userDtos);
+        } 
+    } catch(err){
+        console.error(err);
+        return res.status(500).send("Internal Server Error");
+    }
+}
+
+getUserDtosByTeamId = async (req, res) => {
+    try{
+        const team_id = req.params.team_id;
+        const team = await teamService.getTeamDtoById(team_id);
+        const ids = team.members;
+        const userDtos = await userService.getUserDtosByIds(ids);
+        return res.status(200).send(userDtos);
+    } catch(err){
+        console.error(err);
+        return res.status(500).send("Internal Server Error");
+    }
+}
+
 module.exports = {
     getUserDtoById,
     getUserDtoByUsername,
-    
+    getUserDtosByIds,
+    getUserDtosByTeamId
 }

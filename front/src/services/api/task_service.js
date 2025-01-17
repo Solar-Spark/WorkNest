@@ -39,3 +39,21 @@ export const createTask = async (formData) => {
         return {error: "Error creating task"};
     }
 }
+export const updateTask = async (task) => {
+    try {
+        const response = await axiosInstance.put(`/tasks/${task.task_id}`, task);
+        console.log(response.data);
+    } catch (error) {
+        console.error("Error creating task:", error);
+        return {error: "Error creating task"};
+    }
+}
+export const deleteTaskById = async (task_id) => {
+    try {
+        const response = await axiosInstance.delete(`/tasks/${task_id}`);
+        console.log(response.data);
+    } catch (error) {
+        console.error("Error deleting task:", error);
+        return {error: "Error creating task"};
+    }
+}

@@ -41,7 +41,7 @@ class ProjectPage extends React.Component{
                         <CreateTaskModal
                             isActive={addTaskActive}
                             onClose={async() => await this.setAddTaskActive(false)}
-                            project={true}
+                            project={project}
                         />
                         <TasksBoard ref={this.tasksBoardRef} fetchTasks={async () => {return await fetchProjectTasks(this.state.project.project_id)}}/>
                         <button

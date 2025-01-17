@@ -23,6 +23,19 @@ getUserDtoById = async (user_id) => {
     }
     return new UserDto(user);
 }
+
+getUsersByIds = async (ids) => {
+    return await User.find({user_id: {$in : ids}});
+}
+
+getUserDtosByIds = async (ids) => {
+    const users = await getUsersByIds(ids);
+    if(users.length === 0){
+        return [];
+    }
+    return users.map(user => new UserDto(user));
+}
+
 createUser = async (user_attr) => {
     const existingUser = await User.findOne({
         $or: [{ username: user_attr.username }, { email: user_attr.email }]
@@ -55,4 +68,6 @@ module.exports = {
     addRoleById,
     getUserDtoById,
     getRolesById,
+    getUsersByIds,
+    getUserDtosByIds,
 }
