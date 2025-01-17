@@ -60,7 +60,14 @@ getRolesById = async (user_id) => {
         throw new Error("user_not_found");
     }  
 };
-
+deleteRoleById = async (user_id, role) => {
+    const user = await getUserById(user_id);
+    if(!user){
+        throw new Error("user_not_found");
+    }
+    user.roles = user.roles.filter((userRole) => !(userRole.name === role.name && userRole.project_id === role.project_id));
+    await User.save(user);
+}
 module.exports = {
     createUser,
     getUserByUsername,

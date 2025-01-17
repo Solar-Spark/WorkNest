@@ -69,12 +69,12 @@ deleteProjectById = async (req, res) => {
     try {
         const user_id = req.user.data.user_id;
         const project_id = parseInt(req.params.project_id);
-
         const userRoles = await userService.getRolesById(user_id);
         const hasPermission = userRoles.some((role) => role.name === "PROJECT_MANAGER" && role.project_id === project_id);
-        
+
         if (hasPermission) {
             await projectService.deleteProjectById(project_id);
+            await userService.deleteRoleById(user_id, {name: "PROJECT_MANAGER", project_id: project_id});
             return res.status(200).send();
         }
         else {
@@ -85,6 +85,8 @@ deleteProjectById = async (req, res) => {
         switch (err.message) {
             case "project_not_exists":
                 return res.status(404).send({ error: "Project Not Found" });
+            case "user_not_found":
+                return res.status(404).send({ error: "User Not Found" });
             default:
                 console.error(`Error deleting project: ${err}`)
                 return res.status(500).send({ error: "Internal Server Error" });

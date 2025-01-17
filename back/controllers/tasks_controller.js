@@ -78,8 +78,21 @@ updateTaskById = async (req, res) => {
 
 deleteTaskById = async (req, res) => {
     try{
-        await taskService.deleteTaskById(req.params.task_id);
-        return res.status(200).send();
+        const user_id = req.user.data.user_id;
+        const task_id = parseInt(req.params.task_id);
+        const taskDto = await taskService.getTaskDtoById(task_id);
+        
+        const project_id = taskDto.project_id;
+        const userRoles = await userService.getRolesById(user_id);
+        const hasPermission = userRoles.some((role) => role.name === "PROJECT_MANAGER" && role.project_id === project_id);
+        
+        if (hasPermission) {
+            await taskService.deleteTaskById(req.params.task_id);
+            return res.status(200).send();
+        }
+        else {
+            return res.status(403).send({ error: "forbidden" });
+        }
     } catch(err){
         switch(err.message){
             case "task_not_exists":

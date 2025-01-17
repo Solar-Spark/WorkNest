@@ -13,7 +13,7 @@ getTaskById = async (task_id) => {
 
 getTaskDtoById = async (task_id) => {
     const task = await getTaskById(task_id);
-    if(task){
+    if(!task){
         return null;
     }
     return new TaskDto(task);
