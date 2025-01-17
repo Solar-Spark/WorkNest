@@ -3,7 +3,7 @@ import TasksBoard from "../components/main/tasks/tasks_board"
 import TeamsList from "../components/main/teams/teams_list";
 import { fetchProjectTasks } from "../services/api/task_service";
 import CreateTaskModal from "../components/main/tasks/create_task_modal";
-import { getProjectById } from "../services/api/project_service";
+import { deleteProjectById, getProjectById } from "../services/api/project_service";
 class ProjectPage extends React.Component{
     constructor(props){
         super(props);
@@ -26,6 +26,10 @@ class ProjectPage extends React.Component{
         this.updateTasks();
         this.setState({ addTaskActive: isActive });
     };
+    deleteProject = async () => {
+        await deleteProjectById(this.state.project.project_id);
+        window.location.href = '/tasks';
+    }
     render(){
         const { addTaskActive, project } = this.state;
         if (!project) {
@@ -51,6 +55,7 @@ class ProjectPage extends React.Component{
                         </button>
                     </div>
                     <TeamsList project_id={Number(sessionStorage.getItem("project_id"))} header="Project teams"/>
+                    <button onClick={this.deleteProject} className="red-btn btn">Delete Project</button>
                 </div>
             </main>
         );

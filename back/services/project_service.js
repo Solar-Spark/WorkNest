@@ -1,6 +1,5 @@
 const Project = require("../models/project_model")
 const ProjectDto = require("../dto/project_dto")
-const userService = require("../services/user_service")
 
 createProject = async (project_attr) => {
     const project = new Project(project_attr);
@@ -8,20 +7,13 @@ createProject = async (project_attr) => {
     return await ProjectDto.create(project);
 }
 
-getUserProjects = async (user_id) =>{
-    const user = await userService.getUserById(user_id);
-    const projectIds = [];
-    user.roles.forEach(role => {
-        if(role.name === "PROJECT_MANAGER"){
-            projectIds.push(role.project_id);
-        }
-    });
-    const projects = await Project.find({ project_id: { $in: projectIds } });
+getProjectsByIds = async (ids) =>{
+    const projects = await Project.find({ project_id: { $in: ids } });
     return projects;
 }
 
-getUserProjectDtos = async (user_id) =>{
-    const projects = await getUserProjects(user_id);
+getProjectDtosByIds = async (ids) =>{
+    const projects = await getProjectsByIds(ids);
     if(projects.length === 0){
         return [];
     }
@@ -48,13 +40,20 @@ getProjectDtoByName = async (name) => {
     }
     return await ProjectDto.create(project);
 }
-
+deleteProjectById = async (project_id) => {
+    const existingProject = await getProjectById(project_id);
+    if (!existingProject) {
+        throw new Error("project_not_exists");
+    }
+    return await Project.deleteOne({ project_id: project_id });
+}
 module.exports = {
     createProject,
-    getUserProjects,
-    getUserProjectDtos,
+    getProjectsByIds,
+    getProjectDtosByIds,
     getProjectById,
     getProjectDtoById,
     getProjectByName,
-    getProjectDtoByName
+    getProjectDtoByName,
+    deleteProjectById,
 }

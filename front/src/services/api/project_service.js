@@ -34,3 +34,11 @@ export const createProject = async(formData) => {
         return {error: "Error creating project"};
     }
 }
+export const deleteProjectById = async(project_id) => {
+    try {
+        const response = await axiosInstance.delete(`/projects/${project_id}`);
+        console.log(response.data);
+    } catch (error) {
+        console.error("Error Deleting project:", error);
+    }
+}

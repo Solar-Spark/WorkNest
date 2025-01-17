@@ -95,7 +95,7 @@ class CreateTaskModal extends React.Component {
                             <br />
                             <input
                                 type="text"
-                                value={this.state.formData.name}
+                                value={null}
                                 name="name"
                                 onChange={this.handleChange}
                             />
@@ -106,7 +106,7 @@ class CreateTaskModal extends React.Component {
                             <br />
                             <textarea
                                 name="description"
-                                value={this.state.formData.description}
+                                value={null}
                                 rows="5"
                                 onChange={this.handleChange}
                             />
@@ -157,7 +157,7 @@ class CreateTaskModal extends React.Component {
                             <br />
                             <input
                                 type="datetime-local"
-                                value={this.state.formData.deadline}
+                                value={null}
                                 name="deadline"
                                 onChange={this.handleChange}
                             />
@@ -167,7 +167,7 @@ class CreateTaskModal extends React.Component {
                             <br />
                             <select
                                 name="status"
-                                value={this.state.formData.status}
+                                value={null}
                                 onChange={this.handleChange}
                             >
                                 {this.state.statuses.map((status, index) => (
