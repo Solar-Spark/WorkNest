@@ -16,6 +16,9 @@ Content:
 10. Elements List
 11. Modal
 12. Buttons
+13. Dropdown input
+14. Dynamic List
+
 */
 
 
@@ -369,7 +372,7 @@ main{
     background-color: #41aaff;
     border: none;
     border-radius: 5px;
-    max-width: fit-content;
+    width: fit-content;
 }
 .close-btn{
     max-width: none;
@@ -385,4 +388,60 @@ main{
 .red-btn{
     color: #f1f9ff;
     background-color: #ff4141;
+}
+
+/* 13. Dropdown input */
+
+.dropdown-input{
+    position: relative;
+    
+}
+
+.dropdown-input-items{
+    position: absolute;
+    padding: 20px 10px;
+    max-height: 300px;
+    width: 100%;
+    overflow: auto;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    border: 2px solid #dfdfdf;
+    border-top: none;
+}
+
+.dropdown-input-item{
+    padding: 10px;
+}
+
+.dropdown-input-item:hover{
+    background-color: #eeeeee;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.dropdown-input-not-found{
+    padding: 10px;
+}
+
+/* 14. Dynamic List */
+
+.dynamic-list-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+.dynamic-list-item h4{
+    margin: 0;
+}
+.dynamic-list-item .btn{
+    width: 40px;
+    height: 40px;
+}
+.dynamic-list-item .btn *{
+    margin: 0;
+    padding: 0;
 }

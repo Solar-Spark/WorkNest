@@ -58,20 +58,20 @@ const verifyOTP = async (req, res) => {
         const { username, otp } = req.body;
 
         const savedOTP = await redisService.getOtpByUsername(username);
-        const user = await userService.getUserByUsername(username);
+        const userDto = await userService.getUserDtoByUsername(username);
 
         if (!savedOTP) {
             return res.status(400).send({ error: "2fa_expired" });
         }
 
-        if (!user){
+        if (!userDto){
             return res.status(404).send({ error: "user_not_found" });
         }
 
         if (otp === savedOTP) {
             await redisService.deleteOtpByUsername(username);
-            const { authToken, refreshToken } = await generateTokenPair(user.user_id);
-            await redisService.setRefreshTokenByUserId(user.user_id, refreshToken);
+            const { authToken, refreshToken } = await generateTokenPair(userDto.user_id);
+            await redisService.setRefreshTokenByUserId(userDto.user_id, refreshToken);
             res.cookie('refresh', refreshToken, {
                 httpOnly: true,
                 sameSite: 'Strict',
@@ -123,9 +123,24 @@ const refresh = async (req, res) => {
         return res.status(500).send({ error: "refresh_error" });
     }
 }
+const logOut = async (req, res) => {
+    try {
+        const { user_id } = req.user.data;
+        const savedRefresh = await redisService.getRefreshTokenByUserId(user_id);
+        if (!savedRefresh){
+            return res.status(403).send({ error: "user_logged_out" });
+        }
+        await redisService.deleteRefreshTokenByUserId(user_id);
+        return res.status(200).send();
+    } catch (err) {
+        console.error("Logging out Error: ", err.message);
+        return res.status(500).send({ error: "Internal Server Error" });
+    }
+}
 module.exports = {
     signIn,
     signUp,
     verifyOTP,
     refresh,
+    logOut,
 };

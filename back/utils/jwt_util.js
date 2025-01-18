@@ -1,6 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const { getUserById } = require('../services/user_service');
+const { getUserDtoById } = require('../services/user_service');
 
 const JWT_AUTH_SECRET = process.env.JWT_AUTH_SECRET;
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET;
@@ -8,7 +8,7 @@ const JWT_AUTH_EXPIRES = process.env.JWT_AUTH_EXPIRES;
 const JWT_REFRESH_EXPIRES = process.env.JWT_REFRESH_EXPIRES;
 
 const verifyAuthTokenMW = async (req, res, next) => {
-    try{
+    try {
         const authHeader = req.headers.authorization;
 
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -19,13 +19,13 @@ const verifyAuthTokenMW = async (req, res, next) => {
         req.user = await verifyAuthToken(token);
 
         next();
-    } catch(err){
+    } catch (err) {
         if (err.name === "TokenExpiredError") {
-            return res.status(401).send({error: "token_expired" });
+            return res.status(401).send({ error: "token_expired" });
         }
-        return res.status(401).send({error: "invalid_token" });
+        return res.status(401).send({ error: "invalid_token" });
     }
-    
+
 };
 
 const verifyToken = async (token, secret) => {
@@ -45,12 +45,12 @@ const generateRefreshToken = (data) => {
     return jwt.sign({ data }, JWT_REFRESH_SECRET, { expiresIn: JWT_REFRESH_EXPIRES });
 }
 const generateTokenPair = async (user_id) => {
-    const user = await getUserById(user_id);
-    if(user){
-        data = { user_id: user.user_id };
-        return {authToken: generateAuthToken(data), refreshToken: generateRefreshToken(data)};
+    const userDto = await getUserDtoById(user_id);
+    if (userDto) {
+        data = { user_id };
+        return { authToken: generateAuthToken(data), refreshToken: generateRefreshToken(data) };
     }
-    else{
+    else {
         throw new Error("user_not_found");
     }
 }

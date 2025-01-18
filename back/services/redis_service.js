@@ -13,12 +13,16 @@ getRefreshTokenByUserId = async (user_id) => {
     return await redis.get(`refresh:${user_id}`);
 }
 setRefreshTokenByUserId = async (user_id, refreshToken) => {
-    return redis.setex(`refresh:${user_id}`, 60 * 24 * 60 * 60, refreshToken);
+    return await redis.setex(`refresh:${user_id}`, 60 * 24 * 60 * 60, refreshToken);
+}
+deleteRefreshTokenByUserId = async (user_id) => {
+    return await redis.del(`refresh:${user_id}`);
 }
 module.exports = {
     getOtpByUsername,
     getRefreshTokenByUserId,
     setRefreshTokenByUserId,
+    deleteRefreshTokenByUserId,
     deleteOtpByUsername,
     setOtpByUsername,
 }

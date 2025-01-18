@@ -84,8 +84,9 @@ deleteTaskById = async (req, res) => {
         
         const project_id = taskDto.project_id;
         const userRoles = await userService.getRolesById(user_id);
-        const hasPermission = userRoles.some((role) => role.name === "PROJECT_MANAGER" && role.project_id === project_id);
-        
+        const hasProjectManagerRole = userRoles.some((role) => role.name === "PROJECT_MANAGER" && role.project_id === project_id);
+        const hasTeamLeadRole = userRoles.some((role) => role.name === "TEAM_LEAD" && role.team_id === team_id);
+        const hasPermission = hasProjectManagerRole || hasTeamLeadRole;
         if (hasPermission) {
             await taskService.deleteTaskById(req.params.task_id);
             return res.status(200).send();

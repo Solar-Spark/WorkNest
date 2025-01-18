@@ -14,6 +14,10 @@ class TeamsList extends React.Component{
             this.setState({teams: await getTeamsByProjectId(this.props.project_id)});
         }
     }
+    fetchAndUpdateTeams = async () => {
+        const teams = await this.props.fetchTeams();
+        this.setState({ teams });
+    };
     setCreateProjectActive = async (isActive) => {
         if(this.props.project_id){
             this.setState({teams: await getTeamsByProjectId(this.props.project_id)});

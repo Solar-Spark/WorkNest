@@ -1,4 +1,5 @@
 import React from "react";
+import { hasProjectManagerRole, hasTeamLeadRole } from "../../../services/currentUserInfoService";
 
 class TaskCatList extends React.Component {
     handleDragStart = (e, task_id) => {
@@ -35,7 +36,7 @@ class TaskCatList extends React.Component {
                             <p>{item.description}</p>
                             <br />
                             <p><b>Deadline:</b> {new Date(item.deadline).toLocaleDateString()}</p>
-                            <button className="btn red-btn" onClick={() => this.props.deleteItem(item.task_id)}>Delete</button>
+                            {(hasProjectManagerRole(item.project_id) || hasTeamLeadRole(item.team_id)) && <button className="btn red-btn" onClick={() => this.props.deleteItem(item.task_id)}>Delete</button>}
                         </li>
                     ))}
                 </ul>

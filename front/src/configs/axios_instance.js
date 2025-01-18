@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { logIn } from '../services/api/auth_service';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:5000/api',
@@ -10,9 +11,9 @@ const refreshAuthToken = async () => {
         const response = await axiosInstance.post("auth/refresh", {});
 
         const authToken = response.data.auth;
-
-        localStorage.setItem('authToken', authToken);
-
+        
+        await logIn(authToken);
+        
         return authToken;
     } catch (error) {
         console.error('Failed to refresh access token:', error);
@@ -39,7 +40,6 @@ axiosInstance.interceptors.response.use(
             if (errorCode === "token_expired") {
                 originalRequest._retry = true;
                 try {
-                    console.log(errorCode);
                     const newToken = await refreshAuthToken();
                     originalRequest.headers.Authorization = `Bearer ${newToken}`;
                     return axiosInstance(originalRequest);

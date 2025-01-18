@@ -35,3 +35,14 @@ export const getUsersByTeamId = async (team_id) => {
         return [];
     }
 }
+
+export const searchUserByUsername = async (prompt) => {
+    try {
+        const response = await axiosInstance.post(`users/search`, { prompt });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error getting team members:", error);
+        return [];
+    }
+}

@@ -11,7 +11,7 @@ getUserDtoByUsername = async (username) => {
     if(!user){
         return null;
     }
-    return await new UserDto(User.findOne({ username: username }));
+    return await new UserDto(user);
 }
 getUserById = async (user_id) => {
     return await User.findOne({ user_id });
@@ -66,15 +66,29 @@ deleteRoleById = async (user_id, role) => {
         throw new Error("user_not_found");
     }
     user.roles = user.roles.filter((userRole) => !(userRole.name === role.name && userRole.project_id === role.project_id));
-    await User.save(user);
+    await User.updateOne({user_id: user.user_id}, {$set: {roles: user.roles}});
 }
+
+searchUsersByUsername = async (prompt) => {
+    return await User.find({username: {$regex: prompt}}).limit(20);
+}
+
+searchUserDtosByUsername = async (prompt) => {
+    const users = await searchUsersByUsername(prompt);
+    return users.map(user => new UserDto(user));
+}
+
 module.exports = {
     createUser,
     getUserByUsername,
+    getUserDtoByUsername,
     getUserById,
     addRoleById,
     getUserDtoById,
     getRolesById,
     getUsersByIds,
     getUserDtosByIds,
+    deleteRoleById,
+    searchUsersByUsername,
+    searchUserDtosByUsername,
 }

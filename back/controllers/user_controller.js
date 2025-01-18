@@ -57,9 +57,24 @@ getUserDtosByTeamId = async (req, res) => {
     }
 }
 
+searchUserDtosByUsername = async (req, res) => {
+    try{
+        const { prompt } = req.body;
+        if(!prompt){
+            return res.status(200).send([]);
+        }
+        const userDtos = await userService.searchUserDtosByUsername(prompt);
+        return res.status(200).send(userDtos);
+    } catch(err){
+        console.error(err);
+        return res.status(500).send("Internal Server Error");
+    }
+}
+
 module.exports = {
     getUserDtoById,
     getUserDtoByUsername,
     getUserDtosByIds,
-    getUserDtosByTeamId
+    getUserDtosByTeamId,
+    searchUserDtosByUsername
 }
