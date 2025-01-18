@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-class DynamicList extends Component {
+class DynamicTeamMembersList extends Component {
   render() {
-    const { title, items, onDelete } = this.props;
+    const { title, items, onDelete, lead } = this.props;
 
     return (
       <div className="dynamic-list">
@@ -11,11 +11,10 @@ class DynamicList extends Component {
           {items.map((item) => (
             <li key={item.id} >
               <div className="dynamic-list-item">
-                <h4>{item.username}</h4>
+                <h4>{item.username} {(item.id === lead) && " (Team Lead) "}</h4>
                 <button
                   onClick={() => onDelete(item.id)}
                   className="red-btn btn"
-                  style={{ marginLeft: "10px" }}
                 >
                   X
                 </button>
@@ -28,4 +27,4 @@ class DynamicList extends Component {
   }
 }
 
-export default DynamicList;
+export default DynamicTeamMembersList;

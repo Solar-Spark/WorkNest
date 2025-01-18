@@ -30,7 +30,7 @@ class Navbar extends React.Component {
                 </ul>
                 <p>{username}</p>
                 {this.state.token !== null ? (
-                    <button className="blue-btn btn" onClick={async () => {await this.handleLogout()}}>Log Out</button>
+                    <button className="blue-btn btn" onClick={async () => { await this.handleLogout() }}>Log Out</button>
                 ) : (
                     <button className="blue-btn btn" onClick={this.handleLogin}>Log In</button>
                 )}

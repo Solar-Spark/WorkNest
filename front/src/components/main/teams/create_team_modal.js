@@ -2,7 +2,7 @@ import React from "react";
 import { createTeam } from "../../../services/api/team_service";
 import DropdownWithInput from "../../input/dropdown_input";
 import { searchUserByUsername } from "../../../services/api/user_service";
-import DynamicList from "../../input/dynamic_list";
+import DynamicTeamMembersList from "./dynamic_team_members_list";
 
 class CreateTeamModal extends React.Component {
   constructor(props) {
@@ -10,18 +10,18 @@ class CreateTeamModal extends React.Component {
     this.state = {
       formData: {
         name: "",
-        members: [], // Хранит только user_id участников
+        members: [],
         project_id: this.props.project.project_id,
-        lead: null, // user_id лида команды
+        lead: null,
       },
-      members: [], // Хранит объекты пользователей для отображения в списке
+      members: [],
       errorText: "",
     };
   }
 
   handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      event.preventDefault(); // Предотвращает отправку формы
+      event.preventDefault();
     }
   };
 
@@ -46,7 +46,7 @@ class CreateTeamModal extends React.Component {
     e.preventDefault();
 
     if (this.validateForm()) {
-      const result = await createTeam(this.state.formData); // Отправляем formData с user_id
+      const result = await createTeam(this.state.formData);
       switch (result.status) {
         case 201:
           this.props.onClose();
@@ -59,36 +59,43 @@ class CreateTeamModal extends React.Component {
     }
   };
 
-  // Добавление пользователя в список
   handleAddMember = (user) => {
-    this.setState((prevState) => ({
-      formData: {
-        ...prevState.formData,
-        members: [...prevState.formData.members, user.user_id], // Только user_id
-      },
-      members: [...prevState.members, user], // Сохраняем объект для отображения
-    }));
+    if(!this.state.members.some((member) => member.user_id === user.user_id)){
+        this.setState((prevState) => ({
+            formData: {
+              ...prevState.formData,
+              members: [...prevState.formData.members, user.user_id],
+            },
+            members: [...prevState.members, user],
+          }));
+    }
   };
 
-  // Добавление лида
   handleAddLead = (user) => {
     this.setState((prevState) => ({
       formData: {
         ...prevState.formData,
-        lead: user.user_id, // Сохраняем user_id лида
+        lead: user.user_id,
       },
     }));
     this.handleAddMember(user);
   };
 
-  // Удаление пользователя из списка
-  handleRemoveMember = (userId) => {
+  handleRemoveMember = (user_id) => {
+    if(user_id === this.state.formData.lead){
+        this.setState((prevState) => ({
+            formData: {
+                ...prevState.formData,
+                lead: null,
+              }
+        }));
+    }
     this.setState((prevState) => ({
       formData: {
         ...prevState.formData,
-        members: prevState.formData.members.filter((id) => id !== userId), // Удаляем user_id
+        members: prevState.formData.members.filter((id) => id !== user_id),
       },
-      members: prevState.members.filter((user) => user.user_id !== userId), // Удаляем объект
+      members: prevState.members.filter((user) => user.user_id !== user_id),
     }));
   };
 
@@ -96,6 +103,7 @@ class CreateTeamModal extends React.Component {
     if (!this.props.isActive) {
       return null;
     }
+    const { lead } = this.state.formData;
     return (
       <div className="modal-overlay">
         <div className="modal-content">
@@ -115,19 +123,21 @@ class CreateTeamModal extends React.Component {
               />
               <br />
             </div>
-            <div className="input-field input-text-field">
-              <label>Team lead</label>
-              <DropdownWithInput
-                search={async (prompt) => {
-                  const users = await searchUserByUsername(prompt);
-                  return users.map((user) => ({
-                    text: user.username,
-                    value: user,
-                  }));
-                }}
-                onSelect={this.handleAddLead}
-              />
-            </div>
+            {!this.state.formData.lead &&
+                <div className="input-field input-text-field">
+                    <label>Team lead</label>
+                    <DropdownWithInput
+                        search={async (prompt) => {
+                        const users = await searchUserByUsername(prompt);
+                        return users.map((user) => ({
+                            text: user.username,
+                            value: user,
+                        }));
+                        }}
+                        onSelect={this.handleAddLead}
+                    />
+                </div>
+            }
             <div className="input-field input-text-field">
               <label>Team members</label>
               <DropdownWithInput
@@ -141,12 +151,13 @@ class CreateTeamModal extends React.Component {
                 onSelect={this.handleAddMember}
               />
             </div>
-            <DynamicList
+            <DynamicTeamMembersList
               title="Team members"
               items={this.state.members.map((user) => ({
                 id: user.user_id,
                 username: user.username,
               }))}
+              lead={lead}
               onDelete={this.handleRemoveMember}
             />
             <input type="submit" value="Create Team" className="submit-btn btn" />

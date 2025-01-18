@@ -36,3 +36,33 @@ export const createTeam = async (team) => {
         return {error: "Error creating team"};
     }
 }
+
+export const updateTeam = async (team) => {
+    try {
+        const response = await axiosInstance.put(`/teams/${team.team_id}`, team);
+        switch(response.status){
+            case 200:
+                return { status: 200 };
+            default:
+                return {status: response.status, error: response.data.error};
+        }
+    } catch (error) {
+        console.error("Error updating team:", error);
+        return {error: "Error updating team"};
+    }
+}
+
+export const deleteTeamById = async (team_id) => {
+    try {
+        const response = await axiosInstance.delete(`/teams/${team_id}`);
+        switch(response.status){
+            case 200:
+                return { status: 200 };
+            default:
+                return {status: response.status, error: response.data.error};
+        }
+    } catch (error) {
+        console.error("Error deleting team:", error);
+        return {error: "Error deleting team"};
+    }
+}

@@ -16,8 +16,7 @@ export const getUserInfoById = async (user_id) => {
 
 export const getUsersByIds = async (ids) => {
     try {
-        const params = { ids: ids.join(',') };
-        const response = await axiosInstance.get(`/users`, { params });
+        const response = await axiosInstance.post(`/users/ids`, { ids });
         console.log(response.data);
         return response.data;
     } catch (error) {

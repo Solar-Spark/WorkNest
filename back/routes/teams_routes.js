@@ -7,6 +7,10 @@ router.use(jwt.verifyAuthTokenMW);
 
 router.post("/", teamsController.createTeam);
 
+router.put("/:team_id", teamsController.updateTeamById);
+
+router.delete("/:team_id", teamsController.deleteTeamById);
+
 router.get("/:team_id", teamsController.getTeamDtoById),
 
 router.get("/project/:project_id", teamsController.getTeamDtosByProjectId),

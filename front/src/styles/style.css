@@ -182,7 +182,7 @@ footer{
 /* 6. Main Block */
 
 main{
-    padding: 0 50px;
+    padding: 50px 50px;
     margin: 60px auto;
     width: 95%;
     border-radius: 15px;
@@ -191,9 +191,6 @@ main{
     flex-grow: 1;
 }
 
-.main-title{
-    margin-top: 40px;
-}
 .main-title h2{
     font-weight: 500;
     margin: 0;
@@ -203,23 +200,26 @@ main{
 
 .block-navbar-items{
     display: flex;
+    gap: 10px;
     justify-content: left;
     margin: 0;
 }
 .block-navbar-item{
-    padding: 0 5px;
+    padding: 10px;
+    background-color: #cbe7ff;
+    border-radius: 5px;
     font-size: 11pt;
 }
 .block-navbar-items .selected{
-    font-weight: 600;
-    color: #0058a0;
+    background-color: #bcdffd;
 }
 .block-navbar-item:hover{
-    color: #00345f;
-    font-weight: 600;
+    background-color: #bcdffd;
+    cursor: pointer;
 }
 .block-navbar{
-    margin-top: 20px;
+    margin: 20px 0;
+    padding: 0;
 }
 
 /* Tasks Board*/
@@ -373,6 +373,7 @@ main{
     border: none;
     border-radius: 5px;
     width: fit-content;
+    white-space: nowrap;
 }
 .close-btn{
     max-width: none;
@@ -390,6 +391,10 @@ main{
     background-color: #ff4141;
 }
 
+#delete-project{
+    margin-top: 20px;
+}
+
 /* 13. Dropdown input */
 
 .dropdown-input{
@@ -403,6 +408,7 @@ main{
     max-height: 300px;
     width: 100%;
     overflow: auto;
+    z-index: 1001;
     border-radius: 5px;
     background-color: #f7f7f7;
     border: 2px solid #dfdfdf;
@@ -437,10 +443,7 @@ main{
 .dynamic-list-item h4{
     margin: 0;
 }
-.dynamic-list-item .btn{
-    width: 40px;
-    height: 40px;
-}
+
 .dynamic-list-item .btn *{
     margin: 0;
     padding: 0;

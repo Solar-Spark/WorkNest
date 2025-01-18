@@ -10,22 +10,49 @@ class DropdownWithInput extends Component {
     };
 
     this.dropdownRef = React.createRef();
+    this.searchTimeout = null;
   }
 
-  handleKeyDown = async (event) => {
-    const inputValue = event.target.value;
-    if (event.key === "Enter") {
-      const options = await this.props.search(inputValue);
-      this.setState({ filteredOptions: options, isOpen: true });
+  componentDidMount() {
+    document.addEventListener("click", this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClickOutside);
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
     }
-    this.setState({ inputValue });
+  }
+
+  handleClickOutside = (event) => {
+    if (this.dropdownRef.current && !this.dropdownRef.current.contains(event.target)) {
+      this.setState({ isOpen: false });
+    }
+  };
+
+  handleInputChange = (event) => {
+    const inputValue = event.target.value;
+    this.setState({ inputValue, isOpen: true });
+
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
+    }
+
+    this.searchTimeout = setTimeout(async () => {
+      if (inputValue.trim() !== "") {
+        const options = await this.props.search(inputValue);
+        this.setState({ filteredOptions: options });
+      } else {
+        this.setState({ filteredOptions: [] });
+      }
+    }, this.props.searchDelay || 500);
   };
 
   handleOptionClick = (option) => {
-    this.props.onSelect(option.value); // Передаем весь объект пользователя
+    this.props.onSelect(option.value);
     this.setState({ isOpen: false });
-    if(this.props.clearOnEntered){
-        this.setState({inputValue: ""});
+    if (this.props.clearOnEntered) {
+      this.setState({ inputValue: "" });
     }
   };
 
@@ -33,12 +60,11 @@ class DropdownWithInput extends Component {
     const { inputValue, filteredOptions, isOpen } = this.state;
 
     return (
-      <div className="dropdown-input input-field input-text-field" ref={this.dropdownRef}>
+      <div className="dropdown-input" ref={this.dropdownRef}>
         <input
           type="text"
           value={inputValue}
-          onKeyDown={this.handleKeyDown}
-          onChange={(e) => this.setState({ inputValue: e.target.value })}
+          onChange={this.handleInputChange}
           placeholder="Type to search..."
           className="dropdown-input-text"
         />

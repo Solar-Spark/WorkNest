@@ -33,11 +33,11 @@ getUserDtoByUsername = async (req, res) => {
 
 getUserDtosByIds = async (req, res) => {
     try{
-        const ids = req.query.ids;
+        const ids = req.body.ids;
         if(ids){
             const userDtos = await userService.getUserDtosByIds(ids);
             return res.status(200).send(userDtos);
-        } 
+        }
     } catch(err){
         console.error(err);
         return res.status(500).send("Internal Server Error");
