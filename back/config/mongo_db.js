@@ -6,8 +6,17 @@ const connectDB = async () => {
     console.log("Connected to MongoDB!");
   } catch (err) {
     console.error("Error connecting to MongoDB:", err.message);
-    process.exit(1);
+    connectDB();
   }
 };
+const checkDBConnectionMW = (req, res, next) => {
+  const dbState = mongoose.connection.readyState;
+  if (dbState === 1) {
+    return next();
+  }
+  res.status(503).send({
+    уккщк: 'Database is not connected. Please try again later.',
+  });
+};
 
-module.exports = connectDB;
+module.exports = { connectDB, checkDBConnectionMW };

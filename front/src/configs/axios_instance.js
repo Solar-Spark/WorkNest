@@ -52,6 +52,7 @@ axiosInstance.interceptors.response.use(
             else if(errorCode === "refresh_expired"){
                 window.location.href = '/auth';
             }
+            return Promise.reject(error);
         }
         else if(error.response?.status === 400){
             const errorCode = error.response?.data?.error;

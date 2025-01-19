@@ -41,18 +41,23 @@ class SignIn extends React.Component{
 
     handleSubmit = async (e) => {
         e.preventDefault();
-    
+      
         if (this.validateForm()) {
+          try {
             const signInResult = await signIn(this.state.formData);
-            switch(signInResult.status){
-                case 200:
-                    this.props.onStepChange('verifyOtp', {username: this.state.formData.username});
-                    break;
-                default:
-                    break;
+      
+            if (signInResult.status === 200) {
+              this.props.onStepChange('verifyOtp', { username: this.state.formData.username });
+            } else {
+              this.setState({ errorText: signInResult.error || "An unexpected error occurred" });
             }
+          } catch (error) {
+            console.error("Unexpected error in handleSubmit:", error);
+            this.setState({ errorText: "An unexpected error occurred. Please try again later." });
+          }
         }
-    };
+      };
+      
     render(){
         return(
             <div className="sign-in auth-form">

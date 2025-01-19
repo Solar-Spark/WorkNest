@@ -82,13 +82,14 @@ deleteTaskById = async (req, res) => {
         const task_id = parseInt(req.params.task_id);
         const taskDto = await taskService.getTaskDtoById(task_id);
         
-        const project_id = taskDto.project_id;
+        const { team_id, project_id } = taskDto;
+
         const userRoles = await userService.getRolesById(user_id);
         const hasProjectManagerRole = userRoles.some((role) => role.name === "PROJECT_MANAGER" && role.project_id === project_id);
         const hasTeamLeadRole = userRoles.some((role) => role.name === "TEAM_LEAD" && role.team_id === team_id);
         const hasPermission = hasProjectManagerRole || hasTeamLeadRole;
         if (hasPermission) {
-            await taskService.deleteTaskById(req.params.task_id);
+            await taskService.deleteTaskById(task_id);
             return res.status(200).send();
         }
         else {
@@ -103,7 +104,6 @@ deleteTaskById = async (req, res) => {
                 return res.status(500).send({error: "Internal Server Error"});
         }
     }
-
 };
 
 module.exports = {

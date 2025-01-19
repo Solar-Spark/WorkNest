@@ -1,6 +1,8 @@
 import React from "react";
 import TaskCatList from "./tasks_cat_list";
 import { deleteTaskById, updateTask } from "../../../services/api/task_service";
+import { fetchProjectTasks } from "../../../services/api/task_service";
+import CreateTaskModal from "./create_task_modal";
 
 class TasksBoard extends React.Component {
     constructor(props) {
@@ -8,11 +10,12 @@ class TasksBoard extends React.Component {
         this.state = {
             addTaskActive: false,
             tasks: [],
+            project: this.props.project,
         };
     }
 
     async componentDidMount() {
-        this.setState({ tasks: await this.props.fetchTasks() });
+        this.fetchAndUpdateTasks();
     }
 
     fetchAndUpdateTasks = async () => {
@@ -24,6 +27,10 @@ class TasksBoard extends React.Component {
         await deleteTaskById(task_id);
         this.fetchAndUpdateTasks();
     }
+    setAddTaskActive = async (isActive) => {
+        await this.fetchAndUpdateTasks();
+        this.setState({ addTaskActive: isActive });
+    };
 
     handleTaskDrop = async (task_id, newStatus) => {
         for(const task of this.state.tasks){
@@ -45,13 +52,20 @@ class TasksBoard extends React.Component {
     };
 
     render() {
-        const { tasks } = this.state;
+        const { tasks, addTaskActive, project } = this.state;
+
+        const { addTaskEnabled } = this.props;
 
         const tasksByStatus = {
             "To Do": tasks.filter((task) => task.status === "To Do"),
             "In Progress": tasks.filter((task) => task.status === "In Progress"),
             "Completed": tasks.filter((task) => task.status === "Completed"),
         };
+        const classByStatus = {
+            "To Do" : "blue",
+            "In Progress": "yellow",
+            "Completed": "green"
+        }
 
         return (
             <div className="tasks-board">
@@ -61,11 +75,27 @@ class TasksBoard extends React.Component {
                             key={status}
                             status={status}
                             tasks={tasksByStatus[status]}
+                            additionalClass={classByStatus[status]}
                             onTaskDrop={(task_id) => this.handleTaskDrop(task_id, status)}
                             deleteItem={(task_id) => this.deleteTask(task_id)}
                         />
                     ))}
                 </div>
+                {addTaskEnabled && 
+                <span>
+                    <CreateTaskModal
+                        isActive={addTaskActive}
+                        onClose={async () => await this.setAddTaskActive(false)}
+                        project={project}
+                    />
+                    <button
+                        className="blue-btn btn"
+                        onClick={async () => await this.setAddTaskActive(true)}
+                    >
+                        Add Task
+                    </button>
+                </span>
+                }
             </div>
         );
     }

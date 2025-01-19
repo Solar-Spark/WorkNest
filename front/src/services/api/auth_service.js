@@ -3,26 +3,42 @@ import { getTokenData, saveAuthToken, removeAuthToken } from "../../utils/jwt_ut
 
 export const signIn = async (formData) => {
     try {
-        await axiosInstance.post(`/auth/sign_in`, { username: formData.username, password: formData.password });
+      const response = await axiosInstance.post(`/auth/sign_in`, {
+        username: formData.username,
+        password: formData.password,
+      });
+  
+      if (response.status === 200) {
         return { status: 200 };
+      }
+  
+      return { error: "Log in error, try later" };
     } catch (error) {
-        console.error("Error fetching tasks:", error);
-        if (error.response) {
-            switch (error.response.status) {
-                case 404:
-                    return { status: error.response.status, error: "User not found" };
-
-                case 401:
-                    return { status: error.response.status, error: "Invalid login or password" };
-
-                default:
-                    console.error("Data send error: ", error);
-                    return { status: error.response.status, error: "Invalid login or password" }
-            }
+      console.error("Error logging in:", error);
+  
+      if (error.response && error.response.status) {
+        const { status } = error.response;
+  
+        if (status === 401) {
+          return { status: 401, error: "Invalid login or password" };
         }
-        return [];
+  
+        if (status === 404) {
+          return { status: 404, error: "User not found" };
+        }
+  
+        return { error: "Log in error, try later" };
+      }
+  
+      if (error.request) {
+        return { error: "No response from server. Please check your connection." };
+      }
+  
+      return { error: "An unexpected error occurred. Please try again." };
     }
-}
+  };
+  
+  
 export const signUp = async (formData) => {
     try {
         const response = await axiosInstance.post("/auth/sign_up", formData);

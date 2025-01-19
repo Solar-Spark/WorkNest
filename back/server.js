@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const connectDB = require('./config/mongo_db');
+const { connectDB, checkDBConnectionMW } = require('./config/mongo_db');
 const app = express();
 
 const auth_routes = require("./routes/auth_routes")
@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 connectDB();
 
+app.use(checkDBConnectionMW);
 app.use("/api/auth", auth_routes);
 app.use("/api/tasks", tasks_routes);
 app.use("/api/teams", teams_routes);

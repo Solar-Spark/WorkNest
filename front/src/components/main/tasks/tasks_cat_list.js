@@ -19,7 +19,7 @@ class TaskCatList extends React.Component {
         const { status, tasks } = this.props;
         return (
             <div
-                className="tasks-cat-list"
+                className={`tasks-cat-list ${this.props.additionalClass}`}
                 onDragOver={this.handleDragOver}
                 onDrop={this.handleDrop}
             >
@@ -33,10 +33,11 @@ class TaskCatList extends React.Component {
                             onDragStart={(e) => this.handleDragStart(e, item.task_id)}
                         >
                             <h4>{item.name}</h4>
-                            <p>{item.description}</p>
+                            <p className="task-description">{item.description}</p>
                             <br />
+                            <p>Priority: {item.priority}</p>
                             <p><b>Deadline:</b> {new Date(item.deadline).toLocaleDateString()}</p>
-                            {(hasProjectManagerRole(item.project_id) || hasTeamLeadRole(item.team_id)) && <button className="btn red-btn" onClick={() => this.props.deleteItem(item.task_id)}>Delete</button>}
+                            {(hasProjectManagerRole(item.project_id) || hasTeamLeadRole(item.team_id)) && <button className="btn red-btn delete-task-btn" onClick={() => this.props.deleteItem(item.task_id)}>Delete</button>}
                         </li>
                     ))}
                 </ul>

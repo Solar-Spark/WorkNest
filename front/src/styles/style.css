@@ -19,6 +19,11 @@ Content:
 13. Dropdown input
 14. Dynamic List
 
+---------
+
+Animations
+
+
 */
 
 
@@ -109,6 +114,9 @@ footer{
     padding: 20px 20px;
     border-radius: 10px;
     min-width: 400px;
+}
+.nav-username{
+    margin: 0 20px;
 }
 .login-btn{
     margin: 0;
@@ -231,6 +239,9 @@ main{
 .tasks-board{
     width: 100%;
     margin: 40px 0;
+    padding: 20px;
+    border-radius: 20px;
+    background: linear-gradient(#5fb7ff, #0069be);
     display: flex;
     flex-direction: column;
     max-width: fit-content;
@@ -259,17 +270,31 @@ main{
     height: fit-content;
     width: 300px;
 }
+.tasks-cat-list.green{
+    background-color: #bcffc2;
+}
+.tasks-cat-list.yellow{
+    background-color: #fff8bc;
+}
+.tasks-cat-list.blue{
+    background-color: #bcfffc;
+}
 .tasks-cat-list h3::before{
     content: "#";
+}
+
+.task-description{
+    overflow-wrap: break-word;
 }
 
 /* 10. Elements List */
 
 .elements-list-item{
     padding: 10px 20px;
-    border: 2px solid black;
     border-radius: 10px;
     margin: 10px 0;
+    background-color: #eef8ff;
+    box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.1);
 }
 .elements-list-item h4, p{
     margin: 0;
@@ -305,9 +330,19 @@ main{
     position: relative;
     background-color: white;
     padding: 50px;
+    max-height: 90%;
     border-radius: 8px;
     width: 80%;
     max-width: 1000px;
+    overflow: auto;
+}
+.modal-content::-webkit-scrollbar {
+    padding: 5px 0;
+    background-color: rgba(0,0,0,0);
+}
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 10px;
 }
 .modal-content .submit-btn{
     display: block;
@@ -391,6 +426,12 @@ main{
     background-color: #ff4141;
 }
 
+.delete-task-btn{
+    display: block;
+    margin-right: 0;
+    margin-left: auto;
+}
+
 #delete-project{
     margin-top: 20px;
 }
@@ -436,7 +477,7 @@ main{
     justify-content: space-between;
     align-items: center;
     padding: 5px 20px;
-    border: 2px solid black;
+    box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.1);
     border-radius: 10px;
     margin: 10px 0;
 }
@@ -447,4 +488,36 @@ main{
 .dynamic-list-item .btn *{
     margin: 0;
     padding: 0;
+}
+
+
+/* ------------- */
+
+/*  Animations  */
+
+.tasks-board {
+    animation: opacity-anim 1s forwards;
+}
+
+.modal-overlay{
+    animation: opacity-anim 0.5s forwards;
+}
+
+.dynamic-list-item{
+    animation: opacity-anim 1s forwards;
+}
+
+.nav-elements-list-item{
+    animation: opacity-anim 1s forwards;
+}
+.navbar-opened-item{
+    animation: opacity-anim 0.5s forwards;
+}
+@keyframes opacity-anim{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }

@@ -28,7 +28,7 @@ class Navbar extends React.Component {
                     <NavbarItem link="/tasks" title="My Tasks" />
                     <NavbarItem link="/projects" isComplex={true} title="My Projects" />
                 </ul>
-                <p>{username}</p>
+                <p className="nav-username">{username}</p>
                 {this.state.token !== null ? (
                     <button className="blue-btn btn" onClick={async () => { await this.handleLogout() }}>Log Out</button>
                 ) : (

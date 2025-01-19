@@ -1,13 +1,14 @@
 import React from "react";
 import { createTask } from "../../../services/api/task_service";
 import { getTeamsByProjectId } from "../../../services/api/team_service";
-import { getUsersByIds, getUsersByTeamId } from "../../../services/api/user_service";
+import { getUsersByTeamId } from "../../../services/api/user_service";
 
 class CreateTaskModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             statuses: ["To Do", "In Progress", "Completed"],
+            priorities: ["low", "medium", "high"],
             formData: {
                 name: "",
                 project_id: this.props.project.project_id,
@@ -46,7 +47,20 @@ class CreateTaskModal extends React.Component {
     validateForm = () => {
         return !Object.values(this.state.formData).some(value => value === null || value === undefined || value === "");
     }
-
+    handleClose = () => {
+        this.setState({formData: {
+                name: "",
+                project_id: this.props.project.project_id,
+                description: "",
+                deadline: "",
+                status: "To Do",
+                priority: "low",
+                assigned_to: null,
+                team_id: null,
+            }
+        });
+        this.props.onClose()
+    }
     handleSubmit = async (e) => {
         e.preventDefault();
         console.log(this.state.formData);
@@ -61,7 +75,7 @@ class CreateTaskModal extends React.Component {
             const result = await createTask(this.state.formData);
             switch (result.status) {
                 case 201:
-                    this.props.onClose();
+                    this.handleClose();
                     break;
                 default:
                     this.setState({ errorText: result.error });
@@ -84,7 +98,7 @@ class CreateTaskModal extends React.Component {
                 <div className="modal-content">
                     <button
                         className="btn close-btn"
-                        onClick={this.props.onClose}
+                        onClick={this.handleClose}
                     >
                         X
                     </button>
@@ -173,6 +187,21 @@ class CreateTaskModal extends React.Component {
                                 {this.state.statuses.map((status, index) => (
                                     <option key={index} value={status}>
                                         {status}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="input-field">
+                            <label>Select priority</label>
+                            <br />
+                            <select
+                                name="priority"
+                                value={null}
+                                onChange={this.handleChange}
+                            >
+                                {this.state.priorities.map((priority, index) => (
+                                    <option key={index} value={priority}>
+                                        {priority.charAt(0).toUpperCase() + priority.slice(1)}
                                     </option>
                                 ))}
                             </select>
