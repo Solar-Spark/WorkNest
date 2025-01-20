@@ -3,12 +3,15 @@ import TaskCatList from "./tasks_cat_list";
 import { deleteTaskById, updateTask } from "../../../services/api/task_service";
 import { fetchProjectTasks } from "../../../services/api/task_service";
 import CreateTaskModal from "./create_task_modal";
+import ManageTaskModal from "./manage_task_modal";
 
 class TasksBoard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             addTaskActive: false,
+            manageTaskActive: false,
+            manageTask: null,
             tasks: [],
             project: this.props.project,
         };
@@ -22,8 +25,8 @@ class TasksBoard extends React.Component {
         const tasks = await this.props.fetchTasks();
         this.setState({ tasks });
     };
-    
-    deleteTask = async (task_id) =>{
+
+    deleteTask = async (task_id) => {
         await deleteTaskById(task_id);
         this.fetchAndUpdateTasks();
     }
@@ -31,10 +34,17 @@ class TasksBoard extends React.Component {
         await this.fetchAndUpdateTasks();
         this.setState({ addTaskActive: isActive });
     };
+    setManageTaskActive = async (isActive, task) => {
+        await this.fetchAndUpdateTasks();
+        if (task) {
+            this.setState({ manageTask: task, manageTaskActive: isActive });
+        }
+        this.setState({ manageTaskActive: isActive });
+    };
 
     handleTaskDrop = async (task_id, newStatus) => {
-        for(const task of this.state.tasks){
-            if(task.task_id === parseInt(task_id)){
+        for (const task of this.state.tasks) {
+            if (task.task_id === parseInt(task_id)) {
                 const updatedTask = task;
                 updatedTask.status = newStatus;
                 await updateTask(updatedTask);
@@ -52,7 +62,7 @@ class TasksBoard extends React.Component {
     };
 
     render() {
-        const { tasks, addTaskActive, project } = this.state;
+        const { tasks, addTaskActive, manageTaskActive, manageTask, project } = this.state;
 
         const { addTaskEnabled } = this.props;
 
@@ -62,7 +72,7 @@ class TasksBoard extends React.Component {
             "Completed": tasks.filter((task) => task.status === "Completed"),
         };
         const classByStatus = {
-            "To Do" : "blue",
+            "To Do": "blue",
             "In Progress": "yellow",
             "Completed": "green"
         }
@@ -77,24 +87,34 @@ class TasksBoard extends React.Component {
                             tasks={tasksByStatus[status]}
                             additionalClass={classByStatus[status]}
                             onTaskDrop={(task_id) => this.handleTaskDrop(task_id, status)}
+                            manageTask={((task) => this.setManageTaskActive(true, task))}
                             deleteItem={(task_id) => this.deleteTask(task_id)}
                         />
                     ))}
                 </div>
-                {addTaskEnabled && 
-                <span>
-                    <CreateTaskModal
-                        isActive={addTaskActive}
-                        onClose={async () => await this.setAddTaskActive(false)}
-                        project={project}
-                    />
-                    <button
-                        className="blue-btn btn"
-                        onClick={async () => await this.setAddTaskActive(true)}
-                    >
-                        Add Task
-                    </button>
-                </span>
+                {addTaskEnabled &&
+                    <span>
+                        <CreateTaskModal
+                            isActive={addTaskActive}
+                            onClose={async () => await this.setAddTaskActive(false)}
+                            project={project}
+                        />
+                        <button
+                            className="blue-btn btn"
+                            onClick={async () => await this.setAddTaskActive(true)}
+                        >
+                            Add Task
+                        </button>
+                    </span>
+                }
+                {manageTaskActive && manageTask &&
+                    <span>
+                        <ManageTaskModal
+                            isActive={manageTaskActive}
+                            onClose={async () => await this.setManageTaskActive(false)}
+                            task={manageTask}
+                        />
+                    </span>
                 }
             </div>
         );

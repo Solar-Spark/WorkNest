@@ -31,7 +31,6 @@ class ManageTeamModal extends React.Component {
     if (this.props.team) {
       const members = await getUsersByIds(this.props.team.members);
       this.setState({
-        formData: this.props.team,
         members,
       });
     }
@@ -73,10 +72,24 @@ class ManageTeamModal extends React.Component {
   };
 
   validateForm = () => {
-    if (this.state.formData.members.length > 1)
-      return !Object.values(this.state.formData).some(
-        (value) => value === null || value === undefined || value === ""
-      );
+    const { members, lead } = this.state.formData;
+
+    if (!lead) {
+      this.setState({ errorText: "Team lead must be selected" });
+      return false;
+    }
+
+    if (members.length <= 1) {
+      this.setState({ errorText: "Team must contain at least 2 members" });
+      return false;
+    }
+
+    if (Object.values(this.state.formData).some((value) => value === null || value === undefined || value === "")) {
+      this.setState({ errorText: "Enter all fields" });
+      return false;
+    }
+
+    return true;
   };
 
   handleSubmit = async (e) => {
@@ -86,16 +99,18 @@ class ManageTeamModal extends React.Component {
       const result = await updateTeam(this.state.formData);
       switch (result.status) {
         case 200:
-          this.props.onClose();
+          this.handleClose();
           break;
         default:
           this.setState({ errorText: result.error });
       }
-    } else {
-      this.setState({ errorText: "Fill all fields" });
     }
   };
-
+  handleClose = () => {
+    this.setState({errorText: ""});
+    this.props.onClose();
+  }
+  
   handleAddMember = (user) => {
     if (!this.state.members.some((member) => member.user_id === user.user_id)) {
       this.setState((prevState) => ({
@@ -147,7 +162,7 @@ class ManageTeamModal extends React.Component {
     return (
       <div className="modal-overlay">
         <div className="modal-content">
-          <button className="btn close-btn" onClick={this.props.onClose}>
+          <button className="btn close-btn" onClick={this.handleClose}>
             X
           </button>
           <h1>Edit Team</h1>
@@ -177,7 +192,7 @@ class ManageTeamModal extends React.Component {
               </div>
             }
             <div className="input-field input-text-field">
-              <label>Team members</label>
+              <label>Add team members</label>
               <DropdownWithInput
                 search={async (prompt) => {
                   const users = await searchUserByUsername(prompt);
@@ -201,6 +216,7 @@ class ManageTeamModal extends React.Component {
             <input type="submit" value="Change Team" className="submit-btn btn" />
           </form>
           <div className="red-btn btn" onClick={async () => await this.deleteTeam()}>Delete team</div>
+          <p className="form-err-text">{this.state.errorText}</p>
         </div>
       </div>
     );

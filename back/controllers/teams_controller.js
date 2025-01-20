@@ -53,6 +53,7 @@ deleteTeamById = async (req, res) => {
         const hasPermission = hasProjectManagerRole;
         if (hasPermission) {
             await teamService.deleteTeamById(req.params.team_id);
+            await userService.deleteRoleById(user_id, {name: "TEAM_LEAD", team_id: team_id});
             return res.status(200).send();
         }
         else {
@@ -84,11 +85,45 @@ updateTeamById = async (req, res) => {
                 return res.status(500).send({error: "Internal Server Error"});
         }
     }
-};  
+}; 
+
+getTeamDtosByProjectId = async (req, res) => {
+    try{
+        const project_id = req.params.project_id;
+        const teamDtos = await teamService.getTeamDtosByProjectId(project_id);
+        return res.status(200).json(teamDtos);
+    } catch(err){
+        console.error(`Error getting teamDtos: ${err}`)
+        return res.status(500).send({error: "Internal Server Error"});
+    }
+};
+
+getUserTeamDtos = async (req, res) => {
+    try {
+        const user_id = req.user.data.user_id;
+        const teamIds = [];
+
+        const userRoles = await userService.getRolesById(user_id);
+        userRoles.forEach(role => {
+            if (role.name === "TEAM_LEAD") {
+                teamIds.push(role.team_id);
+            }
+        });
+
+        const teamDtos = await teamService.getTeamDtosByIds(teamIds);
+        return res.status(200).send(teamDtos);
+    }
+    catch (err) {
+        console.error(err)
+        return res.status(500).send({ error: "Internal Server Error" });
+    }
+}
+
 module.exports = {
     createTeam,
     getTeamDtosByProjectId,
     getTeamDtoById,
     deleteTeamById,
     updateTeamById,
+    getUserTeamDtos,
 }

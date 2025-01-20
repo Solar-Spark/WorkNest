@@ -67,13 +67,13 @@ class ProjectPage extends React.Component {
                         }}
                         project={project}
                         header="Project teams"
+                        addEnabled={true}
+                        isModal={true}
                     />
                 }
                 {stage === "info" && 
                 <div>
                     <p>Description of project: {project.description}</p>
-                    <BarChart />
-                    <button id="delete-project" onClick={this.deleteProject} className="red-btn btn">Delete Project</button>
                 </div>}
         </main>
         );

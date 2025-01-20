@@ -11,9 +11,31 @@ export const fetchTeams = async () => {
     }
 }
 
+export const getTeamById = async (team_id) => {
+    try {
+        const response = await axiosInstance.get(`/teams/${team_id}`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching teams:", error);
+        return null;
+    }
+}
+
 export const getTeamsByProjectId = async (project_id) => {
     try {
         const response = await axiosInstance.get(`/teams/project/${project_id}`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error getting teams:", error);
+        return [];
+    }
+}
+
+export const getTeamsByTeamLeadId = async () => {
+    try {
+        const response = await axiosInstance.get(`/teams`);
         console.log(response.data);
         return response.data;
     } catch (error) {

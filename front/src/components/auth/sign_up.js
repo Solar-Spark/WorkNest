@@ -25,25 +25,47 @@ class SignUp extends React.Component{
             this.setState((prevState) => ({
                 formData: {
                     ...prevState.formData,
-                    [name]: value,
+                    [name]: value.trim(),
                 },
             }));
         }
     };
 
     validateForm(){
-        for(const key in this.state.formData){
-            if(this.state.formData[key] === ""){
-                this.setState({errorText : "Enter all fields"});
-                return false;
-            }
+        const {username, phone_number, password } = this.state.formData;
+        if(Object.values(this.state.formData).some(value => value === null || value === undefined || value === "")){
+            this.setState({errorText : "Enter all fields"});
+            return false;
         }
-        if(this.state.formData.password !== this.state.confirmPassword){
-            console.log(this.state.confirmPassword)
+        if(password !== this.state.confirmPassword){
             this.setState({errorText : "Password doesn't match with confirm password"});
             return false;
         }
-
+        
+        if (username === '') {
+            this.setState({errorText : "Username cannot be empty"});
+            return false
+        }
+    
+        const phoneRegex = /^\+\d+$/;
+        if (!phoneRegex.test(phone_number)) {
+            this.setState({errorText : 'Phone number must start with "+" and contain only digits.'});
+            return false
+        } 
+        else if (phone_number.length < 10) {
+            this.setState({errorText : "Phone number must be at least 10 digits long."});
+            return false
+        }
+    
+        if (password.length < 6) {
+            this.setState({errorText : "Password must be at least 6 characters long."});
+            return false
+        } 
+        else if (!/[a-zA-Z]/.test(password) || !/\d/.test(password)) {
+            this.setState({errorText : "Password must contain both letters and numbers."});
+            return false
+        }
+        this.setState({errorText: ""});
         return true;
     }
 
@@ -51,12 +73,17 @@ class SignUp extends React.Component{
         e.preventDefault();
         if(this.validateForm()){
             const signUpResult = await signUp(this.state.formData);
-            switch(signUpResult.status){
-                case 201:
-                    this.props.onStepChange('signIn');
-                    break;
-                default:
-                    break;
+            if (signUpResult && signUpResult.status){
+                switch(signUpResult.status){
+                    case 201:
+                        this.props.onStepChange('signIn');
+                        break;
+                    case 409:
+                        this.setState({errorText: signUpResult.error})
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     };

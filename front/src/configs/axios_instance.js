@@ -9,7 +9,6 @@ const axiosInstance = axios.create({
 const refreshAuthToken = async () => {
     try {
         const response = await axiosInstance.post("auth/refresh", {});
-
         const authToken = response.data.auth;
         
         await logIn(authToken);
@@ -52,6 +51,9 @@ axiosInstance.interceptors.response.use(
             else if(errorCode === "refresh_expired"){
                 window.location.href = '/auth';
             }
+            else if(errorCode === "refresh_token_needed"){
+                window.location.href = '/auth';
+            }
             return Promise.reject(error);
         }
         else if(error.response?.status === 400){
@@ -60,6 +62,7 @@ axiosInstance.interceptors.response.use(
             if (errorCode === 'invalid_refresh') {
                 window.location.href = '/auth';
             }
+            return Promise.reject(error);
         }
         else if(error.response?.status === 403){
             const errorCode = error.response?.data?.error;
@@ -67,6 +70,7 @@ axiosInstance.interceptors.response.use(
             if (errorCode === 'auth_required') {
                 window.location.href = '/auth';
             }
+            return Promise.reject(error);
         }
         else if (error.response?.status >= 500) {
             window.location.href = '/server-error';
@@ -76,6 +80,7 @@ axiosInstance.interceptors.response.use(
         } else if (!error.response) {
             alert("Can't connect to the server. Check your internet connection");
         }
+        return Promise.reject(error);
     }
 );
 

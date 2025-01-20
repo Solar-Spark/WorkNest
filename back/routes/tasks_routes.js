@@ -11,6 +11,8 @@ router.get("/", tasksController.getTaskDtosByUserId);
 
 router.get("/project/:project_id", tasksController.getTaskDtosByProjectId);
 
+router.get("/team/:team_id", tasksController.getTaskDtosByTeamId);
+
 router.get("/:task_id", tasksController.getTaskDtoById);
 
 router.put("/:task_id", tasksController.updateTaskById);

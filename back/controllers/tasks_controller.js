@@ -58,6 +58,17 @@ getTaskDtosByProjectId = async (req, res) => {
     }
 };
 
+getTaskDtosByTeamId = async (req, res) => {
+    try{
+        const team_id = req.params.team_id;
+        const taskDtos = await taskService.getTaskDtosByTeamId(team_id);
+        return res.status(200).json(taskDtos);
+    } catch(err){
+        console.error(`Error getting taskDtos: ${err}`)
+        return res.status(500).send({error: "Internal Server Error"});
+    }
+};
+
 updateTaskById = async (req, res) => {
     try{
         const { task_id } = req.params;
@@ -112,5 +123,6 @@ module.exports = {
     deleteTaskById,
     getTaskDtosByUserId,
     getTaskDtosByProjectId,
+    getTaskDtosByTeamId,
     getTaskDtoById,
 }

@@ -36,10 +36,24 @@ class CreateTeamModal extends React.Component {
   };
 
   validateForm = () => {
-    if(this.state.formData.members.length > 1)
-    return !Object.values(this.state.formData).some(
-      (value) => value === null || value === undefined || value === ""
-    );
+    const { members, lead } = this.state.formData;
+
+    if (!lead) {
+      this.setState({ errorText: "Team lead must be selected" });
+      return false;
+    }
+
+    if (members.length <= 1) {
+      this.setState({ errorText: "Team must contain at least 2 members" });
+      return false;
+    }
+
+    if (Object.values(this.state.formData).some((value) => value === null || value === undefined || value === "")) {
+      this.setState({ errorText: "Enter all fields" });
+      return false;
+    }
+
+    return true;
   };
 
   handleSubmit = async (e) => {
@@ -139,7 +153,7 @@ class CreateTeamModal extends React.Component {
                 </div>
             }
             <div className="input-field input-text-field">
-              <label>Team members</label>
+              <label>Add team members</label>
               <DropdownWithInput
                 search={async (prompt) => {
                   const users = await searchUserByUsername(prompt);
@@ -162,6 +176,7 @@ class CreateTeamModal extends React.Component {
             />
             <input type="submit" value="Create Team" className="submit-btn btn" />
           </form>
+          <p className="form-err-text">{this.state.errorText}</p>
         </div>
       </div>
     );

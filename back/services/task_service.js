@@ -55,6 +55,18 @@ getTaskDtosByProjectId = async (project_id) => {
     return tasks.map(task => new TaskDto(task));
 };
 
+getTasksByTeamId = async (team_id) => { 
+    return await Task.find({team_id: team_id});
+};
+
+getTaskDtosByTeamId = async (team_id) => {
+    const tasks = await getTasksByTeamId(team_id);
+    if(tasks.length === 0){
+        return [];
+    }
+    return tasks.map(task => new TaskDto(task));
+};
+
 updateTaskById = async (task_id, task) => {
     const existingTask = await getTaskById(task_id);
     if (!existingTask) {
@@ -89,6 +101,8 @@ module.exports = {
     getTaskDtosByUserId,
     getTasksByProjectId,
     getTaskDtosByProjectId,
+    getTasksByTeamId,
+    getTaskDtosByTeamId,
     updateTaskById,
     deleteTaskById,
 };

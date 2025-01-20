@@ -25,6 +25,22 @@ export const fetchProjectTasks = async (project_id) => {
         return [];
     }
 }
+
+export const fetchTeamTasks = async (team_id) => {
+    try {
+        if (!team_id) {
+            console.error("Error: team_id is required");
+            return [];
+        }
+        console.log(team_id);
+        const response = await axiosInstance.get(`/tasks/team/${team_id}`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching tasks:", error);
+        return [];
+    }
+}
 export const createTask = async (formData) => {
     try {
         const response = await axiosInstance.post(`/tasks`, formData);
@@ -42,7 +58,12 @@ export const createTask = async (formData) => {
 export const updateTask = async (task) => {
     try {
         const response = await axiosInstance.put(`/tasks/${task.task_id}`, task);
-        console.log(response.data);
+        switch(response.status){
+            case 200:
+                return { status: 200 };
+            default:
+                return {status: response.status, error: response.data.error};
+        }
     } catch (error) {
         console.error("Error creating task:", error);
         return {error: "Error creating task"};

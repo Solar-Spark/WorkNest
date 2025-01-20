@@ -95,7 +95,7 @@ const refresh = async (req, res) => {
         if (!refresh) {
             return res.status(401).json({ error: 'refresh_token_needed' });
         }
-
+        
         const tokenData = await verifyRefreshToken(refresh);
         const user_id = tokenData.data.user_id;
         const savedRefresh = await redisService.getRefreshTokenByUserId(user_id);
@@ -111,6 +111,9 @@ const refresh = async (req, res) => {
             });
             
             return res.status(200).send({ auth: authToken });
+        }
+        else{
+            return res.status(401).send("invalid_refresh_token");
         }
     } catch (err) {
         if(err.name === "TokenExpiredError"){

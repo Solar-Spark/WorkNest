@@ -1,6 +1,5 @@
 import React from "react";
 import NavbarOpenedItem from "./navbar_opened_item";
-import ProjectsList from "../../main/projects/projects_list";
 
 class NavbarItem extends React.Component{
     constructor(props){
@@ -17,7 +16,7 @@ class NavbarItem extends React.Component{
             <li className="navbar-item">
                 {this.props.isComplex && <p onClick={() => this.setOpened(!this.state.isOpened)}>{this.props.title}</p>}
                 {!this.props.isComplex && <a href={this.props.link}>{this.props.title}</a>}
-                {this.state.isOpened && this.props.isComplex && <NavbarOpenedItem content={<ProjectsList/>}/>}
+                {this.state.isOpened && this.props.isComplex && <NavbarOpenedItem content={this.props.complexContent}/>}
             </li>
         );
     }

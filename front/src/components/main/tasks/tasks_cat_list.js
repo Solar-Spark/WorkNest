@@ -37,7 +37,12 @@ class TaskCatList extends React.Component {
                             <br />
                             <p>Priority: {item.priority}</p>
                             <p><b>Deadline:</b> {new Date(item.deadline).toLocaleDateString()}</p>
-                            {(hasProjectManagerRole(item.project_id) || hasTeamLeadRole(item.team_id)) && <button className="btn red-btn delete-task-btn" onClick={() => this.props.deleteItem(item.task_id)}>Delete</button>}
+                            {(hasProjectManagerRole(item.project_id) || hasTeamLeadRole(item.team_id)) && 
+                                <div className="task-btn-container">
+                                    <button className="btn blue-btn delete-task-btn btn-with-icon" onClick={() => this.props.manageTask(item)}><i className="fa fa-pencil" aria-hidden="true"></i></button>
+                                    <button className="btn red-btn delete-task-btn btn-with-icon" onClick={() => this.props.deleteItem(item.task_id)}><i className="fa fa-trash" aria-hidden="true"></i></button>
+                                </div>
+                            }
                         </li>
                     ))}
                 </ul>

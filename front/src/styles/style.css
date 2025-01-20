@@ -114,6 +114,7 @@ footer{
     padding: 20px 20px;
     border-radius: 10px;
     min-width: 400px;
+    z-index: 999;
 }
 .nav-username{
     margin: 0 20px;
@@ -183,6 +184,7 @@ footer{
     height: 50px;
 }
 .form-err-text{
+    text-align: center;
     color: red;
     margin: 20px 0;
 }
@@ -237,6 +239,7 @@ main{
 }
 
 .tasks-board{
+    z-index: 0;
     width: 100%;
     margin: 40px 0;
     padding: 20px;
@@ -251,12 +254,6 @@ main{
     justify-content: left;
     flex-wrap: wrap;
     max-width: fit-content;
-}
-.btn{
-    margin: 10px;
-    margin-left: auto;
-    height: fit-content;
-    cursor: pointer;
 }
 
 /* 9. Tasks Category List */
@@ -286,6 +283,13 @@ main{
 .task-description{
     overflow-wrap: break-word;
 }
+.task-btn-container{
+    display: flex;
+    margin-top: 20px;
+    width: 100%;
+    gap: 10px;
+    justify-content: right;
+}
 
 /* 10. Elements List */
 
@@ -295,23 +299,29 @@ main{
     margin: 10px 0;
     background-color: #eef8ff;
     box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.1);
+    transition: transform 0.3s ease;
+}
+.elements-list-item:hover{
+    transform: scale(1.03);
 }
 .elements-list-item h4, p{
     margin: 0;
 }
-.nav-elements-list-item{
+.nav-elements-list-item {
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 10px;
     background-color: #d4ebff;
 }
-.nav-elements-list-item:hover{
+
+.nav-elements-list-item:hover {
     background-color: #cbe7ff;
     cursor: pointer;
 }
 .nav-elements-list-item h4, p{
     margin: 0;
 }
+
 /* 11. Modal  */
 
 .modal-overlay{
@@ -324,7 +334,7 @@ main{
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 1000;
 }
 .modal-content{
     position: relative;
@@ -400,6 +410,8 @@ main{
 }
 /* 12. Buttons */
 .btn{
+    height: fit-content;
+    cursor: pointer;
     padding: 10px;
     font-size: 15px;
     font-weight: 400;
@@ -409,6 +421,15 @@ main{
     border-radius: 5px;
     width: fit-content;
     white-space: nowrap;
+    transition: transform 0.3s ease;
+}
+.btn-with-icon{
+    padding: 0;
+    aspect-ratio: 1/1;
+    width: 30px;
+}
+.btn:hover{
+    transform: scale(1.03);
 }
 .close-btn{
     max-width: none;
@@ -424,12 +445,6 @@ main{
 .red-btn{
     color: #f1f9ff;
     background-color: #ff4141;
-}
-
-.delete-task-btn{
-    display: block;
-    margin-right: 0;
-    margin-left: auto;
 }
 
 #delete-project{
@@ -489,7 +504,6 @@ main{
     margin: 0;
     padding: 0;
 }
-
 
 /* ------------- */
 

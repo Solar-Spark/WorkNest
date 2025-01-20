@@ -19,6 +19,19 @@ getTeamDtoById = async (team_id) => {
     return await TeamDto.create(team);
 };
 
+getTeamsByIds = async (ids) =>{
+    const teams = await Team.find({ team_id: { $in: ids } });
+    return teams;
+}
+
+getTeamDtosByIds = async (ids) =>{
+    const teams = await getTeamsByIds(ids);
+    if(teams.length === 0){
+        return [];
+    }
+    return await Promise.all(teams.map(team => TeamDto.create(team)));
+}
+
 getTeamsByUserId = async (user_id) => { 
     return await Team.find({members: user_id});
 };
@@ -72,6 +85,8 @@ module.exports = {
     createTeam,
     getTeamById,
     getTeamDtoById,
+    getTeamsByIds,
+    getTeamDtosByIds,
     getTeamsByUserId,
     getTeamDtosByUserId,
     getTeamsByProjectId,
