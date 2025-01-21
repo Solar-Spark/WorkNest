@@ -9,6 +9,7 @@ import MyTasksPage from "../pages/my_tasks_page";
 import MyTeamsPage from "../pages/my_teams_page";
 import TeamPage from "../pages/team_page";
 import MyProjectsPage from "../pages/my_projects_page";
+import ServerErrorPage from "../pages/server_error_page";
 
 class App extends React.Component{
   render(){
@@ -24,6 +25,7 @@ class App extends React.Component{
               <Route path="/teams" element={<MyTeamsPage/>}/> 
               <Route path="/team" element={sessionStorage.getItem("team_id") ? <TeamPage/> : <Navigate to="/tasks"/>}/> 
               <Route path="/" element={<Navigate to="/tasks"/>}/>
+              <Route path="/server-error" element={<ServerErrorPage/>}/>
             </Routes>
           </BrowserRouter>
           <Footer />

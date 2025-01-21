@@ -36,9 +36,6 @@ class TeamsList extends React.Component{
     render(){
         const { teams, addTeamActive, manageTeamActive, manageTeam } = this.state;
         const { project, addEnabled, isModal } = this.props;
-        if(teams.length === 0){
-            return null;
-        }
         return(
             <div className="teams-list">
                 {project && 

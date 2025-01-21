@@ -73,7 +73,12 @@ axiosInstance.interceptors.response.use(
             return Promise.reject(error);
         }
         else if (error.response?.status >= 500) {
-            window.location.href = '/server-error';
+            const errorData = {
+                status: error.response.status,
+                message: error.response.statusText,
+                data: error.response.data,
+            };
+            window.location.href = `/server-error?errorData=${encodeURIComponent(JSON.stringify(errorData))}`;
         }
         if (error.code === 'ECONNABORTED') {
             alert("Server doesn't response. Check your connection and retry");

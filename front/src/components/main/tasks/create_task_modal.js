@@ -75,6 +75,7 @@ class CreateTaskModal extends React.Component {
             await this.setState((prevState) => ({
                 formData: {
                     ...prevState.formData,
+                    team_id: parseInt(this.state.formData.team_id)
                 },
             }));
         }
