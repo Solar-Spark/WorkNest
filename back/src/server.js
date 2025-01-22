@@ -18,11 +18,12 @@ app.use(express.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('dev'));
+    connectDB();
 }
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-connectDB();
+
 
 app.use(checkDBConnectionMW);
 app.use("/api/auth", auth_routes);
