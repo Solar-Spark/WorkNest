@@ -78,6 +78,14 @@ searchUserDtosByUsername = async (prompt) => {
     return users.map(user => new UserDto(user));
 }
 
+deleteUserById = async (user_id) => {
+    const existingUser = await getUserById(user_id);
+    if (!existingUser) {
+        throw new Error("user_not_exists");
+    }
+    return await User.deleteOne({ user_id: user_id });
+}
+
 module.exports = {
     createUser,
     getUserByUsername,
@@ -91,4 +99,5 @@ module.exports = {
     deleteRoleById,
     searchUsersByUsername,
     searchUserDtosByUsername,
+    deleteUserById,
 }

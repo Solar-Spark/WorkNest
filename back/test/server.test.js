@@ -11,8 +11,8 @@ const secretKey = process.env.JWT_AUTH_SECRET;
 let user_id;
 let token;
 const user = {
-    username: "test_user1",
-    email: "test_user1@example.com",
+    username: "test_user",
+    email: "test_user@example.com",
     phone_number: "+34567890091",
     password: "test_user",
 }
@@ -130,6 +130,18 @@ describe('API Tests', function () {
             };
             let taskDto;
 
+        });
+        describe('Users requests Tests', () => {
+            describe('DELETE /api/users', () => {
+                it('should return a response with status 200', async () => {
+                    const res = await chai
+                        .request(server)
+                        .delete('/api/users')
+                        .set('Authorization', `Bearer ${token}`);
+                    
+                    chai.expect(res).to.have.status(200);
+                });
+            });
         });
     });
 });

@@ -1,5 +1,6 @@
-const userService = require("../services/user_service")
-const teamService = require("../services/team_service")
+const userService = require("../services/user_service");
+const teamService = require("../services/team_service");
+const redisService = require('../services/redis_service');
 
 getUserDtoById = async (req, res) => {
     try{
@@ -71,10 +72,29 @@ searchUserDtosByUsername = async (req, res) => {
     }
 }
 
+deleteUserById = async (req, res) => {
+    try{
+        const user_id = req.user.data.user_id;
+        await userService.deleteUserById(user_id);
+        await redisService.deleteRefreshTokenByUserId(user_id);
+        return res.status(200).send();
+    }
+    catch(err){
+        switch(err.message){
+            case "user_not_exists":
+                return res.status(404).send({error: "User Not Found"});
+            default:
+                console.error(`Error deleting user: ${err}`)
+                return res.status(500).send({error: "Internal Server Error"});
+        }
+    }
+}
+
 module.exports = {
     getUserDtoById,
     getUserDtoByUsername,
     getUserDtosByIds,
     getUserDtosByTeamId,
-    searchUserDtosByUsername
+    searchUserDtosByUsername,
+    deleteUserById
 }

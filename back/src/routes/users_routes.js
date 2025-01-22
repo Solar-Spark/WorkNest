@@ -5,6 +5,7 @@ const jwt = require("../utils/jwt_util");
 
 router.use(jwt.verifyAuthTokenMW);
 
+router.delete("/", userController.deleteUserById);
 router.post("/ids", userController.getUserDtosByIds);
 router.get("/team/:team_id", userController.getUserDtosByTeamId);
 router.post("/search", userController.searchUserDtosByUsername);
