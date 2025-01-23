@@ -1,4 +1,5 @@
 import axiosInstance from "../../configs/axios_instance";
+import { getTokenData } from "../../utils/jwt_util";
 
 export const getUserInfoById = async (user_id) => {
     try {
@@ -43,5 +44,15 @@ export const searchUserByUsername = async (prompt) => {
     } catch (error) {
         console.error("Error getting team members:", error);
         return [];
+    }
+}
+
+export const updateUserData = async (user_id) => {
+    try {
+        const response = await axiosInstance.get(`/users/${ user_id }`);
+        const user = response.data;
+        localStorage.setItem("user", JSON.stringify(user))
+    } catch (error) {
+        console.error("Error updating user data:", error);
     }
 }

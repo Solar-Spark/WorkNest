@@ -4,8 +4,10 @@ import TeamsList from "../components/main/teams/teams_list";
 import { fetchProjectTasks } from "../services/api/task_service";
 import { deleteProjectById, getProjectById } from "../services/api/project_service";
 import { getTeamsByProjectId } from "../services/api/team_service";
-import BlockNavbar from "../components/main/block_navbar/block_navbar";
-import BarChart from "../components/main/graphs/barchart";
+import ProjectNavbar from "../components/main/block_navbar/project_navbar";
+import StatisticsBlock from "../components/main/graphs/statistics_block";
+import { updateUserData } from "../services/api/user_service";
+import { getTokenData } from "../utils/jwt_util";
 class ProjectPage extends React.Component {
     constructor(props) {
         super(props);
@@ -25,6 +27,7 @@ class ProjectPage extends React.Component {
         this.setState({ stage });
     }
     deleteProject = async () => {
+        updateUserData(getTokenData(localStorage.getItem("authToken")).data.user_id);
         await deleteProjectById(this.state.project.project_id);
         window.location.href = '/tasks';
     }
@@ -46,7 +49,7 @@ class ProjectPage extends React.Component {
                     {project.name}
                 </h2>
             </div>
-                <BlockNavbar setStage={this.setStage} />
+                <ProjectNavbar setStage={this.setStage} />
                 
                 {stage === "tasks" &&
                     <div className="tasks-board-create">
@@ -73,7 +76,9 @@ class ProjectPage extends React.Component {
                 }
                 {stage === "info" && 
                 <div>
-                    <p>Description of project: {project.description}</p>
+                    <StatisticsBlock isProject={true} project={project}/>
+                    <br/>
+                    <div className="btn red-btn" onClick={this.deleteProject}>Delete Project</div>
                 </div>}
         </main>
         );

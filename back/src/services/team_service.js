@@ -80,6 +80,9 @@ deleteTeamById = async (team_id) => {
     }
     return await Team.deleteOne({ team_id: team_id });
 };
+deleteTeamsByProjectId = async (project_id) => {
+    return await Team.deleteMany({ project_id: project_id });
+};
 
 module.exports = {
     createTeam,
@@ -93,4 +96,5 @@ module.exports = {
     getTeamDtosByProjectId,
     updateTeamById,
     deleteTeamById,
+    deleteTeamsByProjectId,
 };

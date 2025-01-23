@@ -18,6 +18,7 @@ Content:
 12. Buttons
 13. Dropdown input
 14. Dynamic List
+15. Statistics blocks
 
 ---------
 
@@ -505,6 +506,37 @@ main{
     padding: 0;
 }
 
+/* 15. Statistics blocks */
+
+.statistics-blocks-container {
+    width: 100%;
+    margin: 10px;
+    margin-top: 50px;
+}
+.statistics-blocks {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.statistics-block {
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #eef8ff;
+    box-shadow: 0 0 5px 5px rgba(100, 100, 100, 0.1);
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 400px;
+    height: 450px;
+}
+.statistics-block h2 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+.statistics{
+    height: 300px;
+}
+
 /* ------------- */
 
 /*  Animations  */
@@ -527,6 +559,11 @@ main{
 .navbar-opened-item{
     animation: opacity-anim 0.5s forwards;
 }
+
+.statistics-blocks-container {
+    animation: opacity-anim 1s forwards;
+}
+
 @keyframes opacity-anim{
     0%{
         opacity: 0;

@@ -1,7 +1,7 @@
 import React from "react";
 import BlockNavbarItem from "./block_navbar_item";
 
-class BlockNavbar extends React.Component {
+class ProjectNavbar extends React.Component {
     setStage = (stage) => {
         this.props.setStage(stage);
     }
@@ -18,4 +18,4 @@ class BlockNavbar extends React.Component {
     }
 }
 
-export default BlockNavbar;
+export default ProjectNavbar;

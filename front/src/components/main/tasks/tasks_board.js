@@ -4,6 +4,8 @@ import { deleteTaskById, updateTask } from "../../../services/api/task_service";
 import { fetchProjectTasks } from "../../../services/api/task_service";
 import CreateTaskModal from "./create_task_modal";
 import ManageTaskModal from "./manage_task_modal";
+import { updateUserData } from "../../../services/api/user_service";
+import { getTokenData } from "../../../utils/jwt_util";
 
 class TasksBoard extends React.Component {
     constructor(props) {
@@ -27,6 +29,7 @@ class TasksBoard extends React.Component {
     };
 
     deleteTask = async (task_id) => {
+        updateUserData(getTokenData(localStorage.getItem("authToken")).data.user_id);
         await deleteTaskById(task_id);
         this.fetchAndUpdateTasks();
     }

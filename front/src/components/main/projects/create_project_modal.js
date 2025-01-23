@@ -1,5 +1,7 @@
 import React from "react";
 import { createProject } from "../../../services/api/project_service";
+import { updateUserData } from "../../../services/api/user_service";
+import { getTokenData } from "../../../utils/jwt_util";
 
 class CreateProjectModal extends React.Component {
     constructor(props){
@@ -30,7 +32,7 @@ class CreateProjectModal extends React.Component {
 
     handleSubmit = async (e) => {
             e.preventDefault();
-        
+            updateUserData(getTokenData(localStorage.getItem("authToken")).data.user_id);
             if (this.validateForm()) {
                 const result = await createProject(this.state.formData);
                 switch(result.status){

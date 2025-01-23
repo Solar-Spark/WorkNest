@@ -1,5 +1,6 @@
 import axiosInstance from "../../configs/axios_instance"
 import { getTokenData, saveAuthToken, removeAuthToken } from "../../utils/jwt_util"
+import { updateUserData } from "./user_service";
 
 export const signIn = async (formData) => {
     try {
@@ -102,10 +103,7 @@ export const logOut = async () => {
 export const logIn = async (authToken) => {
     try {
         saveAuthToken(authToken);
-        const { user_id } = getTokenData(authToken).data;
-        const response = await axiosInstance.get(`/users/${ user_id }`);
-        const user = response.data;
-        localStorage.setItem("user", JSON.stringify(user))
+        updateUserData(getTokenData(authToken).data.user_id);
     } catch (error) {
         console.error("Error during login:", error);
     }

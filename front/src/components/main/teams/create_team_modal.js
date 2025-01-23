@@ -1,8 +1,9 @@
 import React from "react";
 import { createTeam } from "../../../services/api/team_service";
 import DropdownWithInput from "../../input/dropdown_input";
-import { searchUserByUsername } from "../../../services/api/user_service";
+import { searchUserByUsername, updateUserData } from "../../../services/api/user_service";
 import DynamicTeamMembersList from "./dynamic_team_members_list";
+import { getTokenData } from "../../../utils/jwt_util";
 
 class CreateTeamModal extends React.Component {
   constructor(props) {
@@ -58,7 +59,7 @@ class CreateTeamModal extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-
+    updateUserData(getTokenData(localStorage.getItem("authToken")).data.user_id);
     if (this.validateForm()) {
       const result = await createTeam(this.state.formData);
       switch (result.status) {

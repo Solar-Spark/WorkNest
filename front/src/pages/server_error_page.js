@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 class ServerErrorPage extends Component {
     constructor(props) {
@@ -10,8 +9,9 @@ class ServerErrorPage extends Component {
     }
 
     componentDidMount() {
-        const {errorData} = this.getQueryParams();
-        console.log('Error data:', errorData);
+        const search = window.location.search.substring(1);
+        const decoded = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) });
+        const errorData = JSON.parse(decoded.errorData);
         this.setState({ errorData });
     }
     getQueryParams = () => {
@@ -22,20 +22,20 @@ class ServerErrorPage extends Component {
     render() {
         const { errorData } = this.state;
 
+        if(!errorData){
+            return null;
+        }
+
         return (
             <main>
-                <h1>Server Error</h1>
-                <p>Something went wrong on our end. Please try again later.</p>
+                <h1>{errorData.message}</h1>
 
                 {errorData && (
                     <div>
-                        <h2>Error Details:</h2>
-                        <pre style={{ textAlign: 'left', overflowX: 'auto' }}>
-                            {JSON.stringify(errorData, null, 2)}
-                        </pre>
+                        <h2>{errorData.data}</h2>
                     </div>
                 )}
-
+                <br/>
                 <button onClick={() => window.location.href = '/'} className="blue-btn btn">
                     Go to Home
                 </button>

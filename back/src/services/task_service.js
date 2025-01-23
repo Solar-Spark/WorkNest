@@ -91,6 +91,41 @@ deleteTaskById = async (task_id) => {
     }
     return await Task.deleteOne({ task_id: task_id });
 };
+deleteTasksByProjectId = async (project_id) => {
+    return await Task.deleteMany({ project_id: project_id });
+};
+deleteTasksByTeamId = async (team_id) => {
+    return await Task.deleteMany({ team_id: team_id });
+};
+
+getProjectTasksCountByStatus = async (project_id, status) => {
+    return await Task.countDocuments({project_id: project_id, status: status});
+}
+
+getProjectTasksCountByPriority = async (project_id, priority) => {
+    return await Task.countDocuments({project_id: project_id, priority: priority});
+}
+
+getProjectTasksCountByTeamId = async (project_id, team_id) => {
+    return await Task.countDocuments({project_id: project_id, team_id: team_id});
+}
+
+getProjectTasksCountByProjectId = async (project_id) => {
+    return await Task.countDocuments({project_id: project_id});
+}
+
+getTeamTasksCountByStatus = async (team_id, status) => {
+    return await Task.countDocuments({team_id: team_id, status: status});
+}
+
+getTeamTasksCountByPriority = async (team_id, priority) => {
+    return await Task.countDocuments({team_id: team_id, priority: priority});
+}
+
+getTeamTasksCountByTeamId = async (team_id) => {
+    return await Task.countDocuments({team_id: team_id});
+}
+
 module.exports = {
     createTask,
     getTaskById,
@@ -105,4 +140,13 @@ module.exports = {
     getTaskDtosByTeamId,
     updateTaskById,
     deleteTaskById,
+    deleteTasksByProjectId,
+    deleteTasksByTeamId,
+    getProjectTasksCountByStatus,
+    getProjectTasksCountByPriority,
+    getProjectTasksCountByTeamId,
+    getProjectTasksCountByProjectId,
+    getTeamTasksCountByStatus,
+    getTeamTasksCountByPriority,
+    getTeamTasksCountByTeamId,
 };

@@ -6,7 +6,7 @@ class ProjectsList extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            projects: [],
+            projects: null,
             createProjectActive: false,
         }
     }
@@ -25,6 +25,9 @@ class ProjectsList extends React.Component{
     }
     render(){
         const { projects, createProjectActive } = this.state;
+        if(!projects){
+            return null;
+        }
         return(
             <div className="projects-list">
                 <CreateProjectModal 
@@ -32,6 +35,11 @@ class ProjectsList extends React.Component{
                     onClose={async () => await this.setCreateProjectActive(false)}
                 />
                 <ul className="nav-elements-list">
+                    {projects.length === 0 &&
+                        <div className="nav-elements-list-info">
+                            <h3>You don't have projects to manage</h3>
+                        </div>
+                    }
                     {projects.map((item, index) => (
                         <li key={index} className="nav-elements-list-item" onClick={() => this.manageProject(item.project_id)}>
                             <h4>{item.name}</h4>

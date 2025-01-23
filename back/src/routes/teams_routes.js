@@ -11,6 +11,8 @@ router.get("/", teamsController.getUserTeamDtos);
 
 router.put("/:team_id", teamsController.updateTeamById);
 
+router.get("/:team_id/statistics", teamsController.getTeamStatistics);
+
 router.delete("/:team_id", teamsController.deleteTeamById);
 
 router.get("/:team_id", teamsController.getTeamDtoById),

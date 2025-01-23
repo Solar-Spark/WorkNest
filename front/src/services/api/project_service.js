@@ -42,3 +42,13 @@ export const deleteProjectById = async(project_id) => {
         console.error("Error Deleting project:", error);
     }
 }
+export const getProjectStatisticsById = async (project_id) => {
+    try {
+        const response = await axiosInstance.get(`/projects/${project_id}/statistics`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error getting project statistics:", error);
+        return null;
+    }
+}

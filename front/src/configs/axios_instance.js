@@ -74,16 +74,24 @@ axiosInstance.interceptors.response.use(
         }
         else if (error.response?.status >= 500) {
             const errorData = {
-                status: error.response.status,
-                message: error.response.statusText,
-                data: error.response.data,
+                status: error.response?.status,
+                message: `Internal Server Error ${error.response?.status}`,
+                data: "Internal Server Error Occured. Try to connect later",
             };
+            if(error.response?.status === 503){
+                errorData.data = "Database Isn't Avaliable"
+            }
             window.location.href = `/server-error?errorData=${encodeURIComponent(JSON.stringify(errorData))}`;
         }
         if (error.code === 'ECONNABORTED') {
             alert("Server doesn't response. Check your connection and retry");
         } else if (!error.response) {
-            alert("Can't connect to the server. Check your internet connection");
+            const errorData = {
+                status: null,
+                message: "Server Connection Error",
+                data: "Couldn't connect to the server",
+            };
+            window.location.href = `/server-error?errorData=${encodeURIComponent(JSON.stringify(errorData))}`;
         }
         return Promise.reject(error);
     }

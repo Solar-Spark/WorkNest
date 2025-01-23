@@ -3,6 +3,8 @@ import TasksBoard from "../components/main/tasks/tasks_board"
 import { fetchTeamTasks } from "../services/api/task_service";
 import { getTeamById, getTeamsByProjectId } from "../services/api/team_service";
 import { getProjectById } from "../services/api/project_service";
+import TeamNavbar from "../components/main/block_navbar/team_navbar";
+import StatisticsBlock from "../components/main/graphs/statistics_block";
 
 class TeamPage extends React.Component {
     constructor(props) {
@@ -11,6 +13,7 @@ class TeamPage extends React.Component {
             manageTeamActive: false,
             team: null,
             project: null,
+            stage: "tasks",
         }
         this.teamsListRef = React.createRef();
     }
@@ -20,6 +23,9 @@ class TeamPage extends React.Component {
         this.setState({ team , project})
         await this.updateTasks(team);
     }
+    setStage = (stage) => {
+        this.setState({ stage });
+    }
     updateTasks = async (team) => {
         const tasks = await fetchTeamTasks(team.team_id)
         this.setState({tasksBoardActive: true});
@@ -27,7 +33,7 @@ class TeamPage extends React.Component {
     }
 
     render() {
-        const { team, project, tasksBoardActive } = this.state;
+        const { team, project, stage, tasksBoardActive } = this.state;
         if (!team || !project) {
             return (<main><div>Loading...</div></main>);
         }
@@ -38,6 +44,8 @@ class TeamPage extends React.Component {
                     {team.name}
                 </h2>
             </div>
+            <TeamNavbar setStage={this.setStage}/>
+            {stage === "tasks"&&
                 <div className="tasks-board-create">
                     {tasksBoardActive &&
                         <TasksBoard
@@ -48,6 +56,10 @@ class TeamPage extends React.Component {
                         />
                     }
                 </div>
+            }
+            {stage === "info"&&
+                <StatisticsBlock isTeam={true} team={team}/>
+            }
         </main>
         );
     }

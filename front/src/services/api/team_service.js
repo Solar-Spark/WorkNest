@@ -88,3 +88,13 @@ export const deleteTeamById = async (team_id) => {
         return {error: "Error deleting team"};
     }
 }
+export const getTeamStatisticsById = async (team_id) => {
+    try {
+        const response = await axiosInstance.get(`/teams/${team_id}/statistics`);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error getting team statistics:", error);
+        return null;
+    }
+}

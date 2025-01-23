@@ -1,8 +1,9 @@
 import React from "react";
 import { deleteTeamById, updateTeam } from "../../../services/api/team_service";
 import DropdownWithInput from "../../input/dropdown_input";
-import { getUsersByIds, searchUserByUsername } from "../../../services/api/user_service";
+import { getUsersByIds, searchUserByUsername, updateUserData } from "../../../services/api/user_service";
 import DynamicTeamMembersList from "./dynamic_team_members_list";
+import { getTokenData } from "../../../utils/jwt_util";
 
 class ManageTeamModal extends React.Component {
   constructor(props) {
@@ -94,7 +95,7 @@ class ManageTeamModal extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-
+    updateUserData(getTokenData(localStorage.getItem("authToken")).data.user_id);
     if (this.validateForm()) {
       const result = await updateTeam(this.state.formData);
       switch (result.status) {
@@ -151,6 +152,7 @@ class ManageTeamModal extends React.Component {
     }));
   };
   deleteTeam = async () => {
+    updateUserData(getTokenData(localStorage.getItem("authToken")).data.user_id);
     await deleteTeamById(this.state.formData.team_id);
     this.props.onClose();
   }

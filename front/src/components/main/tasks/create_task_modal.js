@@ -1,21 +1,22 @@
 import React from "react";
 import { createTask } from "../../../services/api/task_service";
 import { getTeamsByProjectId } from "../../../services/api/team_service";
-import { getUsersByTeamId } from "../../../services/api/user_service";
+import { getUsersByTeamId, updateUserData } from "../../../services/api/user_service";
+import { getTokenData } from "../../../utils/jwt_util";
 
 class CreateTaskModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             statuses: ["To Do", "In Progress", "Completed"],
-            priorities: ["low", "medium", "high"],
+            priorities: ["Low", "Medium", "High"],
             formData: {
                 name: "",
                 project_id: this.props.project.project_id,
                 description: "",
                 deadline: "",
                 status: "To Do",
-                priority: "hot",
+                priority: "Low",
                 assigned_to: null,
                 team_id: null,
             },
@@ -70,6 +71,7 @@ class CreateTaskModal extends React.Component {
     }
     handleSubmit = async (e) => {
         e.preventDefault();
+        updateUserData(getTokenData(localStorage.getItem("authToken")).data.user_id);
         console.log(this.state.formData);
         if (this.props.project) {
             await this.setState((prevState) => ({

@@ -6,7 +6,7 @@ class TeamsList extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            teams: [],
+            teams: null,
             addTeamActive: false,
             manageTeamActive: false,
             manageTeam: null,
@@ -36,6 +36,9 @@ class TeamsList extends React.Component{
     render(){
         const { teams, addTeamActive, manageTeamActive, manageTeam } = this.state;
         const { project, addEnabled, isModal } = this.props;
+        if(!teams){
+            return null;
+        }
         return(
             <div className="teams-list">
                 {project && 
@@ -73,7 +76,13 @@ class TeamsList extends React.Component{
                 <div className="teams-list">
                     <h1>{this.props.header}</h1>
                     <ul className="nav-elements-list">
+                        {teams.length === 0 &&
+                            <div className="nav-elements-list-info">
+                                <h3>You don't have teams to manage</h3>
+                            </div>
+                        }
                         {teams.map((item, index) => (
+                            
                             <li key={index} className="nav-elements-list-item" onClick={() => this.openTeamPage(item)}>
                                 <span><h4>{item.name}</h4>
                                 <p><b>Lead: </b>{item.lead.username}</p></span> 
