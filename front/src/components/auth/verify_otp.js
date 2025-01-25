@@ -34,7 +34,7 @@ class VerifyOTP extends React.Component{
                 <h1>Sign In</h1>
                 <form onSubmit={this.handleSubmit}>
                     <div className="input-field input-text-field">
-                        <label>Code from SMS</label><br></br>
+                        <label>Code from Email message</label><br></br>
                         <input type="text" name="otp" value={this.state.otp} onChange={this.handleChange}></input><br></br>
                     </div>
                         <input type="submit" value="Verify code" className="submit-btn"></input>

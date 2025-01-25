@@ -25,3 +25,4 @@ front/yarn-error.log*
 back/.env
 front/.env
 front copy
+back/node_modules

@@ -3,6 +3,7 @@ const userService = require("../services/user_service");
 const { comparePassword } = require('../utils/password_util');
 const { verifyRefreshToken, generateTokenPair } = require('../utils/jwt_util');
 const phoneService = require("../services/phone_service");
+const emailService = require("../services/email_service");
 const redisService = require('../services/redis_service');
 
 function generateOTP() {
@@ -26,7 +27,8 @@ const signIn = async (req, res) => {
         if (isPasswordValid) {
             const otp = generateOTP();
             await redisService.setOtpByUsername(username, otp);
-            await phoneService.sendOTP(user.phone_number, otp);
+            //await phoneService.sendOTP(user.phone_number, otp);
+            await emailService.sendOTP(user.email, otp);
             console.log(`otp: ${otp}`);
             return res.status(200).send();
         } else {
