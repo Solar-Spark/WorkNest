@@ -78,10 +78,7 @@ updateTaskById = async (task_id, task) => {
     if (isUpToDate) {
         throw new Error("task_is_up_to_date");
     }
-    const result = await Task.updateOne({ task_id: task_id }, { $set: task });
-    if (result.modifiedCount > 0) {
-        return await getTaskDtoById(task_id);
-    }                       
+    await Task.updateOne({ task_id: task_id }, { $set: task });                      
 };
 
 deleteTaskById = async (task_id) => {

@@ -73,13 +73,11 @@ deleteTeamById = async (req, res) => {
 };
 updateTeamById = async (req, res) => {
     try{
-        console.log(req.body);
         const team_id = req.params.team_id;
         const lead = req.body.lead;
         const { user_id } = req.user.data;
         const role = {name: "TEAM_LEAD", team_id: team_id};
         const savedTeam = await teamService.getTeamDtoById(team_id);
-        console.log(savedTeam);
         const userRoles = await userService.getRolesById(user_id);
         const hasProjectManagerRole = userRoles.some((role) => role.name === "PROJECT_MANAGER" && role.project_id === savedTeam.project_id);
         const hasTeamLeadRole = userRoles.some((role) => role.name === "TEAM_LEAD" && role.team_id === team_id);
@@ -92,8 +90,8 @@ updateTeamById = async (req, res) => {
         await userService.deleteRoleById(user_id, role);
         await userService.addRoleById(lead, role);
 
-        const teamDto = await teamService.updateTeamById(team_id, req.body);
-        return res.status(200).json({ teamDto });
+        await teamService.updateTeamById(team_id, req.body);
+        return res.status(200).json();
     } catch(err){
         switch(err.message){
             case "team_not_exists":

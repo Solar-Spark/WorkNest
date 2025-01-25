@@ -67,10 +67,7 @@ updateTeamById = async (team_id, team) => {
     if (isUpToDate) {
         throw new Error("team_is_up_to_date");
     }
-    const result = await Team.updateOne({ team_id: team_id }, { $set: team });
-    if (result.modifiedCount > 0) {
-        return await getTeamDtoById(team_id);
-    }
+    await Team.updateOne({ team_id: team_id }, { $set: team });
 };
 
 deleteTeamById = async (team_id) => {

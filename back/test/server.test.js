@@ -344,7 +344,7 @@ describe('API Tests', function () {
         });
         describe('Updating requests tests', async () => {
             describe('PUT /api/teams/:team_id', async () => {
-                it('should return a response with an team DTO with correct structure', async () => {
+                it('should return a response with with status 200', async () => {
                     team.name = "New Team Name";
                     const res = await chai
                         .request(server)
@@ -353,11 +353,10 @@ describe('API Tests', function () {
                         .send(team)
                     
                     chai.expect(res).to.have.status(200);
-                    validators.validateTeamStructure(res.body);
                 });
             });
             describe('PUT /api/tasks/:task_id', async () => {
-                it('should return a response with an task DTO with correct structure', async () => {
+                it('should return a response with status 200', async () => {
                     task.name = "New Task Name";
                     const res = await chai
                         .request(server)
@@ -366,7 +365,6 @@ describe('API Tests', function () {
                         .send(task)
                     
                     chai.expect(res).to.have.status(200);
-                    validators.validateTaskStructure(res.body);
                 });
             });
         });

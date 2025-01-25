@@ -71,11 +71,9 @@ getTaskDtosByTeamId = async (req, res) => {
 
 updateTaskById = async (req, res) => {
     try{
-        const task_id= req.params.task_id;
+        const task_id = parseInt(req.params.task_id);
         const { user_id } = req.user.data;
-
         const savedTask = await taskService.getTaskDtoById(task_id);
-
         const userRoles = await userService.getRolesById(user_id);
         const hasProjectManagerRole = userRoles.some((role) => role.name === "PROJECT_MANAGER" && role.project_id === savedTask.project_id);
         const hasTeamLeadRole = userRoles.some((role) => role.name === "TEAM_LEAD" && role.team_id === savedTask.team_id);
@@ -85,8 +83,8 @@ updateTaskById = async (req, res) => {
             return res.status(403).send({error: "forbidden"});
         }
 
-        const taskDto = await taskService.updateTaskById(task_id, req.body);
-        return res.status(200).json({ taskDto });
+        await taskService.updateTaskById(task_id, req.body);
+        return res.status(200).json();
     } catch(err){
         switch(err.message){
             case "task_not_exists":
