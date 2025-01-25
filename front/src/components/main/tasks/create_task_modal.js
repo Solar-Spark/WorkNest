@@ -72,7 +72,6 @@ class CreateTaskModal extends React.Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         updateUserData(getTokenData(localStorage.getItem("authToken")).data.user_id);
-        console.log(this.state.formData);
         if (this.props.project) {
             await this.setState((prevState) => ({
                 formData: {

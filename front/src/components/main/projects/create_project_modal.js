@@ -26,7 +26,6 @@ class CreateProjectModal extends React.Component {
     };
 
     validateForm = () => {
-        console.log(this.state.formData);
         return !Object.values(this.state.formData).some(value => value === null || value === undefined || value === "");
     }
 

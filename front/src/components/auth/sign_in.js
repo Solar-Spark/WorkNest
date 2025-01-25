@@ -52,7 +52,6 @@ class SignIn extends React.Component{
               this.setState({ errorText: signInResult.error || "An unexpected error occurred" });
             }
           } catch (error) {
-            console.error("Unexpected error in handleSubmit:", error);
             this.setState({ errorText: "An unexpected error occurred. Please try again later." });
           }
         }

@@ -3,20 +3,16 @@ import axiosInstance from "../../configs/axios_instance"
 export const fetchProjects = async () => {
     try {
         const response = await axiosInstance.get(`/projects`);
-        console.log(response.data);
         return response.data;
     } catch (error) {
-        console.error("Error fetching projects:", error);
         return [];
     }
 }
 export const getProjectById = async (project_id) => {
     try {
         const response = await axiosInstance.get(`/projects/${project_id}`);
-        console.log(response.data);
         return response.data;
     } catch (error) {
-        console.error("Error getting project:", error);
         return [];
     }
 }
@@ -30,25 +26,20 @@ export const createProject = async(formData) => {
                 return {status: response.status, error: response.data.error};
         }
     } catch (error) {
-        console.error("Error creating project:", error);
         return {error: "Error creating project"};
     }
 }
 export const deleteProjectById = async(project_id) => {
     try {
-        const response = await axiosInstance.delete(`/projects/${project_id}`);
-        console.log(response.data);
+        await axiosInstance.delete(`/projects/${project_id}`);
     } catch (error) {
-        console.error("Error Deleting project:", error);
     }
 }
 export const getProjectStatisticsById = async (project_id) => {
     try {
         const response = await axiosInstance.get(`/projects/${project_id}/statistics`);
-        console.log(response.data);
         return response.data;
     } catch (error) {
-        console.error("Error getting project statistics:", error);
         return null;
     }
 }

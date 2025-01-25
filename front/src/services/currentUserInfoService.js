@@ -3,7 +3,6 @@ export const getUserInfo = () => {
         const user = JSON.parse(localStorage.getItem("user"));
         return user;
     } catch(err){
-        console.error(err)
     }
 }
 
@@ -15,7 +14,6 @@ export const getUsername = () => {
         }
         return user.username;
     } catch(err){
-        console.error(err)
     }
 }
 
@@ -29,7 +27,6 @@ export const hasProjectManagerRole = (project_id) => {
             return setTimeout(hasProjectManagerRole(project_id), 1000)
         }
     } catch(err){
-        console.error(err)
     }
 }
 
@@ -43,6 +40,5 @@ export const hasTeamLeadRole = (team_id) => {
             return setTimeout(hasTeamLeadRole(team_id), 1000)
         }
     } catch(err){
-        console.error(err)
     }
 }

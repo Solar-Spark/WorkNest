@@ -15,7 +15,6 @@ export const signIn = async (formData) => {
   
       return { error: "Log in error, try later" };
     } catch (error) {
-      console.error("Error logging in:", error);
   
       if (error.response && error.response.status) {
         const { status } = error.response;
@@ -51,7 +50,6 @@ export const signUp = async (formData) => {
                 return { error: "Unknown error" };
         }
     } catch (error) {
-        console.error("Error during sign-up: ", error);
         if (error.response) {
             switch (error.response?.status) {
                 case 409:
@@ -59,7 +57,6 @@ export const signUp = async (formData) => {
                 case 500:
                     return { status: error.response.status, error: "Internal server error" };
                 default:
-                    console.error("Data send error: ", error);
                     return { status: error.response.status, error: "Internal server error" };
             }
         }
@@ -74,16 +71,13 @@ export const verifyOTP = async (otp, username) => {
     try {
         const response = await axiosInstance.post(`/auth/verify-otp`, { username: username, otp: otp });
         await logIn(response.data.auth);
-        console.log(response);
         return { status: 200 };
     } catch (error) {
-        console.error("Verifying OTP:", error);
         if (error.response) {
             switch (error.response.status) {
                 case 401:
                     return { status: error.response.status, error: "Invalid code" };
                 default:
-                    console.error("Data send error: ", error);
                     return { status: error.response.status, error: "Invalid login or password" };
             }
         }
@@ -97,7 +91,6 @@ export const logOut = async () => {
         removeAuthToken();
     }
     catch(error){
-        console.error("Error during logout:", error);
     }
 }
 export const logIn = async (authToken) => {
@@ -105,6 +98,5 @@ export const logIn = async (authToken) => {
         saveAuthToken(authToken);
         updateUserData(getTokenData(authToken).data.user_id);
     } catch (error) {
-        console.error("Error during login:", error);
     }
 }

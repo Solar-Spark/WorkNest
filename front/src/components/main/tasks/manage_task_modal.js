@@ -116,7 +116,6 @@ class ManageTaskModal extends React.Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         updateUserData(getTokenData(localStorage.getItem("authToken")).data.user_id);
-        console.log(this.state.formData);
         if (this.validateForm()) {
             const result = await updateTask(this.state.formData);
             switch (result.status) {

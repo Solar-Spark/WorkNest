@@ -18,20 +18,16 @@ export const getUserInfoById = async (user_id) => {
 export const getUsersByIds = async (ids) => {
     try {
         const response = await axiosInstance.post(`/users/ids`, { ids });
-        console.log(response.data);
         return response.data;
     } catch (error) {
-        console.error("Error fetching users:", error);
         return [];
     }
 }
 export const getUsersByTeamId = async (team_id) => {
     try {
         const response = await axiosInstance.get(`users/team/${team_id}`);
-        console.log(response.data);
         return response.data;
     } catch (error) {
-        console.error("Error getting team members:", error);
         return [];
     }
 }
@@ -39,10 +35,8 @@ export const getUsersByTeamId = async (team_id) => {
 export const searchUserByUsername = async (prompt) => {
     try {
         const response = await axiosInstance.post(`users/search`, { prompt });
-        console.log(response.data);
         return response.data;
     } catch (error) {
-        console.error("Error getting team members:", error);
         return [];
     }
 }
@@ -53,6 +47,5 @@ export const updateUserData = async (user_id) => {
         const user = response.data;
         localStorage.setItem("user", JSON.stringify(user));
     } catch (error) {
-        console.error("Error updating user data:", error);
     }
 }
