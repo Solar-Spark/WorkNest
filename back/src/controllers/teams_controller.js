@@ -30,7 +30,7 @@ getTeamDtosByProjectId = async (req, res) => {
 getTeamDtoById = async (req,res) => {
     try{
         const team_id = req.params.team_id;
-        const teamDto = await teamService.getTeamById(team_id);
+        const teamDto = await teamService.getTeamDtoById(team_id);
         if(teamDto){
             return res.status(200).send(teamDto);
         }
@@ -73,13 +73,19 @@ deleteTeamById = async (req, res) => {
 };
 updateTeamById = async (req, res) => {
     try{
-        const { team_id } = req.params;
-        const { lead } = req.body;
+        console.log(req.body);
+        const team_id = req.params.team_id;
+        const lead = req.body.lead;
         const { user_id } = req.user.data;
         const role = {name: "TEAM_LEAD", team_id: team_id};
         const savedTeam = await teamService.getTeamDtoById(team_id);
+        console.log(savedTeam);
+        const userRoles = await userService.getRolesById(user_id);
+        const hasProjectManagerRole = userRoles.some((role) => role.name === "PROJECT_MANAGER" && role.project_id === savedTeam.project_id);
+        const hasTeamLeadRole = userRoles.some((role) => role.name === "TEAM_LEAD" && role.team_id === team_id);
+        const hasPermission = hasProjectManagerRole || hasTeamLeadRole;
 
-        if(savedTeam.lead.user_id !== user_id){
+        if(!hasPermission){
             return res.status(403).send({error: "forbidden"});
         }
         

@@ -80,7 +80,7 @@ updateTaskById = async (task_id, task) => {
     }
     const result = await Task.updateOne({ task_id: task_id }, { $set: task });
     if (result.modifiedCount > 0) {
-        return await getTaskById(task_id);
+        return await getTaskDtoById(task_id);
     }                       
 };
 

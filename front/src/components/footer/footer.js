@@ -4,7 +4,7 @@ class Footer extends React.Component{
     render(){
         return(
             <footer>
-                Solar Spark Team
+                Created By perpavbek
             </footer>
         )
     }

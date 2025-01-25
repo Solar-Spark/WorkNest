@@ -49,9 +49,9 @@ export const searchUserByUsername = async (prompt) => {
 
 export const updateUserData = async (user_id) => {
     try {
-        const response = await axiosInstance.get(`/users/${ user_id }`);
+        const response = await axiosInstance.get(`/users/${user_id}`);
         const user = response.data;
-        localStorage.setItem("user", JSON.stringify(user))
+        localStorage.setItem("user", JSON.stringify(user));
     } catch (error) {
         console.error("Error updating user data:", error);
     }

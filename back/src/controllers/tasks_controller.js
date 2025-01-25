@@ -6,7 +6,6 @@ const userService = require("../services/user_service")
 createTask = async (req, res) => {
     try{
         const roles = await userService.getRolesById(req.user.data.user_id);
-        console.log(req.body);
         if(roles.some(role => 
             (role.name === "PROJECT_MANAGER" && role.project_id === req.body.project_id) || (role.name === "TEAM_LEAD" && role.team_id === req.body.team_id))){
             const taskDto = await taskService.createTask(req.body)
@@ -72,7 +71,20 @@ getTaskDtosByTeamId = async (req, res) => {
 
 updateTaskById = async (req, res) => {
     try{
-        const { task_id } = req.params;
+        const task_id= req.params.task_id;
+        const { user_id } = req.user.data;
+
+        const savedTask = await taskService.getTaskDtoById(task_id);
+
+        const userRoles = await userService.getRolesById(user_id);
+        const hasProjectManagerRole = userRoles.some((role) => role.name === "PROJECT_MANAGER" && role.project_id === savedTask.project_id);
+        const hasTeamLeadRole = userRoles.some((role) => role.name === "TEAM_LEAD" && role.team_id === savedTask.team_id);
+        const hasPermission = hasProjectManagerRole || hasTeamLeadRole;
+
+        if(!hasPermission){
+            return res.status(403).send({error: "forbidden"});
+        }
+
         const taskDto = await taskService.updateTaskById(task_id, req.body);
         return res.status(200).json({ taskDto });
     } catch(err){

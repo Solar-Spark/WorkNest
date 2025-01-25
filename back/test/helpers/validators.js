@@ -56,6 +56,19 @@ function validateProjectValues(user_id, projectDto, project) {
     chai.expect(project).to.have.property('created_at').that.is.a('string').that.equals(projectDto.created_at);
 }
 
+function validateTeamStructure(team) {
+    chai.expect(team).to.be.an('object');
+    chai.expect(team).to.have.property('team_id').that.is.a('number').greaterThan(0);
+    chai.expect(team).to.have.property('name').that.is.a('string').with.length.greaterThan(0);
+    chai.expect(team.members).to.be.an('array').with.length.greaterThan(0);
+    team.members.forEach(member => {
+        chai.expect(member).that.is.a('number').greaterThan(0);
+    });
+    validateUserStructure(team.lead);
+    chai.expect(team).to.have.property('project_id').that.is.a('number').greaterThan(0);
+    chai.expect(team).to.have.property('created_at').that.is.a('string').with.length.greaterThan(0);
+}
+
 function validateTaskStructure(task) {
     chai.expect(task).to.be.an('object');
     chai.expect(task).to.have.property('task_id').that.is.a('number').greaterThan(0);
@@ -76,5 +89,6 @@ module.exports = {
     validateRoleStructure,
     validateProjectStructure,
     validateProjectValues,
+    validateTeamStructure,
     validateTaskStructure,
 };

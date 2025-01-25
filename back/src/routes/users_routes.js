@@ -9,7 +9,7 @@ router.delete("/", userController.deleteUserById);
 router.post("/ids", userController.getUserDtosByIds);
 router.get("/team/:team_id", userController.getUserDtosByTeamId);
 router.post("/search", userController.searchUserDtosByUsername);
+router.get("/username/:username", userController.getUserDtoByUsername);
 router.get("/:user_id", userController.getUserDtoById);
-router.get("/username/:username", userController.getUserDtoById);
 
 module.exports = router;

@@ -11,7 +11,7 @@ getUserDtoByUsername = async (username) => {
     if(!user){
         return null;
     }
-    return await new UserDto(user);
+    return new UserDto(user);
 }
 getUserById = async (user_id) => {
     return await User.findOne({ user_id });
