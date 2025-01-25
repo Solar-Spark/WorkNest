@@ -28,7 +28,7 @@ const signIn = async (req, res) => {
             const otp = generateOTP();
             await redisService.setOtpByUsername(username, otp);
             //await phoneService.sendOTP(user.phone_number, otp);
-            await emailService.sendOTP(user.email, otp);
+            await emailService.sendOTP(otp, user.email);
             console.log(`otp: ${otp}`);
             return res.status(200).send();
         } else {
