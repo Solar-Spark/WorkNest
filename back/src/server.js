@@ -13,7 +13,7 @@ const teams_routes = require("./routes/teams_routes")
 const projects_routes = require("./routes/projects_routes")
 const users_routes = require("./routes/users_routes")
 
-app.use(cors({ origin: 'http://127.0.0.1:3000', credentials: true,}));
+app.use(cors({ origin: 'http://37.151.225.71', credentials: true,}));
 app.use(express.urlencoded({ extended: true }));
 
 if (process.env.NODE_ENV !== 'test') {
