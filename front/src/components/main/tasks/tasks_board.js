@@ -92,6 +92,7 @@ class TasksBoard extends React.Component {
                             onTaskDrop={(task_id) => this.handleTaskDrop(task_id, status)}
                             manageTask={((task) => this.setManageTaskActive(true, task))}
                             deleteItem={(task_id) => this.deleteTask(task_id)}
+                            manageEnabled={addTaskEnabled}
                         />
                     ))}
                 </div>
