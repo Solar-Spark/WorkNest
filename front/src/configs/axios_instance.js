@@ -2,7 +2,7 @@ import axios from 'axios';
 import { logIn } from '../services/api/auth_service';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'http://37.151.225.71:5000/api',
   withCredentials: true,
 });
 
