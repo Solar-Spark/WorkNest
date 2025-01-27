@@ -6,7 +6,7 @@
 
 ![GitHub](https://img.shields.io/github/license/perpavbek/WorkNest)
 
-![Logotype](./docs/WorkNest Logo Blue.png)
+![Logotype](./docs/WorkNest%20Logo%20Blue.png)
 
 ## 📃 Description
 **WorkNest** is a team task management system designed to streamline workflows, track task progress, and improve team collaboration.
